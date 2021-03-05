@@ -56,7 +56,7 @@ class ReserveController extends Controller
         $campingType = $data['campingType'] = $r->input('campingType');
 
         // convert from seconds -> minutes -> hours -> days
-        $nights = $data['nights'] = 2;//($data['date_out'] - $data['date_in']) / 60 / 60 / 24;
+        $nights = $data['nights'] = ($data['date_out'] - $data['date_in']) / 60 / 60 / 24;
 
         array_push($data['members'], [
             'firstName' => $data['customer']['firstName'],
