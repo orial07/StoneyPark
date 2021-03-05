@@ -7,4 +7,4 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-![Main page screenshot](/ss.jpg?raw=true "Main Page Screenshot")
+![Main page screenshot](/ss.png?raw=true "Main Page Screenshot")
