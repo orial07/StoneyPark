@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
@@ -21,13 +20,13 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/rules">Rules</a>
+                            <a class="nav-link" aria-current="page" href="/rules">Rules</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/reserve">Reserve</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/gallery">Gallery</a>
+                            <a class="nav-link active" href="/gallery">Gallery</a>
                         </li>
                     </ul>
                 </div>
@@ -37,41 +36,21 @@
 
     <main>
         <div class="container mt-4">
-            <p class="lead">
-                We love our park, so we want the best for it.<br />
-                Please read the following Yes and No rules and abide by them when on campgrounds.
-            </p>
-
-            <div class="list-group">
-                <div class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Yes</h5>
-                    </div>
-                    <p class="mb-1">Do that. Yes, that.</p>
-                    <small>Not the other thing.</small>
+            <div class="row">
+                <div class="col-4">
+                    <img src="{{ asset('img/gallery/fire.jpg') }}" class="img-thumbnail" />
                 </div>
-
-                <div class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">No</h5>
-                    </div>
-                    <p class="mb-1">That's bad.</p>
-                    <small class="text-muted">Maybe take a picture of it... from afar</small>
+                <div class="col-4">
+                    <img src="{{ asset('img/gallery/fire.jpg') }}" class="img-thumbnail" />
                 </div>
-
-                <div class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Maybe</h5>
-                    </div>
-                    <p class="mb-1">Be a STAR.</p>
-                    <small class="text-muted">That means Stop Think Act Review.</small>
+                <div class="col-4">
+                    <img src="{{ asset('img/gallery/fire.jpg') }}" class="img-thumbnail" />
                 </div>
-            </div> <!-- list-group end -->
+            </div>
 
             <!-- ================================================== -->
             <hr class="featurette-divider">
         </div>
-
 
         <!-- FOOTER -->
         <footer class="container">

@@ -26,6 +26,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="/reserve">Reserve</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/gallery">Gallery</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -35,17 +38,17 @@
     <main class="mt-4">
         <div class="container">
             @if ($errors->any())
-                @if ($errors->first() == 'success')
-                    <div class="alert alert-success">Booking request sent!</div>
-                @else
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+            @if ($errors->first() == 'success')
+            <div class="alert alert-success">Booking request sent!</div>
+            @else
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             @endif
 
             <form name="reserve_form" method="POST" action="reserve">
@@ -140,10 +143,12 @@
                 <button type="submit" class="btn btn-primary">Pay now</button>
                 @csrf
             </form>
+
+            <!-- ================================================== -->
+            <hr class="featurette-divider">
+
         </div> <!-- end .Container -->
 
-        <!-- ================================================== -->
-        <hr class="featurette-divider">
 
         <!-- FOOTER -->
         <footer class="container">
@@ -161,7 +166,7 @@
             'nightsReserved': 1,
             'campersCount': 0,
         };
-        
+
         const form = document.reserve_form;
         const total = document.getElementById('total');
 

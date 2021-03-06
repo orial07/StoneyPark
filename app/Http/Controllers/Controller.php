@@ -14,4 +14,8 @@ class Controller extends BaseController
     public function rules() {
         return view('rules');
     }
+
+    public function gallery() {
+        return view('gallery');
+    }
 }

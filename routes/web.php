@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'show']);
 Route::get('/rules', [Controller::class, 'rules']);
+Route::get('/gallery', [Controller::class, 'gallery']);
 
 Route::get('/reserve', [ReserveController::class, 'show']);
 Route::post('/reserve', [ReserveController::class, 'submit']);
