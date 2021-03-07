@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ReserveController;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'show']);
 Route::get('/rules', [Controller::class, 'rules']);
-Route::get('/gallery', [Controller::class, 'gallery']);
+Route::get('/gallery', [GalleryController::class, 'show']);
 
 Route::get('/reserve', [ReserveController::class, 'show']);
 Route::post('/reserve', [ReserveController::class, 'submit']);

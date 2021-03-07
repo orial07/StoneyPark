@@ -3,15 +3,11 @@
 @section('content')
 <div class="container mt-4">
     <div class="row">
+        @for($i = 0; $i < sizeof($gallery); $i++)
         <div class="col-4">
-            <img src="{{ asset('img/gallery/fire.jpg') }}" class="img-thumbnail" />
+            <img src="{{ asset($gallery[$i]->image) }}" class="img-thumbnail img-thumbnail-grow m-2" />
         </div>
-        <div class="col-4">
-            <img src="{{ asset('img/gallery/fire.jpg') }}" class="img-thumbnail" />
-        </div>
-        <div class="col-4">
-            <img src="{{ asset('img/gallery/fire.jpg') }}" class="img-thumbnail" />
-        </div>
+        @endfor
     </div>
 </div>
 @endsection
