@@ -1,15 +1,13 @@
 <x-app-dashboard>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4 text-center">Welcome back, {{ Auth::user()->name }}</h1>
+        </div>
+      </div>
+
     <form method="POST" action="{{ route('dashboard') }}">
         @csrf
-
-        <!-- Name -->
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">{{ __('Name') }}</span>
-            </div>
-            <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" disabled>
-        </div>
-
 
         <!-- Email Address -->
         <div class="input-group mb-3">
