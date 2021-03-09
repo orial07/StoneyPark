@@ -12,7 +12,9 @@ class ReserveController extends Controller
 {
     public function show()
     {
-        return view('reserve');
+        return view('reserve', [
+            'reserveActive' => 'active'
+        ]);
     }
 
     public function submit(Request $r)

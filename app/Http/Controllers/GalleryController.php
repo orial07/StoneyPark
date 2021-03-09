@@ -2,28 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Objects\GalleryItem;
-use Illuminate\Http\Request;
+use App\Models\Picture;
 
 class GalleryController extends Controller
 {
-    public $gallery;
-
-    public function __construct()
-    {
-        $this->gallery = [
-            new GalleryItem("img/gallery/fire.jpg"),
-            new GalleryItem("img/gallery/fire.jpg"),
-            new GalleryItem("img/gallery/fire.jpg"),
-            new GalleryItem("img/gallery/fire.jpg"),
-            new GalleryItem("img/gallery/fire.jpg"),
-        ];
-    }
-
     public function show()
     {
         return view('gallery', [
-            'gallery' => $this->gallery
+            'pictures' => Picture::all()
         ]);
     }
 }

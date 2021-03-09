@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Objects\CarouselItem;
 use Illuminate\Http\Request;
 
-class MainController extends Controller
+class HomeController extends Controller
 {
 
     private $carousel;
@@ -38,7 +38,7 @@ class MainController extends Controller
 
     public function show()
     {
-        return view('main', [
+        return view('home', [
             'carousel' => $this->carousel
         ]);
     }
