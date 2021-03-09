@@ -6,7 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                @if (Auth::user())
+                @if (Auth::user() && Auth::user()->web_admin)
                 <li class="nav-item">
                     <a class="nav-link  {{ str_starts_with(Route::current()->getName() ?? '', 'dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
                 </li>

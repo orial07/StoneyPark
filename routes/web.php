@@ -26,7 +26,7 @@ Route::post('/reserve', [ReserveController::class, 'submit'])->name('reserve.sub
 
 Route::get('/gallery', [GalleryController::class, 'show'])->name('gallery');
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth', 'webadmin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
     Route::get('/dashboard/home', [DashboardController::class, 'show'])->name('dashboard.home');
 

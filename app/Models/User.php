@@ -42,4 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Specifies if the user is a web administrator
+     * 
+     * @var int
+     */
+    protected $web_admin = 0;
 }
