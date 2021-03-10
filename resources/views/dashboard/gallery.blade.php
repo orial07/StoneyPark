@@ -26,7 +26,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary">Upload & Delete</button>
+            <button type="submit" class="btn btn-primary">Upload / Delete</button>
             <small class="d-block w-100">Will only delete selected pictures</small>
         </div>
     </form>

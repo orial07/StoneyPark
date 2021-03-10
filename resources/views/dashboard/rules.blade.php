@@ -14,7 +14,7 @@
 
         <div class="text-center">
             <button type="button" class="btn btn-primary mt-4" onclick="createRule()">Add Rule</button>
-            <button type="submit" class="btn btn-primary mt-4">Update</button>
+            <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
         </div>
     </form>
 
