@@ -36,10 +36,6 @@ class ReserveController extends Controller
 
                 'campingType' => 'required|numeric|min:0|max:2',
                 'campers' => 'required|numeric|min:0|max:6',
-            ],
-            [ // messages
-            ],
-            [ // attributes
             ]
         );
         if ($validator->fails()) {
@@ -147,7 +143,6 @@ class ReserveController extends Controller
 
     public function success()
     {
-        Session::reflash();
         $data = Session::get('data');
         if (!isset($data)) {
             return redirect('reserve');
