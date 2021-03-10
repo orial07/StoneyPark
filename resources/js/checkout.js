@@ -25,7 +25,7 @@ function onCampingTypeChanged(e) {
     let type = parseInt(e.value);
     if (isNaN(type)) return;
     // clamp value
-    Invoice.campingType = Math.max(0, Math.min(campingTypes.length, type));
+    Invoice.campingType = Math.max(0, Math.min(2, type));
 }
 
 function onDateChanged(e) {
