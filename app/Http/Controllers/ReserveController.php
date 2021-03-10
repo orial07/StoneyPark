@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Stripe\StripeClient;
 
 class ReserveController extends Controller
 {
@@ -117,8 +118,8 @@ class ReserveController extends Controller
         $result = $result->where('date_out', '>=', $data['date_in'])->get();
         $count = sizeof($result);
 
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $checkout_session = \Stripe\Checkout\Session::create([
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $checkout_session = $stripe->checkout->sessions->create([
             'customer_email' => $data['customer']['email'],
             'payment_method_types' => ['card'],
             'line_items' => [[

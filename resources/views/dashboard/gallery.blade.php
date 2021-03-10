@@ -1,4 +1,4 @@
-<x-app-dashboard>
+<x-dashboard.app>
     <x-errors></x-errors>
 
     <form method="POST" name="form" action="{{ route('dashboard.gallery.submit') }}" enctype="multipart/form-data">
@@ -35,4 +35,4 @@
         <script>
         </script>
     @endsection
-</x-app-dashboard>
+</x-dashboard.app>

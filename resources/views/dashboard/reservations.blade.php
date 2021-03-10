@@ -1,4 +1,4 @@
-<x-app-dashboard>
+<x-dashboard.app>
     <p>Here is a list of all customer reservations that currently in-progress, or is soon to come.</p>
 
     {{ $reservations->links('vendor.pagination.bootstrap-4') }}
@@ -21,4 +21,4 @@
             @endforeach
         </tbody>
     </table>
-</x-app-dashboard>
+</x-dashboard.app>

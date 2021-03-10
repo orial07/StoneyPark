@@ -1,4 +1,4 @@
-<x-app-dashboard>
+<x-dashboard.app>
     <form method="POST" name="form" action="{{ route('dashboard.rules.submit') }}">
         @csrf
 
@@ -51,4 +51,4 @@
 
         </script>
     @endsection
-</x-app-dashboard>
+</x-dashboard.app>
