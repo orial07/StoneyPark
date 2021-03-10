@@ -31,7 +31,6 @@ Route::prefix('reserve')->group(function () {
 
     Route::get('/checkout', [ReserveController::class, 'checkout'])->name('reserve.checkout'); // reservation payment
     Route::get('/success', [ReserveController::class, 'success'])->name('reserve.success'); // reservation payment success
-    Route::get('/cancel', [ReserveController::class, 'cancel'])->name('reserve.cancel'); // reservation payment cancelled
 });
 
 

@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
     }
 
     /**

@@ -133,7 +133,7 @@ class ReserveController extends Controller
             ]],
             'mode' => 'payment',
             'success_url' => url('/reserve/success') . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => url('/reserve/cancel') . "?session_id={CHECKOUT_SESSION_ID}",
+            'cancel_url' => url('/reserve'),
         ]);
         $data['id'] = $checkout_session->id;
 
