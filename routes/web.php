@@ -28,7 +28,9 @@ Route::get('/gallery', [GalleryController::class, 'show'])->name('gallery');
 
 Route::middleware(['auth', 'webadmin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
-    Route::get('/dashboard/home', [DashboardController::class, 'show'])->name('dashboard.home');
+
+    Route::get('/dashboard/home', [DashboardController::class, 'showHome'])->name('dashboard.home');
+    Route::post('/dashboard/home', [DashboardController::class, 'editHome'])->name('dashboard.home.submit');
 
     Route::get('/dashboard/rules', [DashboardController::class, 'showRules'])->name('dashboard.rules');
     Route::post('/dashboard/rules', [DashboardController::class, 'editRules'])->name('dashboard.rules.submit');

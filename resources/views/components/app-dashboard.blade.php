@@ -5,7 +5,7 @@
                 <a class="nav-link" href="{{ route('dashboard') }}">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard') }}">Home</a>
+                <a class="nav-link" href="{{ route('dashboard.home') }}">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.rules') }}">Rules</a>

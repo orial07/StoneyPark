@@ -15,6 +15,11 @@ class DashboardController extends Controller
         return view('dashboard.main');
     }
 
+    public function showHome()
+    {
+        return view('dashboard.home');
+    }
+
     public function showRules()
     {
         return view('dashboard.rules', [
