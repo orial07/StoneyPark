@@ -9,7 +9,7 @@ class RulesController extends Controller
 {
     public function show()
     {
-        return view('rules', [
+        return view('public.rules', [
             'rules' => Rule::all()
         ]);
     }

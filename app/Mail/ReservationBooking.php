@@ -31,6 +31,7 @@ class ReservationBooking extends Mailable
     public function build()
     {
         return $this
+            ->from(env('MAIL_FROM_ADDRESS'))
             ->subject('Stoney Park Reservation')
             ->view('email.reservation')
             ->with($this->details);

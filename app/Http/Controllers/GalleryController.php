@@ -8,7 +8,7 @@ class GalleryController extends Controller
 {
     public function show()
     {
-        return view('gallery', [
+        return view('public.gallery', [
             'pictures' => Picture::all()
         ]);
     }

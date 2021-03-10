@@ -38,7 +38,7 @@ class HomeController extends Controller
 
     public function show()
     {
-        return view('home', [
+        return view('public.home', [
             'carousel' => $this->carousel
         ]);
     }

@@ -25,6 +25,56 @@ object {
     border-radius: 0;
 }
 
+.tl {
+    position: relative;
+    display: flex;
+    
+    &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #e1e1e1;
+        position: absolute;
+        top: 2em;
+    }
+}
+
+.tl-item {
+    position: relative;
+    text-align: center;
+    flex-grow: 1;
+    
+    &:after {
+        content: '';
+        display: block;
+        width: 1em;
+        height: 1em;
+        background: #a1a1a1;
+        border-radius: 100%;
+
+        position: absolute;
+        left: calc(50% - (1em / 2));
+        top: 1.5em;
+    }
+    
+    &:first-child {
+        text-align: left;
+    }
+    &:first-child:after {
+        left: 0;
+        right: unset;
+    }
+    
+    &:last-child {
+        text-align: right;
+    }
+    &:last-child:after {
+        left: unset;
+        right: 0;
+    }
+}
+
 /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
 

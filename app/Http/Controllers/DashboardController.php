@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Picture;
+use App\Models\Reservation;
 use App\Models\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +33,24 @@ class DashboardController extends Controller
     {
         return view('dashboard.gallery', [
             'pictures' => Picture::all()
+        ]);
+    }
+
+    public function showReservation($id)
+    {
+        $reservation = Reservation::find($id);
+        echo "<pre>";
+        print_r($reservation);
+        echo "</pre>";
+    }
+
+    public function showReservations()
+    {
+        return view('dashboard.reservations', [
+            'reservations' => DB::table('reservations')
+                ->where('date_in', '>=', (new DateTime())->format("Y-m-d"))
+                ->orWhere('date_out', '>=', (new DateTime())->format("Y-m-d"))
+                ->paginate(20)
         ]);
     }
 
