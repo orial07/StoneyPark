@@ -41,6 +41,8 @@ Route::middleware(['auth', 'webadmin'])->group(function () {
 
         Route::get('/reservation/{id}', [DashboardController::class, 'showReservation'])->name('dashboard.reservation');
         Route::get('/reservations', [DashboardController::class, 'showReservations'])->name('dashboard.reservations');
+        Route::post('/reservations/search', [DashboardController::class, 'searchReservation'])->name('dashboard.reservations.search'); // search filter
+
     
         Route::get('/home', [DashboardController::class, 'showHome'])->name('dashboard.home');
         Route::post('/home', [DashboardController::class, 'editHome'])->name('dashboard.home.submit');

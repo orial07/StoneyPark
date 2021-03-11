@@ -3,6 +3,18 @@
 
     {{ $reservations->links('vendor.pagination.bootstrap-4') }}
 
+    <form action="{{ route('dashboard.reservations.search') }}" method="POST" role="search">
+        @csrf
+
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="Search"> <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </form>
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -16,7 +28,7 @@
         </thead>
         <tbody>
             @foreach ($reservations as $reservation)
-                <x-dashboard.reservation :data="$reservation">
+                <x-dashboard.reservation :reservation="$reservation">
                 </x-dashboard.reservation>
             @endforeach
         </tbody>

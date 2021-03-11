@@ -10,6 +10,7 @@ use App\Models\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
@@ -55,6 +56,19 @@ class DashboardController extends Controller
             'reservations' => DB::table('reservations')
                 ->where('date_in', '>=', (new DateTime())->format("Y-m-d"))
                 ->orWhere('date_out', '>=', (new DateTime())->format("Y-m-d"))
+                ->paginate(20)
+        ]);
+    }
+
+    public function searchReservation(Request $r)
+    {
+        $search = $r->input('search');
+        return view('dashboard.reservations', [
+            'reservations' => DB::table('reservations')
+                ->where('first_name', 'like', '%' . $search . '%')
+                ->orWhere('last_name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')
+                ->orWhere('phone', 'like', '%' . $search . '%')
                 ->paginate(20)
         ]);
     }
