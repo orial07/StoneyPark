@@ -186,7 +186,7 @@ class ReserveController extends Controller
         }
 
         Mail::to(env('MAIL_TO_ADDRESS'))->queue(new ReservationBooking($res, $campers)); // send e-mail to admin
-        // Mail::to($res->email)->queue(new ReservationBooking($data)); // send e-mail to customer
+        Mail::to($res->email)->queue(new ReservationBooking($res, $campers)); // send e-mail to customer
 
         return view('public.reserve.success', [
             'reservation' => $res,
