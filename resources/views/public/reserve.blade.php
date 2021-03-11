@@ -1,4 +1,8 @@
 <x-app>
+    @section('styles')
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    @endsection
+
     <div class="container mt-4">
         @if ($errors->any())
             @if ($errors->first() == 'success')
@@ -55,18 +59,17 @@
                     <legend class="col-form-label col-sm-2 pt-0">Campground</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="campingType" id="ctSingle" value="0"
-                                checked>
+                            <input class="form-check-input" type="radio" name="camping_type" id="ctSingle" value="0" checked>
                             <label class="form-check-label" for="ctSingle">Medium-sized Tent</label>
                             <small class="text-muted form-text">&HorizontalLine; $39 per night</small>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="campingType" id="ctDouble" value="1">
+                            <input class="form-check-input" type="radio" name="camping_type" id="ctDouble" value="1">
                             <label class="form-check-label" for="ctDouble">Extra Medium-sized Tent</label>
                             <small class="text-muted form-text">&HorizontalLine; $30 flat fee</small>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="campingType" id="ctRV" value="2">
+                            <input class="form-check-input" type="radio" name="camping_type" id="ctRV" value="2">
                             <label class="form-check-label" for="ctRV">RV Spot</label>
                             <small class="text-muted form-text">&HorizontalLine; $69 per night</small>
                         </div>
@@ -74,20 +77,12 @@
                 </div>
             </fieldset>
 
-            <!-- Check In date -->
+            <!-- Reservation dates -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Check In</span>
+                    <span class="input-group-text">Reservation</span>
                 </div>
-                <input type="date" class="form-control" name="date_in" required>
-            </div>
-
-            <!-- Check Out date -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Check Out</span>
-                </div>
-                <input type="date" class="form-control" name="date_out" required>
+                <input type="text" class="form-control" name="dates" required>
                 <small class="form-text text-muted w-100" id="day_count"></small>
             </div>
 
@@ -110,6 +105,8 @@
     </div>
 
     @section('scripts')
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script src="{{ asset('js/checkout.js') }}"></script>
     @endsection
 </x-app>

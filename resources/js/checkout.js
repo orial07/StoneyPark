@@ -1,54 +1,45 @@
-const Invoice = {
-    'campingType': 0,
-    'nightsReserved': 1,
-    'campersCount': 0,
-};
-
+const DAY_MILLIS = 86400000;
 const form = document.reserve_form;
 const total = document.getElementById('total');
 
+var nights = 1;
+
 $(document).ready(function () {
-    // minimum 1 night of staying
-    form.date_in.value = new Date().toISOString().substring(0, 10);
-    form.date_out.value = new Date(Date.now() + 86400000).toISOString().substring(0, 10);
     update();
 
+    let now = new Date();
+    $('input[name="dates"]').daterangepicker({
+        minDate: now,
+        startDate: now,
+        endDate: new Date(now.getTime() + DAY_MILLIS),
+    }, function(start, end, label) {
+        onDateChanged(start, end);
+    });
+
     form.addEventListener('change', function (e) {
-        if (e.target.name == 'campingType') onCampingTypeChanged(e.target);
-        else if (e.target.name.substring(0, 4) == 'date') onDateChanged(e.target);
-        else if (e.target.name == "campers") onCampersChanged(e.target);
+        if (e.target.name == "campers") onCampersChanged(e.target);
         update();
     });
 });
 
-function onCampingTypeChanged(e) {
-    let type = parseInt(e.value);
-    if (isNaN(type)) return;
-    // clamp value
-    Invoice.campingType = Math.max(0, Math.min(2, type));
+function getCampingType() {
+    let es = document.getElementsByName('camping_type');
+    for (let i = 0; i < es.length; i++) {
+        if (es[i].checked) return i;
+    }
+    return undefined;
 }
 
-function onDateChanged(e) {
-    let cin = form.date_in.value || null,
-        cout = form.date_out.value || null;
-    if (cin == null || cout == null) return;
-
-    let din = new Date(cin),
-        dout = new Date(cout);
-
-    if (dout <= din) {
-        // check-out must be after the check-in date
-        form.date_out.value = (dout = new Date(din.getTime() + 86400000)).toISOString().substring(0, 10);
-    }
-
-    let diff = dout - din;
+function onDateChanged(start, end) {
+    let diff = end - start;
     let days = diff / 1000 / 60 / 60 / 24;
 
-    Invoice.nightsReserved = days;
+    nights = Math.round(days);
+    update();
 }
 
 function onCampersChanged(e) {
-    let count = Invoice.campersCount = Math.max(1, Math.min(6, e.value));
+    let count = Math.max(1, Math.min(6, e.value));
     let campers = document.getElementById('campers');
 
     campers.innerHTML = ""
@@ -67,10 +58,10 @@ function onCampersChanged(e) {
 function update() {
     let cost = 0;
 
-    document.getElementById('day_count').innerHTML = `This reservation will be for ${Invoice.nightsReserved} night${Invoice.nightsReserved > 1 ? 's' : ''}.`;
+    document.getElementById('day_count').innerHTML = `This reservation will be for <strong>${nights} night${nights > 1 ? 's' : ''}</strong>`;
 
-    let campingType = Invoice.campingType;
-    switch (Invoice.campingType) {
+    let campingType = getCampingType();
+    switch (campingType) {
         case 0:
         case 1:
             cost = 39;
@@ -81,7 +72,7 @@ function update() {
 
     }
 
-    cost *= Invoice.nightsReserved;
+    cost *= nights;
     if (campingType == 1) cost += 30; // flat fee
 
     total.innerText = "$" + cost;

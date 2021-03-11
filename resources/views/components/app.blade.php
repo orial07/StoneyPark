@@ -7,6 +7,7 @@
     <meta name="description" content="Stoney Park Campground">
     <title>Stoney Park</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    @yield('styles')
 </head>
 
 <body>
