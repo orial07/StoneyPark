@@ -1,5 +1,5 @@
 <x-dashboard.app>
-    <p>Here is a list of all customer reservations that currently in-progress, or is soon to come.</p>
+    <p>Here's a list of all customer reservations that are currently in-progress or soon to come.</p>
 
     {{ $reservations->links('vendor.pagination.bootstrap-4') }}
 
