@@ -101,11 +101,11 @@
             <h3 class="title">Reservation</h3>
             <div class="inline">
                 <p class="text-left text-muted">Check-In</p>
-                <p class="text-left"><?= date('Y-m-d (F j, l)', strtotime($reservation->date_in)) ?></p>
+                <p class="text-left"><?= date('Y-m-d (l F j)', strtotime($reservation->date_in)) ?></p>
         </div>
         <div class="inline">
             <p class="text-left text-muted">Check-Out</p>
-            <p class="text-left"><?= date('Y-m-d (F j, l)', strtotime($reservation->date_out)) ?></p>
+            <p class="text-left"><?= date('Y-m-d (l F j)', strtotime($reservation->date_out)) ?></p>
         </div>
 
         <table>

@@ -30,5 +30,6 @@ class ReservationUtil
         $cost *= ReservationUtil::getNights($reservation);
         // flat fee for the second tent
         if ($reservation->camping_type == 1) $cost += 30;
+        return $cost;
     }
 }

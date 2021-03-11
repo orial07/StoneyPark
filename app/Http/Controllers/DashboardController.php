@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\ReservationUtil;
 use DateTime;
 use App\Models\Picture;
 use App\Models\Reservation;
@@ -39,9 +40,13 @@ class DashboardController extends Controller
     public function showReservation($id)
     {
         $reservation = Reservation::find($id);
-        echo "<pre>";
-        print_r($reservation);
-        echo "</pre>";
+        $campers = $reservation->campers;
+        return view('dashboard.reservation', [
+            'reservation' => $reservation,
+            'campers' => $campers,
+            'nights' => ReservationUtil::getNights($reservation),
+            'cost' => ReservationUtil::getCost($reservation),
+        ]);
     }
 
     public function showReservations()
