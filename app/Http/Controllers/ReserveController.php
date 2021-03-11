@@ -8,6 +8,7 @@ use App\Mail\ReservationBooking;
 use App\Models\Camper;
 use DateTime;
 use Exception;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class ReserveController extends Controller
         return view('public.reserve');
     }
 
-    public static function getReservations($camping_type, $date)
+    public static function get_reservations_on($date, $camping_type)
     {
         $result = DB::table('reservations');
         switch ($camping_type) {
@@ -61,10 +62,6 @@ class ReserveController extends Controller
                 'email' => 'required|email',
                 'phone' => 'required|regex:/^\(?\d{3,}\)?[ -]?\d{3,}[ -]?\d{4,}$/',
                 'age' => 'required|numeric|min:18',
-
-                'date_in' => 'required|date|after:' . date_format($arrival, 'Y-m-d'),
-                'date_out' => 'required|date|after:date_in',
-
                 'camping_type' => 'required|numeric|min:0|max:2',
                 'campers' => 'required|numeric|min:1|max:6',
             ],
@@ -88,11 +85,17 @@ class ReserveController extends Controller
         $res->age = $r->input('age');
 
         $res->camping_type = $r->input('camping_type');
-        $res->date_in = strtotime($r->input('date_in'));
-        $res->date_out = strtotime($r->input('date_out'));
+        $dates = $r->input('dates');
+        $dates = explode(' - ', $dates);
+        $res->date_in = $arrival = strtotime($dates[0]);
+        $res->date_out = $depature = strtotime($dates[1]);
+
+        if ($res->date_in >= $res->date_out) {
+            return redirect('/reserve')->withErrors(['error' => 'Invalid reservation date provided']);
+        }
 
         // convert from seconds -> minutes -> hours -> days
-        $nights = ($res->date_out - $res->date_in) / 60 / 60 / 24;
+        $nights = ($depature - $arrival) / 60 / 60 / 24;
 
         $campers = array();
         $mem = new Camper();
@@ -129,6 +132,7 @@ class ReserveController extends Controller
             'reservation' => $res,
             'campers' => $campers,
             'cost' => $cost,
+            'nights' => $nights
         ]);
         return redirect('/reserve/checkout');
     }
@@ -140,22 +144,7 @@ class ReserveController extends Controller
 
         $res = $data['reservation'];
 
-        $db = DB::table('reservations');
-        switch ($res->camping_type) {
-            case 0: // single tent
-            case 1: // double tent
-                $db = $db
-                    ->where('camping_type', 0)
-                    ->orWhere('camping_type', 1);
-                break;
-            case 2: // RV spot
-                $db = $db->where('camping_type', 2);
-                break;
-        }
-
-        // amt of ppl still camping when the reservation starts
-        $db = $db->where('date_out', '>=', $data['date_in'])->get();
-        $count = sizeof($db);
+        $count = $this->get_reservations_on($res->date_in, $res->camping_type);
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $checkout_session = $stripe->checkout->sessions->create([
@@ -172,7 +161,7 @@ class ReserveController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => url('/reserve/success') . "?session_id={CHECKOUT_SESSION_ID}",
+            'success_url' => url('/reserve/success'),
             'cancel_url' => url('/reserve'),
         ]);
         $data['id'] = $checkout_session->id;
@@ -185,6 +174,7 @@ class ReserveController extends Controller
     {
         $data = Session::get('data');
         if (!isset($data)) return redirect('reserve');
+        Session::flash('data', $data);
 
         $res = $data['reservation'];
         $campers = $data['campers'];
@@ -195,9 +185,13 @@ class ReserveController extends Controller
             $camper->save();
         }
 
-        Mail::to(env('MAIL_TO_ADDRESS'))->queue(new ReservationBooking($res)); // send e-mail
-        // Mail::to($data['customer']['email'])->queue(new ReservationBooking($data)); // send e-mail
+        Mail::to(env('MAIL_TO_ADDRESS'))->queue(new ReservationBooking($res, $campers)); // send e-mail to admin
+        // Mail::to($res->email)->queue(new ReservationBooking($data)); // send e-mail to customer
 
-        return view('public.reserve.success', $data);
+        return view('public.reserve.success', [
+            'reservation' => $res,
+            'campers' => $campers,
+            'nights' => $data['nights'],
+        ]);
     }
 }

@@ -101,36 +101,39 @@
             <h3 class="title">Reservation</h3>
             <div class="inline">
                 <p class="text-left text-muted">Check-In</p>
-                <p class="text-left"><?= date('Y-m-d (F j, l)', $date_in) ?></p>
+                <p class="text-left"><?= date('Y-m-d (F j, l)', strtotime($reservation->date_in)) ?></p>
         </div>
         <div class="inline">
             <p class="text-left text-muted">Check-Out</p>
-            <p class="text-left"><?= date('Y-m-d (F j, l)', $date_out) ?></p>
+            <p class="text-left"><?= date('Y-m-d (F j, l)', strtotime($reservation->date_out)) ?></p>
         </div>
 
         <table>
+            <thead>
             <tr>
                 <th>Item</th>
                 <th>Qty.</th>
                 <th>Total</th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td>Nights reserved</td>
                 <td>{{ $nights }}</td>
                 <td></td>
             </tr>
             <tr>
-                @if ($camping_type != 2)
+                @if ($reservation->camping_type != 2)
                     <td>Medium tent</td>
-                    <td>1</td>
+                    <td>{{ $reservation->camping_type == 0 ? 1 : 2 }}</td>
                     <td>$39</td>
-                 @else
+        @else
                     <td>RV spot</td>
                     <td>1</td>
                     <td>$69</td>
                 @endif
             </tr>
-            @if ($camping_type == 1)
+            @if ($reservation->camping_type == 1)
                 <tr>
                     <td>Extra medium tent</td>
                     <td>1</td>
@@ -142,36 +145,36 @@
                 <td></td>
                 <td><strong>${{ $cost }}</strong></td>
             </tr>
+        </tbody>
         </table>
     </section>
 
     <section class="group">
         <h3 class="title">Customer</h3>
         <div class="inline">
-            <p class="lead">{{ $customer['first_name'] }} {{ $customer['last_name'] }}</p>
+            <p class="lead">{{ $reservation->first_name }} {{ $reservation->last_name }}</p>
         </div>
         <div class="inline">
             <p class="text-left text-muted">Email</p>
-            <p class="text-left">{{ $customer['email'] }}</p>
+            <p class="text-left">{{ $reservation->email }}</p>
         </div>
         <div class="inline">
             <p class="text-left text-muted">Phone</p>
-            <p class="text-left">{{ $customer['phone'] }}</p>
+            <p class="text-left">{{ $reservation->phone }}</p>
         </div>
         <div class="inline">
             <p class="text-left text-muted">Age</p>
-            <p class="text-left">{{ $customer['age'] }}</p>
+            <p class="text-left">{{ $reservation->age }}</p>
         </div>
     </section>
 
     <section class="group">
         <h3 class="title">Campers</h3>
-        @if (sizeof($members) > 0)
-        @for ($i = 0; $i < sizeof($members); $i++) <div class="inline">
-            <p class="lead">{{ $i + 1 }}. {{ $members[$i]['first_name'] }} {{ $members[$i]['last_name'] }}</p>
+        @for ($i = 0; $i < sizeof($campers); $i++)
+            <div class="inline">
+                <p class="lead">{{ $i + 1 }}. {{ $campers[$i]->first_name }} {{ $campers[$i]->last_name }}</p>
             </div>
-            @endfor
-            @endif
+        @endfor
     </section>
 </main>
 </body>

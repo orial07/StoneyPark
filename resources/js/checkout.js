@@ -12,7 +12,7 @@ $(document).ready(function () {
         minDate: now,
         startDate: now,
         endDate: new Date(now.getTime() + DAY_MILLIS),
-    }, function(start, end, label) {
+    }, function (start, end, label) {
         onDateChanged(start, end);
     });
 
