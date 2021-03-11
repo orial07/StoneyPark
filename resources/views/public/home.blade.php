@@ -63,7 +63,7 @@
             <div class="col-md-7">
                 <h2 class="featurette-heading">The view? <span class="text-muted">We got that.</span></h2>
                 <p class="lead">See beautiful mountains, tall trees and acres of greenery.</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                <p><a class="btn btn-lg btn-primary" href="{{ route('gallery') }}">Browse gallery</a></p>
             </div>
             <div class="col-md-5">
                 <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="{{ asset('img/market1.jpg') }}" />
@@ -76,7 +76,7 @@
             <div class="col-md-7 order-md-2">
                 <h2 class="featurette-heading">Not convinced? <span class="text-muted">See for yourself.</span></h2>
                 <p class="lead">Reservations are just a click away. Simple and fast.</p>
-                <p><a class="btn btn-lg btn-primary" href="/reserve">Reserve</a></p>
+                <p><a class="btn btn-lg btn-primary" href="{{ route('reserve') }}">Reserve</a></p>
             </div>
             <div class="col-md-5 order-md-1">
                 <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="{{ asset('img/market2.jpg') }}" />
