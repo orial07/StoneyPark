@@ -2,47 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\ReservationUtil;
 use DateTime;
+use App\Helper\ReservationUtil;
 use App\Models\Picture;
 use App\Models\Reservation;
 use App\Models\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
     public function show()
     {
-        return view('dashboard.main');
+        return view('public.dashboard.main');
     }
 
-    public function showHome()
+    public function showMap()
     {
-        return view('dashboard.home');
+        $geomap = '';
+        if (Storage::disk('local')->exists('geomap.json')) {
+            $geomap = Storage::disk('local')->get('geomap.json');
+        }
+        return view('public.dashboard.map', ['geomap' => json_encode(json_decode($geomap))]);
     }
 
-    public function showRules()
-    {
-        return view('dashboard.rules', [
-            'rules' => Rule::all()
-        ]);
-    }
-
-    public function showGallery()
-    {
-        return view('dashboard.gallery', [
-            'pictures' => Picture::all()
-        ]);
+    public function editMap(Request $r) {
+        $data = $r->getContent();
+        Storage::disk('local')->put('geomap.json', $data);
+        return Response::json(array('success' => 1));
     }
 
     public function showReservation($id)
     {
         $reservation = Reservation::find($id);
         $campers = $reservation->campers;
-        return view('dashboard.reservation', [
+        return view('public.dashboard.reservation', [
             'reservation' => $reservation,
             'campers' => $campers,
             'nights' => ReservationUtil::getNights($reservation),
@@ -52,7 +48,7 @@ class DashboardController extends Controller
 
     public function showReservations()
     {
-        return view('dashboard.reservations', [
+        return view('public.dashboard.reservations', [
             'reservations' => DB::table('reservations')
                 ->where('date_in', '>=', (new DateTime())->format("Y-m-d"))
                 ->orWhere('date_out', '>=', (new DateTime())->format("Y-m-d"))
@@ -63,13 +59,20 @@ class DashboardController extends Controller
     public function searchReservation(Request $r)
     {
         $search = $r->input('search');
-        return view('dashboard.reservations', [
+        return view('public.dashboard.reservations', [
             'reservations' => DB::table('reservations')
                 ->where('first_name', 'like', '%' . $search . '%')
                 ->orWhere('last_name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%')
                 ->orWhere('phone', 'like', '%' . $search . '%')
                 ->paginate(20)
+        ]);
+    }
+    
+    public function showRules()
+    {
+        return view('public.dashboard.rules', [
+            'rules' => Rule::all()
         ]);
     }
 
@@ -89,6 +92,13 @@ class DashboardController extends Controller
         DB::table('rules')->truncate();
         DB::table('rules')->insert($rows);
         return redirect('/dashboard/rules')->withErrors(['success' => 'success']);
+    }
+
+    public function showGallery()
+    {
+        return view('public.dashboard.gallery', [
+            'pictures' => Picture::all()
+        ]);
     }
 
     public function editGallery(Request $r)

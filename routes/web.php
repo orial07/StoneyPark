@@ -39,13 +39,16 @@ Route::middleware(['auth', 'webadmin'])->group(function () {
     Route::prefix('dashboard')->group(function() {
         Route::get('/', [DashboardController::class, 'show'])->name('dashboard');
 
+        // view a specific reservation
         Route::get('/reservation/{id}', [DashboardController::class, 'showReservation'])->name('dashboard.reservation');
+
+        // view all reservations
         Route::get('/reservations', [DashboardController::class, 'showReservations'])->name('dashboard.reservations');
+        // filter view reservations
         Route::post('/reservations/search', [DashboardController::class, 'searchReservation'])->name('dashboard.reservations.search'); // search filter
 
-    
-        Route::get('/home', [DashboardController::class, 'showHome'])->name('dashboard.home');
-        Route::post('/home', [DashboardController::class, 'editHome'])->name('dashboard.home.submit');
+        Route::get('/map', [DashboardController::class, 'showMap'])->name('dashboard.map');
+        Route::post('/map', [DashboardController::class, 'editMap'])->name('dashboard.map.submit');
     
         Route::get('/rules', [DashboardController::class, 'showRules'])->name('dashboard.rules');
         Route::post('/rules', [DashboardController::class, 'editRules'])->name('dashboard.rules.submit');

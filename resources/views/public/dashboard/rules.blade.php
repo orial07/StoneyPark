@@ -1,22 +1,26 @@
 <x-dashboard.app>
-    <form method="POST" name="form" action="{{ route('dashboard.rules.submit') }}">
-        @csrf
+    <div class="container-md container-sm-fluid mt-4">
+        <x-dashboard.navbar />
 
-        <ul class="list-group list-group-flush" id="rules">
-            @for ($i = 0; $i < sizeof($rules); $i++)
-                <x-rule-dashboard id="{{ $i }}" title="{{ $rules[$i]->title }}">
-                    {{ $rules[$i]->description }}
-                </x-rule-dashboard>
-            @endfor
+        <form method="POST" name="form" action="{{ route('dashboard.rules.submit') }}">
+            @csrf
 
-            <x-rule-dashboard id="new"></x-rule-dashboard>
-        </ul>
+            <ul class="list-group list-group-flush" id="rules">
+                @for ($i = 0; $i < sizeof($rules); $i++)
+                    <x-rule-dashboard id="{{ $i }}" title="{{ $rules[$i]->title }}">
+                        {{ $rules[$i]->description }}
+                    </x-rule-dashboard>
+                @endfor
 
-        <div class="text-center">
-            <button type="button" class="btn btn-primary mt-4" onclick="createRule()">Add Rule</button>
-            <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
-        </div>
-    </form>
+                <x-rule-dashboard id="new"></x-rule-dashboard>
+            </ul>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-primary mt-4" onclick="createRule()">Add Rule</button>
+                <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
+            </div>
+        </form>
+    </div>
 
     @section('scripts')
         <script>

@@ -7,32 +7,38 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                @if (Auth::user())
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}">Logout</a>
-                    </li>
-                    @if (Auth::user()->web_admin)
-                        <li class="nav-item">
-                            <a class="nav-link  {{ str_starts_with(Route::current()->getName() ?? '', 'dashboard') ? 'active' : '' }}"
-                                href="{{ route('dashboard') }}">Dashboard</a>
+                @auth
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                @if (Auth::user()->web_admin)
+                                    <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                                @endif
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                            </ul>
                         </li>
-                    @endif
-                @else
+                    </ul>
+                @endauth
+                @guest
                     <li class="nav-item">
-                        <a class="nav-link {{ str_starts_with(Route::current()->getName() ?? '', 'login') ? 'active' : '' }}"
+                        <a class="nav-link  {{ request()->is('/login') ? 'active' : '' }}"
                             href="{{ route('login') }}">Login</a>
                     </li>
-                @endif
+                @endguest
                 <li class="nav-item">
-                    <a class="nav-link  {{ str_starts_with(Route::current()->getName() ?? '', 'reserve') ? 'active' : '' }}"
+                    <a class="nav-link  {{ request()->is('/reserve') ? 'active' : '' }}"
                         href="{{ route('reserve') }}">Reserve</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  {{ str_starts_with(Route::current()->getName() ?? '', 'rules') ? 'active' : '' }}"
+                    <a class="nav-link  {{ request()->is('/rules') ? 'active' : '' }}"
                         href="{{ route('rules') }}">Rules</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  {{ str_starts_with(Route::current()->getName() ?? '', 'gallery') ? 'active' : '' }}"
+                    <a class="nav-link  {{ request()->is('/gallery') ? 'active' : '' }}"
                         href="{{ route('gallery') }}">Gallery</a>
                 </li>
             </ul>

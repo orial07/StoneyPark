@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reservation;
-
-use App\Mail\ReservationBooking;
-use App\Models\Camper;
 use DateTime;
 use Exception;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Mail;
-
+use App\Models\Reservation;
+use App\Mail\ReservationBooking;
+use App\Models\Camper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Stripe\StripeClient;
 
 class ReserveController extends Controller
 {
     public function show()
     {
-        return view('public.reserve');
+        $geomap = '';
+        if (Storage::disk('local')->exists('geomap.json')) {
+            $geomap = Storage::disk('local')->get('geomap.json');
+        }
+        return view('public.reserve', ['geomap' => $geomap]);
     }
 
     public static function get_reservations_on($date, $camping_type)
