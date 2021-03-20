@@ -1,3 +1,4 @@
+<!-- navigation bar start -->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Home</a>
@@ -25,20 +26,20 @@
                 @endauth
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link  {{ request()->is('/login') ? 'active' : '' }}"
+                        <a class="nav-link  {{ request()->is('login') ? 'active' : '' }}"
                             href="{{ route('login') }}">Login</a>
                     </li>
                 @endguest
                 <li class="nav-item">
-                    <a class="nav-link  {{ request()->is('/reserve') ? 'active' : '' }}"
+                    <a class="nav-link  {{ request()->is('reserve') ? 'active' : '' }}"
                         href="{{ route('reserve') }}">Reserve</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  {{ request()->is('/rules') ? 'active' : '' }}"
+                    <a class="nav-link  {{ request()->is('rules') ? 'active' : '' }}"
                         href="{{ route('rules') }}">Rules</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  {{ request()->is('/gallery') ? 'active' : '' }}"
+                    <a class="nav-link  {{ request()->is('gallery') ? 'active' : '' }}"
                         href="{{ route('gallery') }}">Gallery</a>
                 </li>
             </ul>

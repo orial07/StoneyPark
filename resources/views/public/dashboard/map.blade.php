@@ -66,7 +66,7 @@
             const controls = document.getElementById('controls');
 
             (function(j) {
-                if (!j) return;
+                if (!j || !j.features) return;
                 L.geoJSON(JSON.parse(j), {
                     onEachFeature: onEachFeature
                 }).addTo(map);

@@ -121,10 +121,19 @@
             <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
             <script src="{{ asset('js/map.js') }}"></script>
             <script>
-                let controls = JSON.parse('{!! $geomap !!}');
-                for (let k in controls) {
-                    let control = controls[k];
-                    L.geoJSON(control).addTo(map);
+                (function(j) {
+                    if (!j || !j.features) return;
+                    L.geoJSON(JSON.parse(j), {
+                        onEachFeature: onEachFeature
+                    }).addTo(map);
+                })('{!! $geomap !!}');
+
+                function onEachFeature(feature, layer) {
+                    if (!feature.properties) return;
+                    if (feature.properties.popupContent) layer.bindPopup(getPopupTemplate({
+                        "name": feature.properties.name,
+                        "popupContent": feature.properties.popupContent,
+                    }));
                 }
             </script>
         @endsection

@@ -16,7 +16,10 @@ class DashboardController extends Controller
 {
     public function show()
     {
-        return view('public.dashboard.main');
+        $email = auth()->user()->email;
+        return view('public.dashboard.main', [
+            'reservations' => Reservation::where('email', $email)->paginate(20)
+        ]);
     }
 
     public function showMap()
