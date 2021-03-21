@@ -10,7 +10,7 @@
 
             <div class="mb-3">
                 <label for="upload" class="form-label">Upload a picture</label>
-                <input class="form-control" type="file" id="upload" name="upload" multiple>
+                <input class="form-control" type="file" id="upload" name="upload" accept="image/*" multiple>
             </div>
 
             <div class="row">
