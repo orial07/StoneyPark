@@ -10,9 +10,11 @@
         <x-errors></x-errors>
 
         <div class="row">
+            @env('local')
             <div class="order-1 order-md-0 col-md-5 col-lg">
                 <div id="map" class="h-100" style="min-height: 80vh;"></div>
             </div>
+            @endenv
             <div class="order-0 col">
                 <form name="reserve_form" method="POST" action="reserve">
                     @csrf
@@ -135,6 +137,7 @@
                         "popupContent": feature.properties.popupContent,
                     }));
                 }
+
             </script>
         @endsection
 </x-app>
