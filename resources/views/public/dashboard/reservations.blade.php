@@ -7,12 +7,12 @@
 
         {{ $reservations->links('vendor.pagination.bootstrap-4') }}
 
-        <form action="{{ route('dashboard.reservations.search') }}" method="POST" role="search">
+        <form action="{{ route('dashboard.reservations.search') }}" method="GET" role="search" autocomplete="off">
             @csrf
 
             <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Search"> <span
-                    class="input-group-btn">
+                <input type="text" class="form-control" name="search" placeholder="Search">
+                <span class="input-group-btn">
                     <button type="submit" class="btn btn-default">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>

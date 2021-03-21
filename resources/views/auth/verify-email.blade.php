@@ -5,10 +5,9 @@
                 <h4>Hey {{ auth()->user()->name }},</h4>
                 <p class="mb-4">
                     Thanks for signing up! Before getting started, could you verify your email address by clicking on
-                    the link
-                    we just emailed to you?
+                    the link we just emailed to you?
                 </p>
-                <p>If you didn't receive the email, we will gladly send you another.</p>
+                <p>Remember to check your spam folder. If you didn't receive the email, we will gladly send you another.</p>
 
                 @if (session('status') == 'verification-link-sent')
                     <div class="alert alert-success">

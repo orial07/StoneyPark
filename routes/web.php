@@ -50,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // view all reservations
             Route::get('/reservations', [DashboardController::class, 'showReservations'])->name('dashboard.reservations');
             // filter view reservations
-            Route::post('/reservations/search', [DashboardController::class, 'searchReservation'])->name('dashboard.reservations.search'); // search filter
+            Route::get('/reservations/search', [DashboardController::class, 'searchReservation'])->name('dashboard.reservations.search'); // search filter
 
             // edit map
             Route::get('/map', [DashboardController::class, 'showMap'])->name('dashboard.map');
