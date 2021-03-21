@@ -16,18 +16,19 @@
     </header>
 
     <main>
+        <!-- slot -->
         {{ $slot }}
 
-        <!-- FOOTER -->
+        <!-- footer -->
         <footer class="container-md container-sm-fluid">
             <hr class="featurette-divider">
 
+            <p class="float-start">&copy; 2021 Stoney Campground.</p>
             <p class="float-end"><a href="#">Back to top</a></p>
         </footer>
     </main>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @yield('scripts')
 </body>

@@ -1,1 +1,1 @@
-window.bootstrap = require('./bootstrap');
+require('./bootstrap');

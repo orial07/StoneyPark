@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use DateTime;
 use App\Helper\ReservationUtil;
+use App\Http\Controllers\Controller;
 use App\Models\Picture;
 use App\Models\Reservation;
 use App\Models\Rule;
@@ -40,6 +40,8 @@ class DashboardController extends Controller
     public function showReservation($id)
     {
         $reservation = Reservation::find($id);
+        if (!$reservation || auth()->user()->web_admin == 0 && strcmp($reservation->email, auth()->user()->email) != 0) abort(404);
+
         $campers = $reservation->campers;
         return view('public.dashboard.reservation', [
             'reservation' => $reservation,
@@ -53,8 +55,8 @@ class DashboardController extends Controller
     {
         return view('public.dashboard.reservations', [
             'reservations' => DB::table('reservations')
-                ->where('date_in', '>=', (new DateTime())->format("Y-m-d"))
-                ->orWhere('date_out', '>=', (new DateTime())->format("Y-m-d"))
+                // ->where('date_in', '>=', (new DateTime())->format("Y-m-d"))
+                // ->orWhere('date_out', '>=', (new DateTime())->format("Y-m-d"))
                 ->paginate(20)
         ]);
     }

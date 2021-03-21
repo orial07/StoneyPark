@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReserveController;
@@ -34,27 +34,36 @@ Route::prefix('reserve')->group(function () {
 });
 
 
-Route::middleware(['auth', 'webadmin'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::prefix('dashboard')->group(function() {
+    // dashboard group
+    Route::prefix('dashboard')->group(function () {
+        // public page
         Route::get('/', [DashboardController::class, 'show'])->name('dashboard');
 
         // view a specific reservation
         Route::get('/reservation/{id}', [DashboardController::class, 'showReservation'])->name('dashboard.reservation');
 
-        // view all reservations
-        Route::get('/reservations', [DashboardController::class, 'showReservations'])->name('dashboard.reservations');
-        // filter view reservations
-        Route::post('/reservations/search', [DashboardController::class, 'searchReservation'])->name('dashboard.reservations.search'); // search filter
+        // web-admin dashboard group
+        Route::middleware(['webadmin'])->group(function () {
 
-        Route::get('/map', [DashboardController::class, 'showMap'])->name('dashboard.map');
-        Route::post('/map', [DashboardController::class, 'editMap'])->name('dashboard.map.submit');
-    
-        Route::get('/rules', [DashboardController::class, 'showRules'])->name('dashboard.rules');
-        Route::post('/rules', [DashboardController::class, 'editRules'])->name('dashboard.rules.submit');
-    
-        Route::get('/gallery', [DashboardController::class, 'showGallery'])->name('dashboard.gallery');
-        Route::post('/gallery', [DashboardController::class, 'editGallery'])->name('dashboard.gallery.submit');
+            // view all reservations
+            Route::get('/reservations', [DashboardController::class, 'showReservations'])->name('dashboard.reservations');
+            // filter view reservations
+            Route::post('/reservations/search', [DashboardController::class, 'searchReservation'])->name('dashboard.reservations.search'); // search filter
+
+            // edit map
+            Route::get('/map', [DashboardController::class, 'showMap'])->name('dashboard.map');
+            Route::post('/map', [DashboardController::class, 'editMap'])->name('dashboard.map.submit');
+
+            // edit rules
+            Route::get('/rules', [DashboardController::class, 'showRules'])->name('dashboard.rules');
+            Route::post('/rules', [DashboardController::class, 'editRules'])->name('dashboard.rules.submit');
+
+            // edit gallery
+            Route::get('/gallery', [DashboardController::class, 'showGallery'])->name('dashboard.gallery');
+            Route::post('/gallery', [DashboardController::class, 'editGallery'])->name('dashboard.gallery.submit');
+        });
     });
 });
 

@@ -1,5 +1,5 @@
 <!-- navigation bar start -->
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -16,9 +16,7 @@
                                 Account
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                @if (Auth::user()->web_admin)
-                                    <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
-                                @endif
+                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                             </ul>
                         </li>
