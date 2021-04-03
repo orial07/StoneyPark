@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\ReservationController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Guest\GalleryController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\MapController;
@@ -23,7 +24,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'show']);
 Route::get('/rules', [RulesController::class, 'show'])->name('rules');
+
 Route::get('/contact', [Controller::class, 'contact'])->name('contact');
+Route::post('/contact', [Controller::class, 'contact_send'])->name('contact.send');
+
 Route::get('/gallery', [GalleryController::class, 'show'])->name('gallery');
 
 Route::post('/map/load', [MapController::class, 'load']);

@@ -9,7 +9,7 @@
                 </div>
             @else
                 <div class="m-5 lead text-center">
-                    <p>Uh Oh. We don't have any pictures of our campground to show you</p>
+                    <p>Uh Oh. We don't have any pictures of our campground to show you.</p>
                 </div>
             @endif
         </div>
