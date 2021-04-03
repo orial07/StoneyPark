@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Stoney Campgrounds">
-    <title>{{ env('APP_NAME') }} @yield('title')</title>
+    <title>{{ config('app.name') }} @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     @yield('head')
 </head>
