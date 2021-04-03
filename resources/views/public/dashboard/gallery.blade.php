@@ -3,11 +3,12 @@
         <x-dashboard.navbar />
 
         <div class="m-5 lead">
-            <p>All changes made can immediately affect the <a href="{{ route('gallery') }}">Gallery</a> page. Any modifications cannot be un-done.</p>
+            <p>All changes made can immediately affect the <a href="{{ route('gallery') }}">Gallery</a> page. Any
+                modifications cannot be un-done.</p>
         </div>
 
         <x-errors></x-errors>
-        <div class="row gap-5 g-0">
+        <div class="row gap-5 g-0 justify-content-center">
             <div class="col-sm col-md-3">
                 <form method="POST" name="form" action="{{ route('dashboard.gallery.upload') }}"
                     enctype="multipart/form-data">
@@ -22,8 +23,9 @@
                         <button type="submit" class="btn btn-primary">Upload</button>
                     </div>
                 </form>
-            </div>
-            <div class="col-md-2">
+            </div><!-- col end -->
+
+            <div class="col-sm col-md-3">
                 <form method="POST" name="form" action="{{ route('dashboard.gallery.delete') }}"
                     enctype="multipart/form-data">
                     @csrf
@@ -39,12 +41,13 @@
                         <small class="text-center">Will only delete selected pictures</small>
                     </div>
                 </form>
-            </div>
+            </div><!-- col end -->
+
             <div class="col-12">
                 @foreach ($pictures as $picture)
                     <x-dashboard.picture id="{{ $picture->id }}" name="{{ $picture->name }}"></x-dashboard.picture>
                 @endforeach
-            </div>
+            </div><!-- col end -->
         </div>
     </div>
 

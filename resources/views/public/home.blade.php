@@ -1,40 +1,5 @@
 <x-app>
-    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            @for ($i = 0; $i < sizeof($carousel); $i++)
-                @if ($i == 0) <button class="active"
-                aria-current="true" type="button" data-bs-target="#heroCarousel"
-                data-bs-slide-to="{{ $i }}" aria-label="Slide
-                {{ $i }}"></button>
-            @else
-                <button type="button" data-bs-target="#heroCarousel"
-                data-bs-slide-to="{{ $i }}" aria-label="Slide
-                {{ $i }}"></button> @endif
-            @endfor
-        </div>
-        <div class="carousel-inner">
-            @for ($i = 0; $i < sizeof($carousel); $i++)
-                <div class="carousel-item {{ $i == 0 ? 'active' : '' }}"
-                    style="background-image: url({{ asset($carousel[$i]->image) }})">
-                    <div class="container">
-                        <div class="carousel-caption text-start">
-                            <h1>{{ $carousel[$i]->title }}</h1>
-                            <p>{{ $carousel[$i]->subtitle }}</p>
-                            <p><a class="btn btn-lg btn-primary" href="/reserve">{{ $carousel[$i]->button }}</a></p>
-                        </div>
-                    </div>
-                </div>
-            @endfor
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div> <!-- carousel end -->
+    <x-carousel :carousel="$carousel" />
 
     <div class="container marketing">
         <div class="row justify-content-center">
@@ -65,8 +30,7 @@
                 <p><a class="btn btn-lg btn-primary" href="{{ route('gallery') }}">Browse gallery</a></p>
             </div>
             <div class="col-md-5">
-                <img class="h-100 img-fluid mx-auto"
-                    src="{{ asset('img/market1.jpg') }}" />
+                <img class="h-100 img-fluid mx-auto" src="{{ asset('img/market1.jpg') }}" />
             </div>
         </div>
 
@@ -78,8 +42,7 @@
                 <p><a class="btn btn-lg btn-primary" href="{{ route('reserve') }}">Reserve</a></p>
             </div>
             <div class="col-md-5 order-md-1">
-                <img class="h-100 img-fluid mx-auto"
-                    src="{{ asset('img/market2.jpg') }}" />
+                <img class="h-100 img-fluid mx-auto" src="{{ asset('img/market2.jpg') }}" />
             </div>
         </div>
     </div>

@@ -17,6 +17,7 @@ class HomeController extends Controller
                 "Welcome to Stoney Park!",
                 "Open all day, everyday.",
                 "Reserve",
+                url('/reserve'),
                 "img/banner1.jpg"
             ),
 
@@ -24,6 +25,7 @@ class HomeController extends Controller
                 "A breath of fresh air",
                 "You ever been outside? Me neither.",
                 "Learn More",
+                url(''),
                 "img/banner2.jpg"
             ),
 
@@ -31,6 +33,7 @@ class HomeController extends Controller
                 "A park owned by a family of Parks",
                 "Now that's park-ception.",
                 "Browse Gallery",
+                url('gallery'),
                 "img/banner3.jpg"
             ),
         );
