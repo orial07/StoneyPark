@@ -25,7 +25,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6 col-md-8">
-                        <small>&copy; 2021 {{ env('APP_NAME') }}</small>
+                        <small>&copy; 2021 {{ config('app.name') }}</small>
                     </div>
                     <div class="col">
                         <ul class="list-unstyled text-small">
