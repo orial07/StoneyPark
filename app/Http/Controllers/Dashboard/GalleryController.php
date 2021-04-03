@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Picture;
+use Error;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,26 +24,32 @@ class GalleryController extends Controller
             $images = $r->file('upload');
             foreach ($images as $image) {
                 $name = $image->getClientOriginalName();
+                $errors = [];
 
                 if (Storage::disk('public')->exists($name)) {
                     $errors['exists'] = "A picture named $name already exists.";
                 } else {
-                    $path = $image->storeAs('', $name, 'public');
-
-                    $picture = new Picture();
-                    $picture->name = $name;
-                    $picture->url = $path;
-                    $picture->save();
+                    try {
+                        $path = $image->storeAs('', $name, 'public');
+                        
+                        $picture = new Picture();
+                        $picture->name = $name;
+                        $picture->url = $path;
+                        $picture->save();
+                    } catch (Exception $e) {
+                        $errors[$name] = "Failed to upload: $name";
+                    }
                 }
             }
-        }
-        return redirect('/dashboard/gallery');
+            return redirect('/dashboard/gallery')->withErrors($errors);
+        } else return redirect('/dashboard/gallery')->withErrors(['error' => "You must select at least one picture"]);
     }
 
     public function delete(Request $r)
     {
-        $inputs = $r->all();
-        $pictures = Picture::find($inputs['delete']);
+        if (!$r->get('delete')) return redirect('/dashboard/gallery')->withErrors(['error' => "You must select at least one picture"]);
+
+        $pictures = Picture::find($r->get('delete'));
         foreach ($pictures as $picture) {
             if (Storage::disk('public')->exists($picture->name)) {
                 Storage::disk('public')->delete($picture->name);

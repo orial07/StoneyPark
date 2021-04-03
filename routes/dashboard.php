@@ -3,7 +3,7 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\GalleryController;
-use App\Http\Controllers\MapController;
+use App\Http\Controllers\Dashboard\MapController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
