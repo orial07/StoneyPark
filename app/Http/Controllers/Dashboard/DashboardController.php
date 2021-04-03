@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Helper\ReservationUtil;
 use App\Http\Controllers\Controller;
-use App\Models\Picture;
 use App\Models\Reservation;
 use App\Models\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -82,43 +80,5 @@ class DashboardController extends Controller
         DB::table('rules')->truncate();
         DB::table('rules')->insert($rows);
         return redirect('/dashboard/rules')->withErrors(['success' => 'success']);
-    }
-
-    public function showGallery()
-    {
-        return view('public.dashboard.gallery', [
-            'pictures' => Picture::all()
-        ]);
-    }
-
-    public function editGallery(Request $r)
-    {
-        $errors = array();
-
-        if ($r->has('upload')) {
-            $image = $r->file('upload');
-            $name = $image->getClientOriginalName();
-
-            if (Storage::disk('public')->exists($name)) {
-                $errors['exists'] = "A picture named $name already exists.";
-            } else {
-                $path = $image->storeAs('', $name, 'public');
-
-                $picture = new Picture();
-                $picture->name = $name;
-                $picture->url = $path;
-                $picture->save();
-            }
-        }
-        $inputs = $r->all();
-
-        foreach ($inputs as $key => $value) {
-            if (!str_starts_with($key, "picture-")) continue;
-            $id = explode("-", $key)[1];
-
-            Storage::disk('public')->delete($value);
-            Picture::destroy($id);
-        }
-        return redirect('/dashboard/gallery')->withErrors($errors);
     }
 }

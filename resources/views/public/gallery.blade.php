@@ -2,16 +2,15 @@
     <div class="container mt-4">
         <div class="row">
             @if (sizeof($pictures) > 0)
-                @foreach ($pictures as $picture)
-                    <div class="col-4">
-                        <img src="{{ asset('storage/' . $picture->name) }}"
-                            class="img-thumbnail m-2" />
-                    </div>
-                @endforeach
+                <div class="col-12">
+                    @foreach ($pictures as $picture)
+                        <x-picture name="{{ $picture->name }}"></x-picture>
+                    @endforeach
+                </div>
             @else
-                <p class="lead text-center">
-                    We don't have any pictures to show here yet.
-                </p>
+                <div class="m-5 lead text-center">
+                    <p>Uh Oh. We don't have any pictures of our campground to show you</p>
+                </div>
             @endif
         </div>
     </div>
