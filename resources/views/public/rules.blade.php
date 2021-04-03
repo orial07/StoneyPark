@@ -1,9 +1,8 @@
 <x-app>
     <div class="container mt-4">
-        <p class="lead">
-            We love our park, so we want the best for it.<br />
-            Please read the following Yes and No rules and abide by them when on campgrounds.
-        </p>
+        <div class="lead m-5">
+            <p>Below are rules that apply to everyone at Stoney Campgrounds. We ask that you abide these rules.</p>
+        </div>
 
         <div class="list-group">
             @for ($i = 0; $i < sizeof($rules); $i++)

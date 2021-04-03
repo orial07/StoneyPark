@@ -7,12 +7,12 @@
 
             <ul class="list-group list-group-flush" id="rules">
                 @for ($i = 0; $i < sizeof($rules); $i++)
-                    <x-rule-dashboard id="{{ $i }}" title="{{ $rules[$i]->title }}">
+                    <x-dashboard.rule id="{{ $i }}" title="{{ $rules[$i]->title }}">
                         {{ $rules[$i]->description }}
-                    </x-rule-dashboard>
+                    </x-dashboard.rule>
                 @endfor
 
-                <x-rule-dashboard id="new"></x-rule-dashboard>
+                <x-dashboard.rule id="new"></x-dashboard.rule>
             </ul>
 
             <div class="text-center">
@@ -24,7 +24,7 @@
 
     @section('scripts')
         <script>
-            const template = `<x-rule-dashboard id="new"/>`;
+            const template = `<x-dashboard.rule id="new"/>`;
             var ruleCount = parseInt("{{ sizeof($rules) }}");
 
             $(document).ready(function() {
