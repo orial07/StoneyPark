@@ -1,4 +1,6 @@
 <x-app>
+    @section('title', '- My Account')
+
     <div class="container mt-4">
         <div class="m-5">
             <h1 class="text-center display-6 m-5">Welcome back, {{ auth()->user()->name }}!</h1>

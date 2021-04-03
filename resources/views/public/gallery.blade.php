@@ -1,4 +1,6 @@
 <x-app>
+    @section('title', '- Gallery')
+
     <div class="container mt-4">
         <div class="row">
             @if (sizeof($pictures) > 0)
