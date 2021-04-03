@@ -142,7 +142,7 @@ class ReserveController extends Controller
     public function checkout()
     {
         $data = Session::get('data');
-        if (!isset($data)) return redirect('reserve');
+        if (!isset($data)) return abort(404);
 
         $res = $data['reservation'];
 
@@ -175,7 +175,7 @@ class ReserveController extends Controller
     public function success()
     {
         $data = Session::get('data');
-        if (!isset($data)) return redirect('reserve');
+        if (!isset($data)) return abort(404);
         Session::flash('data', $data);
 
         $res = $data['reservation'];

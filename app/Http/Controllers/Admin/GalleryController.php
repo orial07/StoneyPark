@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Picture;
@@ -13,7 +13,7 @@ class GalleryController extends Controller
 {
     public function show()
     {
-        return view('public.dashboard.gallery', [
+        return view('admin.gallery', [
             'pictures' => Picture::all()
         ]);
     }
@@ -31,23 +31,23 @@ class GalleryController extends Controller
                 } else {
                     try {
                         $path = $image->storeAs('', $name, 'public');
-                        
+
                         $picture = new Picture();
                         $picture->name = $name;
                         $picture->url = $path;
                         $picture->save();
                     } catch (Exception $e) {
-                        $errors[$name] = "Failed to upload: $name";
+                        $errors[$name] = "Failed to upload $name: {$e->getMessage()}";
                     }
                 }
             }
-            return redirect('/dashboard/gallery')->withErrors($errors);
-        } else return redirect('/dashboard/gallery')->withErrors(['error' => "You must select at least one picture"]);
+            return redirect()->back()->withErrors($errors);
+        } else return redirect()->back()->withErrors(['error' => "You must select at least one picture"]);
     }
 
     public function delete(Request $r)
     {
-        if (!$r->get('delete')) return redirect('/dashboard/gallery')->withErrors(['error' => "You must select at least one picture"]);
+        if (!$r->get('delete')) return redirect()->back()->withErrors(['error' => "You must select at least one picture"]);
 
         $pictures = Picture::find($r->get('delete'));
         foreach ($pictures as $picture) {
@@ -56,6 +56,6 @@ class GalleryController extends Controller
             }
             $picture->delete();
         }
-        return redirect('/dashboard/gallery');
+        return redirect()->back();
     }
 }

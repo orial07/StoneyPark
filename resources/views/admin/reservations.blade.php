@@ -1,13 +1,13 @@
-<x-dashboard.app>
+<x-app>
 
     <div class="container-md container-sm-fluid mt-4">
-        <x-dashboard.navbar />
+        <x-dashboard.navbar></x-dashboard.navbar>
 
         <p>Here's a list of all customer reservations that are currently in-progress or soon to come.</p>
 
         {{ $reservations->links('vendor.pagination.bootstrap-4') }}
 
-        <form action="{{ route('dashboard.reservations.search') }}" method="GET" role="search" autocomplete="off">
+        <form action="{{ route('admin.reservations.search') }}" method="POST" role="search" autocomplete="off">
             @csrf
 
             <div class="input-group">
@@ -33,10 +33,17 @@
             </thead>
             <tbody>
                 @foreach ($reservations as $reservation)
-                    <x-dashboard.reservation :reservation="$reservation">
-                    </x-dashboard.reservation>
+                    <tr class="position-relative">
+                        <th><a href="{{ route('reservation', ['id' => $reservation->id]) }}"
+                                class="stretched-link">{{ $reservation->id }}</a></th>
+                        <td>{{ $reservation->first_name }} {{ $reservation->last_name }}</td>
+                        <td>{{ $reservation->email }}</td>
+                        <td>{{ $reservation->phone }}</td>
+                        <td>{{ date('Y-m-d', strtotime($reservation->date_in)) }}</td>
+                        <td>{{ date('Y-m-d', strtotime($reservation->date_out)) }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-</x-dashboard.app>
+</x-app>

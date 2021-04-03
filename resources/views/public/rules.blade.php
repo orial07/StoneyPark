@@ -5,11 +5,12 @@
         </div>
 
         <div class="list-group">
-            @for ($i = 0; $i < sizeof($rules); $i++)
-                <x-rule title="{{ $rules[$i]->title }}">
-                    {{ $rules[$i]->description }}
-                </x-rule>
-            @endfor
+            @foreach ($rules as $rule)
+                <div class="mt-5">
+                    <h5 class="fs-4 mb-1 fw-bold">{!! $rule->title !!}</h5>
+                    <p>{!! $rule->description !!}</p>
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app>

@@ -1,25 +1,19 @@
-<!-- dashboard nav -->
+<!-- admin nav -->
 <ul class="nav nav-tabs my-4">
     <li class="nav-item">
-        <a class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}"
-            href="{{ route('dashboard') }}">Profile</a>
+        <a class="nav-link {{ request()->is('admin/reservations') ? 'active' : '' }}"
+            href="{{ route('admin.reservations') }}">Reservations</a>
     </li>
-    @if (Auth::user()->web_admin)
-        <li class="nav-item">
-            <a class="nav-link {{ request()->is('dashboard/reservations') ? 'active' : '' }}"
-                href="{{ route('dashboard.reservations') }}">Reservations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->is('dashboard/map') ? 'active' : '' }}"
-                href="{{ route('dashboard.map') }}">Map</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->is('dashboard/rules') ? 'active' : '' }}"
-                href="{{ route('dashboard.rules') }}">Rules</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->is('dashboard/gallery') ? 'active' : '' }}"
-                href="{{ route('dashboard.gallery') }}">Gallery</a>
-        </li>
-    @endif
+    <li class="nav-item">
+        <a class="nav-link {{ request()->is('admin/rules') ? 'active' : '' }}"
+            href="{{ route('admin.rules') }}">Rules</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ request()->is('admin/map') ? 'active' : '' }}"
+            href="{{ route('admin.map') }}">Map</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ request()->is('admin/gallery') ? 'active' : '' }}"
+            href="{{ route('admin.gallery') }}">Gallery</a>
+    </li>
 </ul>

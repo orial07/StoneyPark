@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ class MapController extends Controller
 {
     public function show()
     {
-        return view('public.dashboard.map');
+        return view('admin.map');
     }
 
     public function save(Request $r)

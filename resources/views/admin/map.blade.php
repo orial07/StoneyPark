@@ -1,18 +1,20 @@
-<x-dashboard.app>
+<x-app>
     @section('head')
         <meta name="csrf-token" content="{{ csrf_token() }}">
     @endsection
 
     <div class="container-md container-sm-fluid mt-4">
-        <x-dashboard.navbar />
+        <x-dashboard.navbar></x-dashboard.navbar>
 
+        <div class="m-5 lead">
+            <p>All changes made can immediately affect the <a href="{{ route('reserve') }}">Reservation</a> page. Any
+                modifications cannot be un-done.</p>
+        </div>
         <div class="mb-4">
-            <p>Click any marker on the interactive map below to enable editing of them at your discretion. When
-                completed, click the save button to
-                permanent apply changes.</p>
-            <p>All changes <span class="text-muted">(information, deletion and additions)</span> are immediately
-                applied for public viewing via <a href="{{ route('reserve') }}">reservation</a>
-                page.</p>
+            <p>Click any marker on the interactive map below to enable editing of them at your discretion. Changes are
+                local until clicking Save Changes.<br />
+                After clicking Save Changes, any modifications <small>(ie. additions, deletions and information
+                    changes)</small> are immediately and permanently applied for public viewing.</p>
             <div class="d-grid gap-1">
                 <button class="btn btn-primary" onclick="SaveOverlays()">Save Changes</button>
             </div>
@@ -56,8 +58,9 @@
                 </form>
             </div>
         </div>
-    </div><!-- Modal end -->
+    </div>
 
+    <!-- toast notification -->
     <div class="toast position-fixed bottom-0 end-0 p-3 z-index-modal">
         <div class="d-flex">
             <div class="toast-body"></div>
@@ -73,4 +76,4 @@
 
         <script src="{{ asset('js/map.edit.js') }}"></script>
     @endsection
-</x-dashboard.app>
+</x-app>

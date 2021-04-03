@@ -1,4 +1,4 @@
-<x-dashboard.app>
+<x-app>
     <div class="container mt-4">
         <div class="row">
             <div class="col card mx-md-4">
@@ -97,5 +97,5 @@
             </table>    
         </div>    
     </div> <!-- container end -->
-</x-dashboard.app>
+</x-app>
 

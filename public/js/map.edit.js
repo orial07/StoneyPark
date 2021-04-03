@@ -214,6 +214,6 @@ function SaveOverlays() {
             $('.toast').toast('show');
         },
         processData: false,
-        url: '/dashboard/map/save',
+        url: '/admin/map/save',
     });
 }
