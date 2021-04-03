@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guest;
 
 use DateTime;
 use Exception;
 use App\Models\Reservation;
 use App\Mail\ReservationBooking;
+use App\Http\Controllers\Controller;
 use App\Models\Camper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

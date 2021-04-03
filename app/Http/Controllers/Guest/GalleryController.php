@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guest;
 
+use App\Http\Controllers\Controller;
 use App\Models\Picture;
 
 class GalleryController extends Controller
 {
-    public function show()
-    {
+    public function show() {
         return view('public.gallery', [
             'pictures' => Picture::all()
         ]);

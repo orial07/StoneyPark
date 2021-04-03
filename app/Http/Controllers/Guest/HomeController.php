@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guest;
 
+use App\Http\Controllers\Controller;
 use App\Objects\CarouselItem;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
