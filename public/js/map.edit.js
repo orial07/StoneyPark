@@ -1,84 +1,219 @@
-const emodal = document.getElementById('propsModal');
-const modal = new bootstrap.Modal(emodal);
-emodal.addEventListener('hidden.bs.modal', e => updateControl(e));
+const OVERLAYS = [];
+const CONTROLS = document.getElementById('controls');
+const MODAL = new bootstrap.Modal(document.getElementById('propsModal'));
 
-const map = L.map('map').setView([51.05088910990064, -114.05994928703979], 15);
-const items = new L.FeatureGroup();
-map.addLayer(items);
-
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaXphcm9vbmkiLCJhIjoiY2ttYmNhMzlxMWUwczJ4bnV0NDRnYmJsdyJ9.b-ymheEfwSpTryT2ASe21w', {
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    tileSize: 512,
-    zoomOffset: -1,
-}).addTo(map);
-
-map.pm.addControls({
-    position: 'topleft',
-    drawCircleMarker: false,
-    drawCircle: false,
-    editMode: false,
-    dragMode: false,
-    cutPolygon: false,
-});
-
-map.pm.Toolbar.createCustomControl({
-    name: 'Save',
-    block: 'custom',
-    title: 'Save changes',
-    className: 'save-icon',
-    toggle: false,
-    actions: ['cancel'],
-    onClick: saveControls,
-});
-
-map.on('pm:create', e => {
-    let type = e.shape;
-    let layer = e.layer;
-
-    modal.tag = layer;
-    modal.show();
-});
-
-function updateControl(e) {
-    let context = {
-        "name": document.getElementById('popup-name').value,
-        "popupContent": document.getElementById('popup-description').value,
+function Overlay(e) {
+    this.e = e;
+    this.info = {
+        name: undefined,
+        description: undefined,
     };
+}
+Overlay.prototype.toString = function () {
+    let overlay = { type: this.e.type };
+    let shape = this.e.overlay || this.e;
+    switch (this.e.type) {
+        default: throw new Error("unknown overlay type:", this.e.type);
+        case 'circle':
+            overlay.radius = shape.getRadius();
+            overlay.geometry = shape.getCenter();
+            break;
+        case 'marker':
+            overlay.geometry = shape.getPosition();
+            break;
+        case 'rectangle':
+            overlay.geometry = shape.getBounds();
+            break;
+        case 'polyline':
+            overlay.geometry = shape.getPath();
+            break;
+        case 'polygon':
+            overlay.geometry = shape.getPaths();
+            break;
+    }
 
-    let layer = modal.tag;
-    layer.bindPopup(getPopupTemplate(context));
-
-    let feature = layer.feature = layer.feature || {};
-    feature.type = "Feature";
-    feature.properties = feature.properties || context;
-
-    layer.properties = context;
-    console.log(layer);
-
-    items.addLayer(layer);
-    modal.tag = undefined;
+    let json = {
+        name: this.info.name,
+        description: this.info.description,
+        overlay: overlay
+    };
+    return JSON.stringify(json);
 }
 
-function saveControls() {
-    console.log("Requesting to save %d layers", items.getLayers().length);
+function GetModalData(values) {
+    let ret = {
+        name: document.getElementById('modal-name'),
+        description: document.getElementById('modal-description'),
+    };
+    if (values) {
+        for (var o in ret) {
+            ret[o] = ret[o].value;
+        }
+    }
+
+    return ret;
+}
+
+function EditControl(overlay) {
+    MODAL.tag = overlay;
+
+    // fill input fields and set values to overlay info
+    let data = GetModalData(false);
+    data.name.value = overlay.info.name;
+    data.description.value = overlay.info.description;
+
+    MODAL.show();
+}
+
+function SaveControl() {
+    let overlay = MODAL.tag;
+    if (!overlay) return;
+
+    let data = GetModalData(true);
+    overlay.info = {
+        name: data.name,
+        description: data.description,
+    };
+    google.maps.event.addListener(overlay.e.overlay, 'click', () => EditControl(overlay));
+
+    console.log('SAVED', overlay)
+    MODAL.tag = null;
+    MODAL.hide();
+}
+
+function DeleteControl() {
+    let overlay = MODAL.tag;
+    if (!overlay) return;
+
+    let i = OVERLAYS.indexOf(overlay);
+    if (i < 0) return;
+
+    let control = overlay.e.overlay || overlay.e;
+    control.setMap(null);
+    OVERLAYS.splice(i, 1);
+
+    MODAL.tag = null;
+    MODAL.hide();
+}
+
+function CreateControl(map, data) {
+    let overlay = new Overlay();
+    overlay.info.name = data.name;
+    overlay.info.description = data.description;
+    switch (data.overlay.type) {
+        case 'circle':
+            break;
+        case 'marker':
+            overlay.e = new google.maps.Marker({
+                position: data.overlay.geometry,
+                map,
+                title: data.name,
+            });
+            break;
+        case 'rectangle':
+            overlay.e = new google.maps.Rectangle({
+                map,
+                bounds: data.overlay.geometry,
+            });
+            break;
+        case 'polyline':
+            overlay.e = new google.maps.Polyline({
+                path: data.overlay.geometry.Nb,
+                map,
+            });
+            break;
+        case 'polygon':
+            overlay.e = new google.maps.Polygon({
+                paths: data.overlay.geometry.Nb[0].Nb,
+                map,
+            });
+            break;
+    }
+    overlay.e.type = data.overlay.type;
+    google.maps.event.addListener(overlay.e, 'click', () => EditControl(overlay));
+    OVERLAYS.push(overlay);
+}
+
+
+function initMap() {
+    const MAP = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 51.05563894221939, lng: -114.07027244567871 },
+        zoom: 15,
+    });
+    MAP.addListener('click', function (e) {
+        let pos = e.latLng;
+        console.log(pos.lat(), pos.lng());
+    });
+
     $.ajax({
-        data: JSON.stringify(items.toGeoJSON()),
         dataType: 'json',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        success: (data, status, j) => {
+        success: (data, status, xhr) => {
+            for (let i = 0; i < data.length; i++) {
+                CreateControl(MAP, data[i]);
+            }
+        },
+        error: (xhr, status, error) => {
+            console.log(error);
+        },
+        processData: false,
+        url: '/map/load',
+    });
+
+    const DRAWING = new google.maps.drawing.DrawingManager({
+        drawingControl: true,
+        drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: [
+                google.maps.drawing.OverlayType.MARKER,
+                // google.maps.drawing.OverlayType.CIRCLE,
+                google.maps.drawing.OverlayType.POLYGON,
+                google.maps.drawing.OverlayType.POLYLINE,
+                google.maps.drawing.OverlayType.RECTANGLE,
+            ],
+        },
+        markerOptions: {
+            icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+        },
+        circleOptions: {
+            fillColor: "#ffff00",
+            fillOpacity: 1,
+            strokeWeight: 5,
+            clickable: false,
+            editable: true,
+            zIndex: 1,
+        },
+    });
+    google.maps.event.addListener(DRAWING, 'overlaycomplete', function (drawing) {
+        // Switch back to non-drawing mode after drawing a shape.
+        DRAWING.setDrawingMode(null);
+
+        let overlay = new Overlay(drawing);
+        console.log('CREATE', overlay);
+
+        MODAL.tag = overlay;
+        OVERLAYS.push(overlay);
+        MODAL.show();
+    });
+    DRAWING.setMap(MAP);
+}
+
+function SaveOverlays() {
+    $.ajax({
+        data: OVERLAYS.toString(),
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        success: (data, status, xhr) => {
+            $('.toast .toast-body').text('Changes have been saved.')
             $('.toast').toast('show');
         },
         processData: false,
-        url: '/dashboard/map',
+        url: '/dashboard/map/save',
     });
-}
-
-function getPopupTemplate(context) {
-    return `<b>${context.name}</b>
-    <hr class="m-0"/>
-    <br/>${context.popupContent || ''}`;
 }

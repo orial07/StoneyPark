@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\RulesController;
 
@@ -32,8 +33,9 @@ Route::prefix('reserve')->group(function () {
     Route::get('/checkout', [ReserveController::class, 'checkout'])->name('reserve.checkout'); // reservation payment
     Route::get('/success', [ReserveController::class, 'success'])->name('reserve.success'); // reservation payment success
 });
+Route::post('/map/load', [MapController::class, 'load']);
 
-
+// must be logged-in and verified
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // dashboard group
@@ -44,7 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // view a specific reservation
         Route::get('/reservation/{id}', [DashboardController::class, 'showReservation'])->name('dashboard.reservation');
 
-        // web-admin dashboard group
+        // must be web-admin
         Route::middleware(['webadmin'])->group(function () {
 
             // view all reservations
@@ -53,8 +55,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/reservations/search', [DashboardController::class, 'searchReservation'])->name('dashboard.reservations.search'); // search filter
 
             // edit map
-            Route::get('/map', [DashboardController::class, 'showMap'])->name('dashboard.map');
-            Route::post('/map', [DashboardController::class, 'editMap'])->name('dashboard.map.submit');
+            Route::get('/map', [MapController::class, 'show'])->name('dashboard.map');
+            Route::post('/map/save', [MapController::class, 'save']);
 
             // edit rules
             Route::get('/rules', [DashboardController::class, 'showRules'])->name('dashboard.rules');

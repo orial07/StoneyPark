@@ -2,8 +2,7 @@
     @section('head')
         <!-- date picker -->
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-        <link rel="stylesheet" href="{{ asset('css/leaflet.css') }}" />
-        <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     @endsection
 
     <div class="container-md container-sm-fluid mt-4">
@@ -110,34 +109,36 @@
                 </form>
             </div>
         </div>
+    </div>
 
-        @section('scripts')
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js">
-            </script>
-            <script src="{{ asset('js/checkout.js') }}"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="propsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="properties" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-name"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Description</dt>
+                        <dd class="col-sm-9" id="modal-description"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div><!-- Modal end -->
 
-            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-                integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-                crossorigin=""></script>
-            <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
-            <script src="{{ asset('js/map.js') }}"></script>
-            <script>
-                (function(j) {
-                    if (!j || !j.features) return;
-                    L.geoJSON(JSON.parse(j), {
-                        onEachFeature: onEachFeature
-                    }).addTo(map);
-                })('{!! $geomap !!}');
+    @section('scripts')
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js">
+        </script>
+        <script src="{{ asset('js/checkout.js') }}"></script>
 
-                function onEachFeature(feature, layer) {
-                    if (!feature.properties) return;
-                    if (feature.properties.popupContent) layer.bindPopup(getPopupTemplate({
-                        "name": feature.properties.name,
-                        "popupContent": feature.properties.popupContent,
-                    }));
-                }
-
-            </script>
-        @endsection
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&v=weekly"
+            async></script>
+        <script src="{{ asset('js/map.js') }}"></script>
+    @endsection
 </x-app>

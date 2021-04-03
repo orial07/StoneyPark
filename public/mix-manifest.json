@@ -2,9 +2,5 @@
     "/js/app.js": "/js/app.js",
     "/js/checkout.js": "/js/checkout.js",
     "/js/bootstrap.bundle.js": "/js/bootstrap.bundle.js",
-    "/js/leaflet-src.js": "/js/leaflet-src.js",
-    "/js/leaflet.toolbar-src.js": "/js/leaflet.toolbar-src.js",
-    "/css/app.css": "/css/app.css",
-    "/css/leaflet.toolbar-src.css": "/css/leaflet.toolbar-src.css",
-    "/css/leaflet.css": "/css/leaflet.css"
+    "/css/app.css": "/css/app.css"
 }

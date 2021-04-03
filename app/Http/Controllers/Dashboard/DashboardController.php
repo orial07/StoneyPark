@@ -9,7 +9,6 @@ use App\Models\Reservation;
 use App\Models\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
@@ -20,21 +19,6 @@ class DashboardController extends Controller
         return view('public.dashboard.main', [
             'reservations' => Reservation::where('email', $email)->paginate(20)
         ]);
-    }
-
-    public function showMap()
-    {
-        $geomap = '';
-        if (Storage::disk('local')->exists('geomap.json')) {
-            $geomap = Storage::disk('local')->get('geomap.json');
-        }
-        return view('public.dashboard.map', ['geomap' => json_encode(json_decode($geomap))]);
-    }
-
-    public function editMap(Request $r) {
-        $data = $r->getContent();
-        Storage::disk('local')->put('geomap.json', $data);
-        return Response::json(array('success' => 1));
     }
 
     public function showReservation($id)
@@ -55,6 +39,7 @@ class DashboardController extends Controller
     {
         return view('public.dashboard.reservations', [
             'reservations' => DB::table('reservations')
+            // show only reservations in-progress, or soon to come
                 // ->where('date_in', '>=', (new DateTime())->format("Y-m-d"))
                 // ->orWhere('date_out', '>=', (new DateTime())->format("Y-m-d"))
                 ->paginate(20)
@@ -73,7 +58,7 @@ class DashboardController extends Controller
                 ->paginate(20)
         ]);
     }
-    
+
     public function showRules()
     {
         return view('public.dashboard.rules', [
