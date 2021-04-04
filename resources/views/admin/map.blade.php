@@ -61,12 +61,16 @@
     </div>
 
     <!-- toast notification -->
-    <div class="toast position-fixed bottom-0 end-0 p-3 z-index-modal">
-        <div class="d-flex">
-            <div class="toast-body"></div>
-            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    <div class="toast position-fixed m-3 top-0 end-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Saved!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Your changes have been saved successfully.
         </div>
     </div>
+
 
     @section('scripts')
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -74,6 +78,6 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&libraries=drawing&v=weekly"
             async></script>
 
-        <script src="{{ asset('js/map.edit.js') }}"></script>
+        <script src="{{ asset('js/admin.map.js') }}"></script>
     @endsection
 </x-app>

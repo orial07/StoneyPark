@@ -44,12 +44,7 @@
             </div><!-- col end -->
 
             <div class="col-12">
-                @foreach ($pictures as $picture)
-                    <figure class="figure">
-                        <img class="figure-img gallery-img img-thumbnail rounded" src="{!! asset('storage/' . $picture->name) !!}" />
-                        <figcaption class="figure-caption">{!! $picture->name !!}</figcaption>
-                    </figure>
-                @endforeach
+                <x-pictures :pictures="$pictures" :names="true"></x-pictures>
             </div><!-- col end -->
         </div>
     </div>

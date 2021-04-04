@@ -13,7 +13,12 @@ const mix = require('laravel-mix');
 
 mix
     .js('resources/js/app.js', 'public/js')
+
     .js('resources/js/checkout.js', 'public/js')
+
+    .js('resources/js/map.js', 'public/js')
+    .js('resources/js/admin.map.js', 'public/js')
+
     .js('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/js')
 
     // .js('node_modules/leaflet/dist/leaflet-src.js', 'public/js')

@@ -65,8 +65,8 @@ function EditControl(overlay) {
     MODAL.show();
 }
 
-function SaveControl() {
-    let overlay = MODAL.tag;
+window.SaveControl = function() {
+    const overlay = MODAL.tag;
     if (!overlay) return;
 
     let data = GetModalData(true);
@@ -74,14 +74,14 @@ function SaveControl() {
         name: data.name,
         description: data.description,
     };
-    google.maps.event.addListener(overlay.e.overlay, 'click', () => EditControl(overlay));
+    let control = overlay.e.overlay || overlay.e;
+    control.addListener('click', () => EditControl(overlay));
 
-    console.log('SAVED', overlay)
     MODAL.tag = null;
     MODAL.hide();
 }
 
-function DeleteControl() {
+window.DeleteControl = function() {
     let overlay = MODAL.tag;
     if (!overlay) return;
 
@@ -135,7 +135,7 @@ function CreateControl(map, data) {
 }
 
 
-function initMap() {
+window.initMap = function () {
     const MAP = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 51.05563894221939, lng: -114.07027244567871 },
         zoom: 15,
@@ -192,7 +192,6 @@ function initMap() {
         DRAWING.setDrawingMode(null);
 
         let overlay = new Overlay(drawing);
-        console.log('CREATE', overlay);
 
         MODAL.tag = overlay;
         OVERLAYS.push(overlay);
@@ -201,7 +200,7 @@ function initMap() {
     DRAWING.setMap(MAP);
 }
 
-function SaveOverlays() {
+window.SaveOverlays = function() {
     $.ajax({
         data: OVERLAYS.toString(),
         dataType: 'json',

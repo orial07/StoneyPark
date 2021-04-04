@@ -114,7 +114,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="propsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="maps-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="properties" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -134,13 +134,13 @@
 
     @section('scripts')
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js">
-        </script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script src="{{ asset('js/checkout.js') }}"></script>
 
         <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&v=weekly"
-            async></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&v=weekly"
+        async>
+        </script>
         <script src="{{ asset('js/map.js') }}"></script>
     @endsection
 </x-app>
