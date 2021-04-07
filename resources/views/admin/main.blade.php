@@ -1,6 +1,6 @@
 <x-app>
     <div class="container-md container-sm-fluid mt-4">
-        <x-dashboard.navbar></x-dashboard.navbar>
+        <x-admin.navbar></x-admin.navbar>
 
         <p class="lead">Hey {!! auth()->user()->name !!}, welcome to the Admin Control Panel!</p>
         <p>Please don't touch anything if you don't know what you're doing. All tools and interfaces here are subject to

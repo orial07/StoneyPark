@@ -1,5 +1,4 @@
-<!-- navigation bar start -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md shadow navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="/">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -11,40 +10,29 @@
                 @auth
                     <!-- Example split danger button -->
                     <div class="btn-group">
-                        <a class="nav-link" href="{{ route('account') }}">Account</a>
+                        <x-nav-item name="account">Account</x-nav-item>
+
                         <a class="nav-link dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <span class="visually-hidden">Toggle Dropdown</span>
                         </a>
                         <ul class="dropdown-menu">
                             @if (Auth::user()->web_admin)
-                                <li><a class="dropdown-item" href="{{ route('admin') }}">Admin Panel</a></li>
+                                <x-nav-item name="admin" class="dropdown-item">Admin Panel</x-nav-item>
                             @endif
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                            <x-nav-item name="logout" class="dropdown-item">Logout</x-nav-item>
                         </ul>
                     </div>
                 @endauth
                 @guest
-                    <li class="nav-item">
-                        <a class="nav-link  {{ request()->is('login') ? 'active' : '' }}"
-                            href="{{ route('login') }}">Login</a>
-                    </li>
+                    <x-nav-item name="login">Login</x-nav-item>
                 @endguest
-                <li class="nav-item">
-                    <a class="nav-link  {{ request()->is('reserve') ? 'active' : '' }}"
-                        href="{{ route('reserve') }}">Reserve</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  {{ request()->is('rules') ? 'active' : '' }}"
-                        href="{{ route('rules') }}">Rules</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  {{ request()->is('gallery') ? 'active' : '' }}"
-                        href="{{ route('gallery') }}">Gallery</a>
-                </li>
+                <x-nav-item name="reserve">Reserve</x-nav-item>
+                <x-nav-item name="rules">Rules</x-nav-item>
+                <x-nav-item name="gallery">Gallery</x-nav-item>
             </ul>
         </div>
     </div>

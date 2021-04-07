@@ -1,10 +1,9 @@
 <x-app>
-    @section('title', '- Rules')
+    @section('title', 'Rules')
 
-    <div class="container mt-4">
-        <div class="lead m-5">
-            <p>Below are rules that apply to everyone at Stoney Campgrounds. We ask that you abide these rules.</p>
-        </div>
+    <x-container>
+        <p class="lead p-5">Below are rules that apply to everyone at Stoney Campgrounds. We ask that you abide these
+            rules.</p>
 
         <div class="list-group">
             @foreach ($rules as $rule)
@@ -14,5 +13,5 @@
                 </div>
             @endforeach
         </div>
-    </div>
+    </x-container>
 </x-app>
