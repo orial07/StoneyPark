@@ -3,29 +3,26 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     @endsection
 
-    <div class="container-md container-sm-fluid mt-4">
-        <x-dashboard.navbar></x-dashboard.navbar>
-
-        <div class="m-5 lead">
-            <p>All changes made can immediately affect the <a href="{{ route('reserve') }}">Reservation</a> page. Any
-                modifications cannot be un-done.</p>
-        </div>
-        <div class="mb-4">
-            <p>Click any marker on the interactive map below to enable editing of them at your discretion. Changes are
-                local until clicking Save Changes.<br />
-                After clicking Save Changes, any modifications <small>(ie. additions, deletions and information
-                    changes)</small> are immediately and permanently applied for public viewing.</p>
-            <div class="d-grid gap-1">
-                <button class="btn btn-primary" onclick="SaveOverlays()">Save Changes</button>
+    <x-container class="mt-5">
+        <div class="row">
+            <div class="col-2">
+                <x-admin.navbar></x-admin.navbar>
+            </div>
+            <div class="col">
+                <p class="lead p-5">All changes made can immediately affect the <a
+                        href="{{ route('reserve') }}">Reservation</a> page.</p>
+                <p>Any modifications cannot be un-done. Click any marker on the interactive map below to enable editing
+                    of them at your discretion.</p>
+                <p>Changes are local until clicking Save Changes. After clicking Save
+                    Changes, any modifications <small>(ie. additions, deletions and information changes)</small> are
+                    immediately and permanently applied for public viewing.</p>
+                <p class="text-end">
+                    <button class="btn btn-primary" onclick="SaveOverlays()">Save Changes</button>
+                </p>
+                <div id="map" class="mt-5" style="height: 80vh"></div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div id="map" style="height: 80vh"></div>
-        </div>
-    </div>
+    </x-container>
 
     <!-- Modal -->
     <div class="modal fade" id="propsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -70,7 +67,6 @@
             Your changes have been saved successfully.
         </div>
     </div>
-
 
     @section('scripts')
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>

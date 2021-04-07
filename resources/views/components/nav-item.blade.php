@@ -1,7 +1,8 @@
-@props(['name'])
+@props(['href'])
 
 <li class="nav-item">
-    <a {{ $attributes->class(['nav-link', 'active' => request()->routeIs("$name*")]) }} href="{{ route($name) }}">
+    <a href="/{{ $href }}"
+        {{ $attributes->class(['nav-link', 'active' => request()->is($href.'*')])->merge() }}>
         {{ $slot }}
     </a>
 </li>

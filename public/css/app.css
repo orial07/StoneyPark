@@ -10774,9 +10774,11 @@ object {
   justify-content: space-between;
 }
 .gallery > li {
-  height: 25vh;
+  display: flex;
+  height: 100rem;
+  max-height: 25vh;
   flex-grow: 1;
-  margin: 1rem;
+  margin: 0.3rem;
 }
 .gallery > li p {
   margin-top: -0.5rem;
@@ -10915,11 +10917,5 @@ object {
 @media (min-width: 62em) {
   .featurette-heading {
     margin-top: 7rem;
-  }
-}
-@media screen and (max-width: 500px) {
-  .gallery > li {
-    height: inherit;
-    margin: 0;
   }
 }

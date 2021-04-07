@@ -48,9 +48,11 @@ object {
     flex-wrap: wrap;
     justify-content: space-between;
     & > li {
-        height: 25vh;
+        display: flex;
+        height: 100rem;
+        max-height: 25vh;
         flex-grow: 1;
-        margin: 1rem;
+        margin: 0.3rem;
     }
 
     & > li p {
@@ -58,7 +60,9 @@ object {
     }
 
     & > li img {
+        // limit the height so images aren't too vertical
         max-height: 100%;
+        // maximize the width and allow aspect ratio scaling
         min-width: 100%;
         object-fit: cover;
     }
@@ -197,12 +201,5 @@ object {
 @media (min-width: 62em) {
     .featurette-heading {
         margin-top: 7rem;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .gallery > li {
-        height: inherit;
-        margin: 0;
     }
 }

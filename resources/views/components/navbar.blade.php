@@ -10,7 +10,7 @@
                 @auth
                     <!-- Example split danger button -->
                     <div class="btn-group">
-                        <x-nav-item name="account">Account</x-nav-item>
+                        <x-nav-item href="account">Account</x-nav-item>
 
                         <a class="nav-link dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -18,21 +18,21 @@
                         </a>
                         <ul class="dropdown-menu">
                             @if (Auth::user()->web_admin)
-                                <x-nav-item name="admin" class="dropdown-item">Admin Panel</x-nav-item>
+                                <x-nav-item href="admin" class="dropdown-item">Admin Panel</x-nav-item>
                             @endif
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <x-nav-item name="logout" class="dropdown-item">Logout</x-nav-item>
+                            <x-nav-item href="logout" class="dropdown-item">Logout</x-nav-item>
                         </ul>
                     </div>
                 @endauth
                 @guest
-                    <x-nav-item name="login">Login</x-nav-item>
+                    <x-nav-item href="login">Login</x-nav-item>
                 @endguest
-                <x-nav-item name="reserve">Reserve</x-nav-item>
-                <x-nav-item name="rules">Rules</x-nav-item>
-                <x-nav-item name="gallery">Gallery</x-nav-item>
+                <x-nav-item href="reserve">Reserve</x-nav-item>
+                <x-nav-item href="rules">Rules</x-nav-item>
+                <x-nav-item href="gallery">Gallery</x-nav-item>
             </ul>
         </div>
     </div>
