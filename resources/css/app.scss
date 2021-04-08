@@ -45,21 +45,17 @@ object {
 
 // abstract sizing on gallery images
 .gallery {
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    & > li {
-        display: flex;
+    & > figure {
         height: 100rem;
         max-height: 25vh;
         flex-grow: 1;
         margin: 0.3rem;
     }
 
-    & > li p {
-        margin-top: -0.5rem;
-    }
-
-    & > li img {
+    & > figure img {
         // limit the height so images aren't too vertical
         max-height: 100%;
         // maximize the width and allow aspect ratio scaling

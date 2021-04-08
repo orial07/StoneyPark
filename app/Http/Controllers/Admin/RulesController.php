@@ -24,17 +24,18 @@ class RulesController extends Controller
 
     public function edit($id)
     {
+        $rule = Rule::find($id);
+        if (!$rule) abort(404);
+
         return view('admin.rule', [
-            'rule' => Rule::find($id)
+            'rule' => $rule
         ]);
     }
 
     public function delete($id)
     {
         $rule = Rule::find($id);
-        if (!$rule) {
-            return abort(404);
-        }
+        if (!$rule) return abort(404);
 
         $rule->delete();
         return redirect()

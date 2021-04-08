@@ -1,16 +1,16 @@
 @if (sizeof($pictures) == 0)
     <p>Uh Oh. We don't have any pictures of our campground to show you.</p>
 @else
-    <ul class="list-unstyled d-flex gallery">
+    <div class="gallery">
         @foreach ($pictures as $picture)
-            <li>
-                <img role="button" class="figure-img gallery-img img-thumbnail rounded" src="{!! asset('storage/' . $picture->name) !!}" />
+            <figure class="position-relative">
+                <img role="button" class="figure-img gallery-img" src="{!! asset('storage/' . $picture->name) !!}" />
                 @if ($names)
-                    <p class="figure-caption">{!! $picture->name !!}</p>
+                    <figcaption class="position-absolute top-0 text-light bg-dark px-3">{!! $picture->name !!}</figcaption>
                 @endif
-            </li>
+            </figure>
         @endforeach
-    </ul>
+    </div>
 @endif
 
 <div class="modal" tabindex="-1" id="gallery-modal">
