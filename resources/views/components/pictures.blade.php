@@ -4,7 +4,7 @@
     <div class="gallery">
         @foreach ($pictures as $picture)
             <figure class="position-relative">
-                <img role="button" class="figure-img gallery-img" src="{!! asset('storage/' . $picture->name) !!}" />
+                <img role="button" class="figure-img gallery-img img-thumbnail" src="{!! asset('storage/' . $picture->name) !!}" />
                 @if ($names)
                     <figcaption class="position-absolute top-0 text-light bg-dark px-3">{!! $picture->name !!}</figcaption>
                 @endif
