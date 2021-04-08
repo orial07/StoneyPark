@@ -8,7 +8,6 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 @auth
-                    <!-- Example split danger button -->
                     <div class="btn-group">
                         <x-nav-item href="account">Account</x-nav-item>
 
@@ -16,8 +15,8 @@
                             aria-expanded="false">
                             <span class="visually-hidden">Toggle Dropdown</span>
                         </a>
-                        <ul class="dropdown-menu">
-                            @if (Auth::user()->web_admin)
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            @if (auth()->user()->web_admin)
                                 <x-nav-item href="admin" class="dropdown-item">Admin Panel</x-nav-item>
                             @endif
                             <li>
