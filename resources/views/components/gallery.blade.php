@@ -1,12 +1,23 @@
 @if (sizeof($pictures) == 0)
-    <p>Uh Oh. We don't have any pictures of our campground to show you.</p>
+    @if (!$admin)
+        <x-container>
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <p>We currently don't have any pictures of our campground to show you. Instead, take a look at our
+                        content on various platforms. You can find more behind the scenes and content created by us and
+                        many others!</p>
+                </div>
+            </div>
+        </x-container>
+    @endif
 @else
     <div class="gallery">
         @foreach ($pictures as $picture)
             <figure class="position-relative">
                 <img role="button" class="figure-img gallery-img img-thumbnail" src="{!! asset('storage/' . $picture->name) !!}" />
-                @if ($names)
-                    <figcaption class="position-absolute top-0 text-light bg-dark px-3">{!! $picture->name !!}</figcaption>
+                @if ($admin)
+                    <figcaption class="position-absolute top-0 text-light bg-dark px-3">{!! $picture->name !!}
+                    </figcaption>
                 @endif
             </figure>
         @endforeach

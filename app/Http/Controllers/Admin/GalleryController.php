@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Exception;
 use App\Http\Controllers\Controller;
 use App\Models\Picture;
-use Error;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class GalleryController extends Controller
 {
@@ -36,6 +36,10 @@ class GalleryController extends Controller
                         $picture->name = $name;
                         $picture->url = $path;
                         $picture->save();
+
+
+                        Image::make($image->getRealPath())
+                            ->save(Storage::disk('public')->path($name), 70, 'jpg');
                     } catch (Exception $e) {
                         $errors[$name] = "Failed to upload $name: {$e->getMessage()}";
                     }

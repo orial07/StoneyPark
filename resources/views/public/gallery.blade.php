@@ -1,9 +1,7 @@
 <x-app>
     @section('title', 'Gallery')
 
-    <x-socials class="mb-5">
-        <p class="lead p-5">Remember to find and tag us on social media! You can find much more behind the scenes and community content.</p>
-    </x-socials>
+    <x-socials class="my-5"></x-socials>
 
-    <x-pictures :pictures="$pictures" :names="false"></x-pictures>
+    <x-gallery :pictures="$pictures" :admin="false"></x-gallery>
 </x-app>

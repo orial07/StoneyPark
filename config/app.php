@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         // customs
         'ReservationUtil' => App\Helper\ReservationUtil::class,
+        'Image' => Intervention\Image\Facades::class,
     ],
 
 ];

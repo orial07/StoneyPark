@@ -43,7 +43,7 @@
 
         <!-- gallery -->
         <div class="col-12">
-            <x-pictures :pictures="$pictures" :names="true"></x-pictures>
+            <x-gallery :pictures="$pictures" :admin="true"></x-gallery>
         </div>
     </div>
 </x-admin-app>
