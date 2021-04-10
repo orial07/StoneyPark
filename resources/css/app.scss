@@ -49,8 +49,6 @@ object {
     flex-wrap: wrap;
     justify-content: space-between;
     & > figure {
-        height: 100rem;
-        max-height: 25vh;
         flex-grow: 1;
         margin: 0.3rem;
     }
@@ -61,6 +59,11 @@ object {
         // maximize the width and allow aspect ratio scaling
         min-width: 100%;
         object-fit: cover;
+    }
+
+    & > figure,
+    & > figure img {
+        height: 12rem;
     }
 }
 
@@ -197,5 +200,24 @@ object {
 @media (min-width: 62em) {
     .featurette-heading {
         margin-top: 7rem;
+    }
+}
+
+@media (max-width: 585px) {
+    .gallery {
+        & > figure,
+        & > figure img {
+            height: 10rem;
+        }
+    }
+}
+
+
+@media (max-width: 500px) {
+    .gallery {
+        & > figure,
+        & > figure img {
+            height: 8rem;
+        }
     }
 }
