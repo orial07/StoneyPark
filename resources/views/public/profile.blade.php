@@ -4,7 +4,7 @@
     <div class="container mt-4">
         <div class="m-5">
             <h1 class="text-center display-6 m-5">Welcome back, {{ auth()->user()->name }}!</h1>
-            <p>Here is a list of all of your reservations at Stoney Campgrounds. Should you have any questions, feel
+            <p>Here is a list of all your reservations at Stoney Campgrounds. Should you have any questions, feel
                 free to <a href="{{ route('contact') }}">contact us</a>.</p>
         </div>
 
