@@ -18,6 +18,10 @@ object {
     pointer-events: none;
 }
 
+footer a {
+    text-decoration: none !important;
+}
+
 .svg-icon {
     height: 1rem;
     margin-top: -0.5rem;
