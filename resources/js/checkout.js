@@ -16,6 +16,8 @@ $(document).ready(function () {
         onDateChanged(start, end);
     });
 
+    // initialize fields for number of campers
+    onCampersChanged(form.campers);
     form.addEventListener('change', function (e) {
         if (e.target.name == "campers") onCampersChanged(e.target);
         update();
@@ -44,14 +46,14 @@ function onCampersChanged(e) {
 
     campers.innerHTML = ""
     for (let i = 0; i < count - 1; i++) {
-        campers.innerHTML +=
-            `<div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="">Name</span>
-                </div>
-                <input type="text" class="form-control" placeholder="First Name" name="camper${i}_first_name" autofocus required />
-                <input type="text" class="form-control" placeholder="Last Name" name="camper${i}_last_name" required />
-            </div>`;
+        campers.innerHTML += `\
+<div class="input-group mb-3">\
+    <div class="input-group-prepend">\
+        <span class="input-group-text" id="">Name</span>\
+    </div>\
+    <input type="text" class="form-control" placeholder="First Name" name="camper${i}_first_name" autofocus required />\
+    <input type="text" class="form-control" placeholder="Last Name" name="camper${i}_last_name" required />\
+</div>`;
     }
 }
 

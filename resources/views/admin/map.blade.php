@@ -1,4 +1,9 @@
 <x-admin-app>
+    @section('head')
+        <!-- date picker -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    @endsection
+
     <p class="lead p-5">All changes made can immediately affect the <a href="{{ route('reserve') }}">Reservation</a>
         page.</p>
     <p>Any modifications cannot be un-done. Click any marker on the interactive map below to enable editing

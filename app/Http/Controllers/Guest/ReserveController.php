@@ -93,7 +93,16 @@ class ReserveController extends Controller
         $res->date_out = $depature = strtotime($dates[1]);
 
         if ($res->date_in >= $res->date_out) {
-            return redirect('/reserve')->withErrors(['error' => 'Invalid reservation date provided']);
+            return redirect('/reserve')
+                ->withErrors(['error' => 'Invalid reservation date provided'])
+                ->withInput();
+        }
+
+        $count = $this->get_reservations_on($res->date_in, $res->camping_type);
+        if ($count >= 100) {
+            return redirect('/reserve')
+                ->withErrors(['error' => 'Sorry! All campgrounds are currently reserved.'])
+                ->withInput();
         }
 
         // convert from seconds -> minutes -> hours -> days
@@ -145,8 +154,6 @@ class ReserveController extends Controller
         if (!isset($data)) return abort(404);
 
         $res = $data['reservation'];
-
-        $count = $this->get_reservations_on($res->date_in, $res->camping_type);
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $checkout_session = $stripe->checkout->sessions->create([

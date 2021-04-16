@@ -12,7 +12,7 @@
 
         <div class="row">
             @env('local')
-            <div class="order-1 order-md-0 col-md-5 col-lg">
+            <div class="order-1 order-md-0 col-md-5 col-lg mt-sm-4">
                 <div id="map" class="h-100" style="min-height: 80vh;"></div>
             </div>
             @endenv
@@ -25,8 +25,9 @@
                             <span class="input-group-text" id="">Name</span>
                         </div>
                         <input type="text" class="form-control" placeholder="First Name" name="first_name" autofocus
-                            required />
-                        <input type="text" class="form-control" placeholder="Last Name" name="last_name" required />
+                            required value="{{ old('first_name') }}" />
+                        <input type="text" class="form-control" placeholder="Last Name" name="last_name" required
+                            value="{{ old('last_name') }}" />
                     </div>
 
                     <!-- Customer Email -->
@@ -35,7 +36,7 @@
                             <span class="input-group-text">Email</span>
                         </div>
                         <input type="email" class="form-control" placeholder="example@hotmail.com" name="email"
-                            required>
+                            required value="{{ old('email') }}">
                     </div>
 
                     <!-- Customer Phone -->
@@ -43,7 +44,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Phone</span>
                         </div>
-                        <input type="tel" class="form-control" placeholder="123 456 7890" name="phone" required>
+                        <input type="tel" class="form-control" placeholder="123 456 7890" name="phone" required value="{{ old('phone') }}">
                     </div>
 
                     <!-- Customer Age -->
@@ -87,7 +88,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Reservation</span>
                         </div>
-                        <input type="text" class="form-control" name="dates" required>
+                        <input type="text" class="form-control" name="dates" required autocomplete="off">
                         <small class="form-text text-muted w-100" id="day_count"></small>
                     </div>
 
@@ -138,8 +139,8 @@
         <script src="{{ asset('js/checkout.js') }}"></script>
 
         <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&v=weekly"
-        async>
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&v=weekly"
+            async>
         </script>
         <script src="{{ asset('js/map.js') }}"></script>
     @endsection

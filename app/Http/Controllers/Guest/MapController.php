@@ -19,5 +19,6 @@ class MapController extends Controller
             $geomap = Storage::disk('local')->get('geomap.json');
             return Response::json(json_decode('[' . $geomap . ']'));
         }
+        abort(404);
     }
 }
