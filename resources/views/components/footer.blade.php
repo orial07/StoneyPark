@@ -11,10 +11,6 @@
                     @guest
                         <li><a class="text-muted" href="{{ route('login') }}">Login</a></li>
                     @endguest
-                    @auth
-                        <li><a class="text-muted" href="{{ route('account') }}">My Account</a></li>
-                        <li><a class="text-muted" href="{{ route('logout') }}">Logout</a></li>
-                    @endauth
                 </ul>
             </div>
             <div class="col">

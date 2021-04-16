@@ -4,7 +4,7 @@
             <div class="col-sm-8 col-md-6 col-lg-4">
 
                 <!-- Validation Errors -->
-                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                <x-errors :errors="$errors" />
 
                 <form method="POST" action="{{ route('register') }}">
                     @csrf

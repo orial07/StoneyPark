@@ -15,7 +15,9 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="main-navbar-dropdown">
                             <x-nav-item class="dropdown-item" href="account">My Profile</x-nav-item>
-                            <x-nav-item class="dropdown-item" href="admin">Admin Panel</x-nav-item>
+                            @if (auth()->user()->web_admin)
+                                <x-nav-item class="dropdown-item" href="admin">Admin Panel</x-nav-item>
+                            @endif
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
@@ -23,9 +25,6 @@
                         </ul>
                     </li>
                 @endauth
-                @guest
-                    <x-nav-item class="nav-link" href="login">Login</x-nav-item>
-                @endguest
                 <x-nav-item class="nav-link" href="reserve">Reserve</x-nav-item>
                 <x-nav-item class="nav-link" href="rules">Rules</x-nav-item>
                 <x-nav-item class="nav-link" href="gallery">Gallery</x-nav-item>
