@@ -14,9 +14,9 @@ class HomeController extends Controller
     {
         $this->carousel = array(
             new CarouselItem(
-                "Welcome to Stoney Park!",
+                "Welcome to Stoney Campgrounds!",
                 "Open all day, everyday.",
-                "Reserve",
+                "Reserve Now",
                 url('/reserve'),
                 "img/banner1.jpg"
             ),
