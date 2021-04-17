@@ -3,6 +3,8 @@
 namespace App\Helper;
 
 use App\Models\Reservation;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ReservationUtil
 {
@@ -30,5 +32,19 @@ class ReservationUtil
         // flat fee for the second tent
         if ($reservation->camping_type == 1) $cost += 30;
         return $cost;
+    }
+
+    public static function getCampgrounds()
+    {
+        $geomap = '';
+        if (Storage::disk('local')->exists('geomap.json')) {
+            $geomap = Storage::disk('local')->get('geomap.json');
+        }
+        return Response::json(json_decode('[' . $geomap . ']'));
+    }
+
+    public static function getMaxReservations() {
+        // return sizeof(ReservationUtil::getCampgrounds());
+        return 100;
     }
 }

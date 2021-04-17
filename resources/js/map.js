@@ -58,7 +58,7 @@ window.initMap = function () {
             console.log(error);
         },
         processData: false,
-        url: '/map/load',
+        url: '/api/map',
     });
     window.MAP = MAP;
 }

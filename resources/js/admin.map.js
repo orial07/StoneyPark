@@ -160,7 +160,7 @@ window.initMap = function () {
             console.log(error);
         },
         processData: false,
-        url: '/map/load',
+        url: '/api/map',
     });
 
     const DRAWING = new google.maps.drawing.DrawingManager({
@@ -211,6 +211,9 @@ window.SaveOverlays = function() {
         success: (data, status, xhr) => {
             $('.toast .toast-body').text('Changes have been saved.')
             $('.toast').toast('show');
+        },
+        error: (xhr, status, error) => {
+            console.log(error);
         },
         processData: false,
         url: '/admin/map/save',

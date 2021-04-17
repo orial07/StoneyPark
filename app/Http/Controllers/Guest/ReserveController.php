@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Guest;
 
-use DateTime;
-use Exception;
+use App\Helper\ReservationUtil;
 use App\Models\Reservation;
 use App\Mail\ReservationBooking;
 use App\Http\Controllers\Controller;
@@ -14,6 +13,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use DateTime;
+use Exception;
 
 class ReserveController extends Controller
 {
@@ -99,7 +100,7 @@ class ReserveController extends Controller
         }
 
         $count = $this->get_reservations_on($res->date_in, $res->camping_type);
-        if ($count >= 100) {
+        if ($count >= ReservationUtil::getMaxReservations()) {
             return redirect('/reserve')
                 ->withErrors(['error' => 'Sorry! All campgrounds are currently reserved.'])
                 ->withInput();

@@ -30,8 +30,6 @@ Route::post('/contact', [Controller::class, 'contact_send'])->name('contact.send
 
 Route::get('/gallery', [GalleryController::class, 'show'])->name('gallery');
 
-Route::post('/map/load', [MapController::class, 'load']);
-
 Route::name('reserve')
     ->prefix('reserve')
     ->group(function () {
