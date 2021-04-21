@@ -1,10 +1,17 @@
 const DAY_MILLIS = 86400000;
 const TIME_FORMAT = "MM/DD/YYYY";
+const CAMPING_TYPES = [
+    // per-night cost, title, qty, total
+    [39, 0, 'Medium Tent', '1', 'ct_total_single'],
+    [39, 30, 'Extra Medium Tent', '2', 'ct_total_double'],
+    [69, 0, 'Recreational Vehicle', '1', 'ct_total_rv'],
+];
 const form = document.reserve_form;
 
 var nights = 1;
 
 $(document).ready(function () {
+    // intialize stepper
     let stepper = window.stepper = new Stepper($('.bs-stepper')[0], {
         linear: false,
         animation: false,
@@ -16,32 +23,23 @@ $(document).ready(function () {
     });
     stepper.reset();
 
-    let now = moment(),
-        later = moment().add(1, 'day');
+    // initialize date-range-picker
+    let now = moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
     $('input[name="dates"]').daterangepicker({
         startDate: now.format(TIME_FORMAT),
-        endDate: later.format(TIME_FORMAT),
+        endDate: now.format(TIME_FORMAT),
         minDate: now.format(TIME_FORMAT),
         autoApply: true,
     }, function (start, end, label) {
         onDateChanged(start, end);
     });
-    $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
-        let start = picker.startDate, end = picker.endDate;
-        if (start.format("MM/DD/YYYY") >= end.format("MM/DD/YYYY")) {
-            end = moment(start).add(1, 'day');
-            $(this).val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-            onDateChanged(start, end);
-        }
-    });
 
-    onDateChanged(now, later); // initialize number of nights
+    onDateChanged(now, now); // initialize number of nights
     onCampersChanged(form.campers); // initialize fields for number of campers
     form.addEventListener('change', function (e) {
         if (e.target.name == "campers") onCampersChanged(e.target);
         update();
     });
-    update();
 });
 
 // gets the selected camping type
@@ -57,7 +55,10 @@ function getCampingType() {
 
 // updates number of nights based on arrival and departure reservation dates
 function onDateChanged(start, end) {
-    let days = moment.duration(end.diff(start)).days();
+    start = start.startOf('day');
+    end = end.startOf('day');
+
+    let days = moment.duration(end.diff(start)).asDays();
     nights = Math.round(days) + 1;
     update();
 }
@@ -86,19 +87,19 @@ function update() {
 
     let campingType = getCampingType();
     // update review step contents
-    let selection = [
-        // per-night cost, title, qty, total
-        [39, 'Medium Tent', '1', 0],
-        [39, 'Extra Medium Tent', '2', 30],
-        [69, 'Recreational Vehicle', '1', 0],
-    ][campingType];
-    let cost = selection[0];
-    $('#r_camping_type').text(selection[1]);
-    $('#r_camping_type_qty').text(selection[2]);
-    $('#r_camping_type_cost').text(selection[3]);
+    let type = CAMPING_TYPES[campingType];
+    let cost = type[0] * nights;
+    $('#r_camping_type_cost').text(type[1]);
+    $('#r_camping_type').text(type[2]);
+    $('#r_camping_type_qty').text(type[3]);
 
     $('#r_nights_qty').text(nights);
-    $('#r_nights_cost').text(cost *= nights);
+    $('#r_nights_cost').text(cost);
+
+    for (let i = 0; i < CAMPING_TYPES.length; i++) {
+        let ct = CAMPING_TYPES[i];
+        $(`#${ct[ct.length - 1]}`).text(ct[1] + (ct[0] * nights));
+    }
 
     $('#r_customer_name').text(`${$('input[name="first_name"]').val()} ${$('input[name="last_name"]').val()}`);
     $('#r_customer_email').text(`${$('input[name="email"]').val()}`);

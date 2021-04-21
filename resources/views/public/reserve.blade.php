@@ -31,7 +31,7 @@
                                 <!-- Customer Name -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="">Name</span>
+                                        <span class="input-group-text">Name</span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="First Name" name="first_name"
                                         autofocus required value="{{ old('first_name') }}" />
@@ -77,8 +77,7 @@
                                         yourself.</small>
                                 </div>
 
-                                <div class="container" id="campers">
-                                </div>
+                                <div class="container" id="campers"></div>
 
                                 <button type="button" class="btn btn-primary float-end"
                                     onclick="stepper.next()">Next</button>
@@ -92,8 +91,8 @@
                         <div class="row justify-content-center">
                             <div class="col col-sm-8 col-lg-6">
                                 <p>Selected reservation dates are nights you stay. The date for arrival will be <span
-                                        class="text-primary" id="date_arrive"></span> and the date you leave is <span class="text-primary"
-                                        id="date_depart"></span> (the morning after your last
+                                        class="text-primary" id="date_arrive"></span> and the date you leave is <span
+                                        class="text-primary" id="date_depart"></span> (the morning after your last
                                     night).</p>
                             </div>
                         </div>
@@ -116,7 +115,7 @@
                                 <div class="col-xs-12 col-md-3 card">
                                     <input class="form-check-input" type="radio" name="camping_type" id="ct_single"
                                         value="0" checked>
-                                    <h2>$39</h2>
+                                    <h2>$<span id="ct_total_single">39</span></h2>
                                     <label role="button" class="stretched-link fs-5" for="ct_single">Single Medium
                                         Tent</label>
                                     <small>$39 per night</small>
@@ -125,7 +124,7 @@
                                 <div class="col-xs-12 col-md-3 card">
                                     <input class="form-check-input" type="radio" name="camping_type" id="ct_double"
                                         value="1">
-                                    <h2>$69*</h2>
+                                    <h2>$<span id="ct_total_double">69</span>*</h2>
                                     <label role="button" class="stretched-link fs-5" for="ct_double">Extra Medium
                                         Tent</label>
                                     <small>*$39 per night, $30 one-time fee</small>
@@ -134,7 +133,7 @@
                                 <div class="col-xs-12 col-md-3 card">
                                     <input class="form-check-input" type="radio" name="camping_type" id="ct_rv"
                                         value="2">
-                                    <h2>$69</h2>
+                                    <h2>$<span id="ct_total_rv">69</span></h2>
                                     <label role="button" class="stretched-link fs-5" for="ct_rv">Recreational
                                         Vehicle</label>
                                     <small>$69 per night</small>
@@ -156,7 +155,8 @@
                     <x-controls.stepper-step class="dstepper-none" :step="3">
                         <div class="row justify-content-center">
                             <div class="col-md col-lg-8">
-                                <p>Please enter all information and make sure everything shown below is correct before proceeding with payment.</p>
+                                <p>Please enter all information and make sure everything shown below is correct before
+                                    proceeding with payment.</p>
                                 <dl class="row">
                                     <dt class="col-sm-3">Name</dt>
                                     <dd class="col-sm-9"><span id="r_customer_name"></span></dd>
