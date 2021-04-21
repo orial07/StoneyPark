@@ -156,7 +156,7 @@
                     <x-controls.stepper-step class="dstepper-none" :step="3">
                         <div class="row justify-content-center">
                             <div class="col-md col-lg-8">
-                                <p>Please make sure all information shown is correct before proceeding with payment.</p>
+                                <p>Please enter all information and make sure everything shown below is correct before proceeding with payment.</p>
                                 <dl class="row">
                                     <dt class="col-sm-3">Name</dt>
                                     <dd class="col-sm-9"><span id="r_customer_name"></span></dd>
@@ -168,10 +168,10 @@
                                     <dd class="col-sm-9"><span id="r_customer_phone"></span></dd>
 
                                     <dt class="col-sm-3">Arrival</dt>
-                                    <dd class="col-sm-9"><span id="r_arrival"></span></dd>
+                                    <dd class="col-sm-9"><span id="r_arrive"></span></dd>
 
                                     <dt class="col-sm-3">Departure</dt>
-                                    <dd class="col-sm-9"><span id="r_departure"></span></dd>
+                                    <dd class="col-sm-9"><span id="r_depart"></span></dd>
                                 </dl>
 
                                 <table class="table table-hover">

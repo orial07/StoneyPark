@@ -16,8 +16,6 @@ $(document).ready(function () {
     });
     stepper.reset();
 
-    update();
-
     let now = moment(),
         later = moment().add(1, 'day');
     $('input[name="dates"]').daterangepicker({
@@ -43,6 +41,7 @@ $(document).ready(function () {
         if (e.target.name == "campers") onCampersChanged(e.target);
         update();
     });
+    update();
 });
 
 // gets the selected camping type
@@ -58,9 +57,6 @@ function getCampingType() {
 
 // updates number of nights based on arrival and departure reservation dates
 function onDateChanged(start, end) {
-    document.getElementById('date_arrive').innerHTML = start.format("LL");
-    document.getElementById('date_depart').innerHTML = moment(end).add(1, 'day').format("LL");
-
     let days = moment.duration(end.diff(start)).days();
     nights = Math.round(days) + 1;
     update();
@@ -88,9 +84,7 @@ function onCampersChanged(e) {
 function update() {
     $('#nights').text(`${nights} night${nights == 1 ? '' : 's'}`);
 
-    let cost = 0;
     let campingType = getCampingType();
-
     // update review step contents
     let selection = [
         // per-night cost, title, qty, total
@@ -98,8 +92,7 @@ function update() {
         [39, 'Extra Medium Tent', '2', 30],
         [69, 'Recreational Vehicle', '1', 0],
     ][campingType];
-
-    cost = selection[0];
+    let cost = selection[0];
     $('#r_camping_type').text(selection[1]);
     $('#r_camping_type_qty').text(selection[2]);
     $('#r_camping_type_cost').text(selection[3]);
@@ -111,9 +104,13 @@ function update() {
     $('#r_customer_email').text(`${$('input[name="email"]').val()}`);
     $('#r_customer_phone').text(`${$('input[name="phone"]').val()}`);
 
-    let dates = $('input[name="dates"]').val().split(" - ");
-    $('#r_arrival').text(moment(dates[0]).format("LL"));
-    $('#r_departure').text(moment(dates[1]).add(1, 'day').format("LL"));
+    let picker = $('input[name="dates"]').data('daterangepicker');
+    let arrive = picker.startDate.format("LL"),
+        depart = moment(picker.endDate).add(1, 'day').format("LL");
+    $('#r_arrive').text(arrive);
+    $('#r_depart').text(depart);
+    $('#date_arrive').text(arrive);
+    $('#date_depart').text(depart);
 
     if (campingType == 1) cost += 30; // one-time fee
 
