@@ -3,7 +3,7 @@
         <h1 class="text-center">What can we help with?</h1>
 
 
-        <form action="{{ route('contact.send') }}" method="POST" class="border shadow p-5">
+        <form action="{{ route('contact.send') }}" method="POST" class="card border shadow p-5">
             @csrf
 
             <x-errors></x-errors>
