@@ -92,8 +92,8 @@
                         <div class="row justify-content-center">
                             <div class="col col-sm-8 col-lg-6">
                                 <p>Selected reservation dates are nights you stay. The date for arrival will be <span
-                                        class="text-primary" id="date_arrive"></span> and <span class="text-primary"
-                                        id="date_depart"></span> is the date you leave (the morning after your last
+                                        class="text-primary" id="date_arrive"></span> and the date you leave is <span class="text-primary"
+                                        id="date_depart"></span> (the morning after your last
                                     night).</p>
                             </div>
                         </div>
