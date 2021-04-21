@@ -86,8 +86,8 @@ class ReserveController extends Controller
         $res->email = $r->input('email');
         $res->phone = $r->input('phone');
         $res->age = $r->input('age');
-
         $res->camping_type = $r->input('camping_type');
+
         $dates = $r->input('dates');
         $dates = explode(' - ', $dates);
         $res->date_in = $arrival = strtotime($dates[0]);
@@ -106,8 +106,9 @@ class ReserveController extends Controller
                 ->withInput();
         }
 
-        // convert from seconds -> minutes -> hours -> days
-        $nights = ($depature - $arrival) / 60 / 60 / 24;
+        // convert from (seconds -> minutes -> hours -> days) + 1
+        // +1 is date inclusive such that 21st -> 22nd is 2 nights
+        $nights = (($depature - $arrival) / 60 / 60 / 24) + 1;
 
         $campers = array();
         $mem = new Camper();
@@ -125,20 +126,13 @@ class ReserveController extends Controller
             array_push($campers, $mem);
         }
 
-        // $39 for tents, $69 for RV
         $cost = 0;
-        switch ($res->camping_type) {
-            case 0: // single tent
-            case 1: // second tent
-                $cost = 39;
-                break;
-            case 2: // rv spot
-                $cost = 69;
-                break;
-        }
-        $cost *= $nights;
-        // flat fee for the second tent
-        if ($res->camping_type == 1) $cost += 30;
+        // Medium Tent: $39
+        if ($res->camping_type == 0) $cost = 39 * $nights;
+        // Extra Medium Tent: $39 + 30 one-time fee
+        else if ($res->camping_type == 1) $cost = (39 * $nights) + 30;
+        // Recreational Vehicle: $69
+        else if ($res->camping_type == 2) $cost = 69 * $nights;
 
         Session::flash('data', [
             'reservation' => $res,
@@ -146,6 +140,7 @@ class ReserveController extends Controller
             'cost' => $cost,
             'nights' => $nights
         ]);
+
         return redirect('/reserve/checkout');
     }
 
@@ -154,11 +149,8 @@ class ReserveController extends Controller
         $data = Session::get('data');
         if (!isset($data)) return abort(404);
 
-        $res = $data['reservation'];
-
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $checkout_session = $stripe->checkout->sessions->create([
-            'customer_email' => $res->email,
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [

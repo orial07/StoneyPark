@@ -1,7 +1,8 @@
+window.Stepper = require('bs-stepper');
 require('./bootstrap');
 
 // lazy load images
-(function() {
+(function () {
     let images = document.getElementsByTagName('img');
     for (let i = 0; i < images.length; i++) {
         // lazy load image

@@ -4,7 +4,7 @@
             <h1 class="text-uppercase m-0">RESERVED</h1>
             <small class="text-uppercase">YAY IT WORKED!</small>
             <p>We look forward to having you at our campground, make sure to save the date in your calendar.</p>
-            <p class="lead">The reservation will be saved under
+            <p class="lead">The reservation will be saved for
                 <u>{{ $reservation->first_name . ' ' . $reservation->last_name }}</u>
             </p>
 

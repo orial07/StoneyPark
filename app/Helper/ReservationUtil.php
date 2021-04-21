@@ -3,7 +3,7 @@
 namespace App\Helper;
 
 use App\Models\Reservation;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 
 class ReservationUtil
