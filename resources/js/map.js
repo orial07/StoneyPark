@@ -39,7 +39,9 @@ Overlay.prototype.toString = function () {
 const MODAL = new bootstrap.Modal(document.getElementById('maps-modal'));
 
 window.initMap = function () {
-    const MAP = new google.maps.Map(document.getElementById("map"), {
+    let e = document.getElementById("map");
+    if (!e) return;
+    const MAP = new google.maps.Map(e, {
         center: { lat: 51.05563894221939, lng: -114.07027244567871 },
         zoom: 15,
     });
@@ -98,15 +100,7 @@ function CreateControl(map, data) {
             });
             break;
     }
-    const info = new google.maps.InfoWindow({
-        content: `\
-<div>
-    <p><strong>${data.name}</strong></p>
-    <p>${data.description}</p>
-</div>`
-    });
     overlay.e.addListener('click', () => {
-        info.open(map, overlay.e);
         ShowControl(overlay);
     });
 }

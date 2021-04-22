@@ -1,5 +1,5 @@
 <x-app>
-    @section('title', '- Reserve')
+    @section('title', 'Reserve')
 
     @section('head')
         <!-- date picker -->
@@ -119,7 +119,7 @@
                                     <label role="button" class="stretched-link fs-5" for="ct_single">Single Medium
                                         Tent</label>
                                     <small>$39 per night</small>
-                                    <p>One tent allowed on campsite.</p>
+                                    <p class="py-3">One tent allowed on campsite.</p>
                                 </div>
                                 <div class="col-xs-12 col-md-3 card">
                                     <input class="form-check-input" type="radio" name="camping_type" id="ct_double"
@@ -128,7 +128,7 @@
                                     <label role="button" class="stretched-link fs-5" for="ct_double">Extra Medium
                                         Tent</label>
                                     <small>*$39 per night, $30 one-time fee</small>
-                                    <p>Two tents allowed on campsite.</p>
+                                    <p class="py-3">Two tents allowed on campsite.</p>
                                 </div>
                                 <div class="col-xs-12 col-md-3 card">
                                     <input class="form-check-input" type="radio" name="camping_type" id="ct_rv"
@@ -137,7 +137,7 @@
                                     <label role="button" class="stretched-link fs-5" for="ct_rv">Recreational
                                         Vehicle</label>
                                     <small>$69 per night</small>
-                                    <p>Recreational vehicles (RV) only.</p>
+                                    <p class="py-3">Recreational vehicles (RV) only.</p>
                                 </div>
                             </div>
                         </fieldset>
@@ -230,6 +230,11 @@
                     <dl class="row">
                         <dt class="col-sm-3">Description</dt>
                         <dd class="col-sm-9" id="modal-description"></dd>
+
+                        <dt class="col-sm-3">Ameneties</dt>
+                        <dd class="col-sm-9">
+                            <x-amenities></x-amenities>
+                        </dd>
                     </dl>
                 </div>
             </div>
