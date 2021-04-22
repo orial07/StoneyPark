@@ -13,7 +13,7 @@ var nights = 1;
 $(document).ready(function () {
     // intialize stepper
     let stepper = window.stepper = new Stepper($('.bs-stepper')[0], {
-        linear: false,
+        linear: true,
         animation: false,
         selectors: {
             steps: '.step',
