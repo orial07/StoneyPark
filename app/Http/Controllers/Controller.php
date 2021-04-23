@@ -25,7 +25,12 @@ class Controller extends BaseController
         $inputs = $r->all();
         $validator = Validator::make(
             $inputs,
-            []
+            [
+                'name' => 'required|string',
+                'email' => 'required|email',
+                'subject' => 'required|string',
+                'content' => 'required|string',
+            ]
         );
         if ($validator->fails()) {
             return redirect()
@@ -40,6 +45,6 @@ class Controller extends BaseController
             'subject' => $inputs['subject'],
             'content' => $inputs['content'],
         ])); // send e-mail to admin
-        return redirect()->to('/contact')->withErrors(['success' => "Mail sent!"]);
+        return redirect()->to('/contact')->withErrors(['success' => "Your message has been sent!"]);
     }
 }

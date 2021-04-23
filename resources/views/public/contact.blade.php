@@ -10,12 +10,12 @@
 
             <div class="form-group my-3">
                 <label for="name">Name *</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
             </div>
             <div class="form-group my-3">
                 <label for="email">Email Address *</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
-                    value="{{ old('email') }}">
+                    value="{{ old('email') }}" required>
                 <small>This is needed so we can reply to you.</small>
             </div>
             <div class="form-group my-3">
