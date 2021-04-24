@@ -9,6 +9,9 @@
     <meta name="og:description" content="Stoney Campgrounds">
 
     <title>{{ config('app.name') }} &middot; @yield('title', 'Welcome!')</title>
+
+    <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/favicon.png') }}" />
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     @yield('head')
 </head>

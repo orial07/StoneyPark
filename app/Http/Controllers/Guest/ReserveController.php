@@ -66,7 +66,7 @@ class ReserveController extends Controller
                 'phone' => 'required|regex:/^\(?\d{3,}\)?[ -]?\d{3,}[ -]?\d{4,}$/',
                 'age' => 'required|numeric|min:18',
                 'camping_type' => 'required|numeric|min:0|max:2',
-                'campers' => 'required|numeric|min:1|max:6',
+                'campers_count' => 'required|numeric|min:1|max:6',
             ],
             [],
             [
@@ -93,22 +93,26 @@ class ReserveController extends Controller
         $res->date_in = $arrival = strtotime($dates[0]);
         $res->date_out = $depature = strtotime($dates[1]);
 
-        if ($res->date_in >= $res->date_out) {
+        if ($res->date_in > $res->date_out) {
             return redirect('/reserve')
                 ->withErrors(['error' => 'Invalid reservation date provided'])
+                ->withInput();
+        }
+
+        // convert from (seconds -> minutes -> hours -> days)
+        $nights = (($depature - $arrival) / 60 / 60 / 24);
+        if ($nights < 1) {
+            return redirect('/reserve')
+                ->withErrors(['error' => 'Reservation must be at least 1 night'])
                 ->withInput();
         }
 
         $count = $this->get_reservations_on($res->date_in, $res->camping_type);
         if ($count >= ReservationUtil::getMaxReservations()) {
             return redirect('/reserve')
-                ->withErrors(['error' => 'Sorry! All campgrounds are currently reserved.'])
+                ->withErrors(['error' => 'Sorry! All campgrounds are currently reserved for those days'])
                 ->withInput();
         }
-
-        // convert from (seconds -> minutes -> hours -> days) + 1
-        // +1 is date inclusive such that 21st -> 22nd is 2 nights
-        $nights = (($depature - $arrival) / 60 / 60 / 24) + 1;
 
         $campers = array();
         $mem = new Camper();
@@ -151,6 +155,7 @@ class ReserveController extends Controller
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $checkout_session = $stripe->checkout->sessions->create([
+            'customer_email' => $data['reservation']->email,
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
@@ -187,13 +192,21 @@ class ReserveController extends Controller
             $camper->save();
         }
 
-        Mail::to(env('MAIL_TO_ADDRESS'))->queue(new ReservationBooking($res, $campers)); // send e-mail to admin
-        Mail::to($res->email)->queue(new ReservationBooking($res, $campers)); // send e-mail to customer
+        Mail::to($res->email) // send to customer
+            ->bcc(env('MAIL_TO_ADDRESS')) // send to admin
+            ->queue(new ReservationBooking($res, $campers));
 
         return view('public.reserve.success', [
             'reservation' => $res,
             'campers' => $campers,
             'nights' => $data['nights'],
         ]);
+
+        // return view('email.reservation', [
+        //     'reservation' => $res,
+        //     'campers' => $campers,
+        //     'nights' => $data['nights'],
+        //     'cost' => ReservationUtil::getCost($res),
+        // ]);
     }
 }

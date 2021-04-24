@@ -1,1 +1,136 @@
-(()=>{function e(e){this.e=e,this.info={name:void 0,description:void 0}}e.prototype.toString=function(){var e={type:this.e.type},o=this.e.overlay||this.e;switch(this.e.type){default:throw new Error("unknown overlay type:",this.e.type);case"circle":e.radius=o.getRadius(),e.geometry=o.getCenter();break;case"marker":e.geometry=o.getPosition();break;case"rectangle":e.geometry=o.getBounds();break;case"polyline":e.geometry=o.getPath();break;case"polygon":e.geometry=o.getPaths()}var t={name:this.info.name,description:this.info.description,overlay:e};return JSON.stringify(t)};var o=new bootstrap.Modal(document.getElementById("maps-modal"));function t(t,a){var n=new e;switch(n.info.name=a.name,n.info.description=a.description,a.overlay.type){case"circle":break;case"marker":n.e=new google.maps.Marker({map:t,position:a.overlay.geometry,title:a.name});break;case"rectangle":n.e=new google.maps.Rectangle({map:t,bounds:a.overlay.geometry});break;case"polyline":n.e=new google.maps.Polyline({map:t,path:a.overlay.geometry.Nb});break;case"polygon":n.e=new google.maps.Polygon({map:t,paths:a.overlay.geometry.Nb[0].Nb})}n.e.addListener("click",(function(){!function(e){$("#modal-name").text(e.info.name),$("#modal-description").text(e.info.description),o.show()}(n)}))}window.initMap=function(){var e=document.getElementById("map");if(e){var o=new google.maps.Map(e,{center:{lat:51.05563894221939,lng:-114.07027244567871},zoom:15});$.ajax({dataType:"json",headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},method:"POST",success:function(e,a,n){for(var r=0;r<e.length;r++)t(o,e[r])},error:function(e,o,t){console.log(t)},processData:!1,url:"/api/map"}),window.MAP=o}}})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!*****************************!*\
+  !*** ./resources/js/map.js ***!
+  \*****************************/
+function Overlay(e) {
+  this.e = e;
+  this.info = {
+    name: undefined,
+    description: undefined
+  };
+}
+
+Overlay.prototype.toString = function () {
+  var overlay = {
+    type: this.e.type
+  };
+  var shape = this.e.overlay || this.e;
+
+  switch (this.e.type) {
+    default:
+      throw new Error("unknown overlay type:", this.e.type);
+
+    case 'circle':
+      overlay.radius = shape.getRadius();
+      overlay.geometry = shape.getCenter();
+      break;
+
+    case 'marker':
+      overlay.geometry = shape.getPosition();
+      break;
+
+    case 'rectangle':
+      overlay.geometry = shape.getBounds();
+      break;
+
+    case 'polyline':
+      overlay.geometry = shape.getPath();
+      break;
+
+    case 'polygon':
+      overlay.geometry = shape.getPaths();
+      break;
+  }
+
+  var json = {
+    name: this.info.name,
+    description: this.info.description,
+    overlay: overlay
+  };
+  return JSON.stringify(json);
+};
+
+var MODAL = new bootstrap.Modal(document.getElementById('maps-modal'));
+
+window.initMap = function () {
+  var e = document.getElementById("map");
+  if (!e) return;
+  var MAP = new google.maps.Map(e, {
+    center: {
+      lat: 51.05563894221939,
+      lng: -114.07027244567871
+    },
+    zoom: 15
+  });
+  $.ajax({
+    dataType: 'json',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    method: 'POST',
+    success: function success(data, status, xhr) {
+      for (var i = 0; i < data.length; i++) {
+        CreateControl(MAP, data[i]);
+      }
+    },
+    error: function error(xhr, status, _error) {
+      console.log(_error);
+    },
+    processData: false,
+    url: '/api/map'
+  });
+  window.MAP = MAP;
+};
+
+function CreateControl(map, data) {
+  var overlay = new Overlay();
+  overlay.info.name = data.name;
+  overlay.info.description = data.description;
+
+  switch (data.overlay.type) {
+    case 'circle':
+      break;
+
+    case 'marker':
+      overlay.e = new google.maps.Marker({
+        map: map,
+        position: data.overlay.geometry,
+        title: data.name
+      });
+      break;
+
+    case 'rectangle':
+      overlay.e = new google.maps.Rectangle({
+        map: map,
+        bounds: data.overlay.geometry
+      });
+      break;
+
+    case 'polyline':
+      overlay.e = new google.maps.Polyline({
+        map: map,
+        path: data.overlay.geometry.Nb
+      });
+      break;
+
+    case 'polygon':
+      overlay.e = new google.maps.Polygon({
+        map: map,
+        paths: data.overlay.geometry.Nb[0].Nb
+      });
+      break;
+  }
+
+  overlay.e.addListener('click', function () {
+    ShowControl(overlay);
+  });
+}
+
+function ShowControl(overlay) {
+  $('#modal-name').text(overlay.info.name);
+  $('#modal-description').text(overlay.info.description);
+  MODAL.show();
+}
+/******/ })()
+;

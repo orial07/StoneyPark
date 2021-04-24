@@ -10,14 +10,14 @@
     <div class="container-md container-sm-fluid mt-4">
         <x-errors></x-errors>
 
-        <form name="reserve_form" method="POST" action="reserve">
+        <form id="reserve-form" method="POST" action="reserve">
             @csrf
 
             <div class="bs-stepper row g-0 m-0">
-                <div class="bs-stepper-header my-5" role="tablist">
-                    <x-controls.stepper-header class="active" :step="1">Name</x-controls.stepper-header>
+                <div class="bs-stepper-header mb-3" role="tablist">
+                    <x-controls.stepper-header class="active" :step="1">Reservation</x-controls.stepper-header>
                     <div class="bs-stepper-line"></div>
-                    <x-controls.stepper-header :step="2">Reservation</x-controls.stepper-header>
+                    <x-controls.stepper-header :step="2">Profile</x-controls.stepper-header>
                     <div class="bs-stepper-line"></div>
                     <x-controls.stepper-header :step="3">Review</x-controls.stepper-header>
                 </div><!-- stepper nav end -->
@@ -25,87 +25,22 @@
                 <div class="bs-stepper-content">
 
                     <x-controls.stepper-step class="active" :step="1">
-                        <div class="row justify-content-center">
-                            <div class="col-md col-lg-6">
-
-                                <!-- Customer Name -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="First Name" name="first_name"
-                                        autofocus required value="{{ old('first_name') }}" />
-                                    <input type="text" class="form-control" placeholder="Last Name" name="last_name"
-                                        required value="{{ old('last_name') }}" />
-                                </div>
-
-                                <!-- Customer Email -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Email</span>
-                                    </div>
-                                    <input type="email" class="form-control" placeholder="example@hotmail.com"
-                                        name="email" required value="{{ old('email') }}">
-                                </div>
-
-                                <!-- Customer Phone -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Phone</span>
-                                    </div>
-                                    <input type="tel" class="form-control" placeholder="123 456 7890" name="phone"
-                                        required value="{{ old('phone') }}">
-                                </div>
-
-                                <!-- Customer Age -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Age</span>
-                                    </div>
-                                    <input type="number" class="form-control" min="18" value="18" name="age"
-                                        autocomplete="false" required>
-                                </div>
-
-                                <!-- Number of campers -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Number of Campers</span>
-                                    </div>
-                                    <input type="number" class="form-control" name="campers" value="1" min="1" max="6"
-                                        autocomplete="false">
-                                    <small class="form-text text-muted w-100">The amount of people staying, including
-                                        yourself.</small>
-                                </div>
-
-                                <div class="container" id="campers"></div>
-
-                                <button type="button" class="btn btn-primary float-end"
-                                    onclick="stepper.next()">Next</button>
-                            </div>
-                        </div>
-                    </x-controls.stepper-step>
-
-                    <x-controls.stepper-step class="dstepper-none" :step="2">
+                        <h3 class="text-center mb-5">How long will you be camping?</h3>
 
                         <!-- Reservation dates -->
                         <div class="row justify-content-center">
-                            <div class="col col-sm-8 col-lg-6">
-                                <p>Selected reservation dates are nights you stay. The date for arrival will be <span
-                                        class="text-primary" id="date_arrive"></span> and the date you leave is <span
-                                        class="text-primary" id="date_depart"></span> (the morning after your last
-                                    night).</p>
+                            <div class="col col-sm-8 col-lg-4">
+                                <x-controls.input id="dates" type="text" required>
+                                    {{ __('Reservation Dates') }}
+                                </x-controls.input>
                             </div>
                         </div>
-                        <div class="row justify-content-center">
-                            <div class="col col-sm-8 col-lg-4">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Reservation</span>
-                                    </div>
-                                    <input type="text" class="form-control" name="dates" required autocomplete="off">
-                                    <small class="form-text text-center text-muted w-100">This reservation will be for
-                                        <strong><span id="nights"></span></strong></small>
-                                </div>
+                        <div class="row justify-content-center text-center">
+                            <div class="col col-sm-10 col-md-8">
+                                <p class="text-center" id="nights"></p>
+                                <p>*You can arrive on <span class="text-primary" id="date_arrive"></span>, the date you
+                                    leave will be the morning of <span class="text-primary" id="date_depart"></span>.
+                                </p>
                             </div>
                         </div>
 
@@ -148,15 +83,62 @@
                             @endif
                         @endauth
 
-                        <button type="button" class="btn btn-primary" onclick="stepper.previous()">Previous</button>
                         <button type="button" class="btn btn-primary float-end" onclick="stepper.next()">Next</button>
+                    </x-controls.stepper-step>
+
+                    <x-controls.stepper-step class="dstepper-none" :step="2">
+                        <div class="row justify-content-center">
+                            <div class="col-md col-lg-6">
+                                <h2 class="text-center mb-5">Who is reserving?</h2>
+
+                                <x-controls.input id="first_name" type="text" placeholder="First Name" required
+                                    autocomplete>
+                                    {{ __('First Name') }}
+                                </x-controls.input>
+
+
+                                <x-controls.input id="last_name" type="text" placeholder="Last Name" required
+                                    autocomplete>
+                                    {{ __('Last Name') }}
+                                </x-controls.input>
+
+
+                                <x-controls.input id="email" type="email" placeholder="To send your confirmation"
+                                    required autocomplete>
+                                    {{ __('Email Address') }}
+                                </x-controls.input>
+
+
+                                <x-controls.input id="phone" type="tel" placeholder="To contact you" required
+                                    autocomplete>
+                                    {{ __('Phone Number') }}
+                                </x-controls.input>
+
+
+                                <x-controls.input id="age" type="number" value="18" min="18" required>
+                                    {{ __('Age') }}
+                                </x-controls.input>
+
+
+                                <x-controls.input id="campers_count" type="number" value="1" min="1" max="6" required>
+                                    {{ __('Number of Campers') }}
+                                    <small class="form-text text-muted w-100">(including
+                                        yourself)</small>
+                                </x-controls.input>
+
+                                <div class="container" id="campers"></div>
+
+                                <button type="button" class="btn btn-primary"
+                                    onclick="stepper.previous()">Previous</button>
+                                <button type="button" class="btn btn-primary float-end"
+                                    onclick="stepper.next()">Next</button>
+                            </div>
+                        </div>
                     </x-controls.stepper-step>
 
                     <x-controls.stepper-step class="dstepper-none" :step="3">
                         <div class="row justify-content-center">
                             <div class="col-md col-lg-8">
-                                <p>Please enter all information and make sure everything shown below is correct before
-                                    proceeding with payment.</p>
                                 <dl class="row">
                                     <dt class="col-sm-3">Name</dt>
                                     <dd class="col-sm-9"><span id="r_customer_name"></span></dd>
@@ -206,7 +188,13 @@
                                 </table>
                                 <button type="button" class="btn btn-primary"
                                     onclick="stepper.previous()">Previous</button>
-                                <button type="submit" class="btn btn-success float-end">Pay now</button>
+                                <div class="float-end text-end">
+                                    <button type="submit" class="btn btn-success">Pay now</button>
+                                    <small class="d-block w-100 my-3">
+                                        By reserving, you also agree to our
+                                        <a href="{{ route('rules') }}" target="_blank">rules</a>.
+                                    </small>
+                                </div>
                             </div>
                         </div> <!-- row end -->
 
