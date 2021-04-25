@@ -82,6 +82,10 @@
             padding: 1rem 0;
         }
 
+        .fw-bold {
+            font-weight: 700 !important;
+        }
+
         @media screen and (max-width: 440px) {
             .container {
                 max-width: 100vw;
@@ -106,42 +110,7 @@
             <p class="text-left"><?= date('m-d-Y (F j, Y)', strtotime($reservation->date_out)) ?></p>
         </div>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Qty.</th>
-                <th>Item</th>
-                <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>{{ $nights }}</td>
-                <td>Nights reserved</td>
-                @if ($reservation->camping_type == 2)
-                    <td class="text-right">${{ number_format($nights * 69, 2, '.', ',') }}</td>
-            @else
-                    <td class="text-right">${{ number_format($nights * 39, 2, '.', ',') }}</td>
-                @endif
-            </tr>
-            <tr>
-                @if ($reservation->camping_type == 2)
-                    <td>1</td>
-                    <td>RV spot</td>
-                    <td class="text-right">$69</td>
-            @else
-                    <td>{{ $reservation->camping_type + 1 }}</td>
-                    <td>Medium tent</td>
-                    <td class="text-right">${{ number_format($reservation->camping_type == 0 ? 0 : 30, 2, '.', ',') }}</td>
-                @endif
-            </tr>
-            <tr>
-                <td></td>
-                <td><strong>Total</strong></td>
-                <td class="text-right"><strong>${{ number_format($cost, 2, '.', ',') }}<strong></td>
-            </tr>
-        </tbody>
-        </table>
+        <x-reservation.receipt :reservation="$reservation"></x-reservation.receipt>
     </section>
     <hr/>
     <section class="group">
@@ -165,11 +134,7 @@
     <hr/>
     <section class="group">
         <h2 class="title">Campers</h2>
-        @for ($i = 0; $i < sizeof($campers); $i++)
-            <div class="inline">
-                <p class="lead">{{ $i + 1 }}. {{ $campers[$i]->first_name }} {{ $campers[$i]->last_name }}</p>
-            </div>
-        @endfor
+        <x-reservation.campers :campers="$reservation->campers"></x-reservation.campers>
     </section>
 </main>
 </body>

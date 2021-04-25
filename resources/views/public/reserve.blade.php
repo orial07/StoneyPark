@@ -50,30 +50,8 @@
                         <fieldset>
                             <div class="g-2 row justify-content-center gap-sm-2 gap-md-5 text-center">
                                 @foreach (ReservationUtil::getCampingTypes() as $ct)
-                                    <div class="col-sm col-md-4 card">
-                                        <input class="form-check-input" type="radio" name="camping_type"
-                                            id="ct_{!! $loop->iteration !!}" value="{{ $loop->iteration }}" @if ($loop->first) checked @endif>
-                                        <p>
-                                            <span class="fs-1"
-                                                id="ct_cost_{!! $loop->iteration !!}">{!! $ct->price + $ct->price2 !!}</span><small>+GST</small>
-                                        </p>
-                                        <label role="button" class="stretched-link fs-4"
-                                            for="ct_{!! $loop->iteration !!}">{!! $ct->name !!}</label>
-                                        <small>
-                                            ${!! $ct->price !!}/night
-                                            @if ($ct->price2)
-                                                + ${!! $ct->price2 !!} initial fee
-                                            @endif
-                                        </small>
-                                        <hr />
-                                        <ul class="list-unstyled my-3 text-start">
-                                            @foreach ($ct->description as $type => $description)
-                                                <li>
-                                                    <x-amenity :type="$type">{!! $description !!}</x-amenity>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                    <x-controls.camping-type-radio :i="$loop->iteration - 1" :ct="$ct">
+                                    </x-controls.camping-type-radio>
                                 @endforeach
                             </div>
                         </fieldset>

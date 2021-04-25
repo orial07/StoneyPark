@@ -2,7 +2,6 @@
 
 namespace App\Helper;
 
-use App\Models\Reservation;
 use App\Objects\CampingType;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
@@ -24,25 +23,6 @@ class ReservationUtil
             ], 2),
             // new CampingType("Recreation Vehicle", 69, 0, "One recreational vehicle (RV) allowed on campsite."),
         );
-    }
-
-    public static function getNights(Reservation $reservation)
-    {
-        $arrival = strtotime($reservation->date_in);
-        $depature = strtotime($reservation->date_out);
-        return ($depature - $arrival) / 60 / 60 / 24;
-    }
-
-    public static function getCost(Reservation $reservation)
-    {
-        $campingTypes = ReservationUtil::getCampingTypes();
-        $ct = $campingTypes[$reservation->camping_type];
-
-        $cost = $ct->price; // recurring charges (price per night)
-        $cost *= ReservationUtil::getNights($reservation);
-        $cost += $ct->price2; // one-time fee
-        $cost *= 1.05; // GST Tax Amount
-        return $cost;
     }
 
     public static function getCampgrounds()

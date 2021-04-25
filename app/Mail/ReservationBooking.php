@@ -13,17 +13,15 @@ class ReservationBooking extends Mailable
     use Queueable, SerializesModels;
 
     private $reservation;
-    private $campers;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($reservation, $campers)
+    public function __construct($reservation)
     {
         $this->reservation = $reservation;
-        $this->campers = $campers;
     }
 
     /**
@@ -37,11 +35,6 @@ class ReservationBooking extends Mailable
             ->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
             ->subject('Stoney Campgrounds Reservation')
             ->view('email.reservation')
-            ->with([
-                'reservation' => $this->reservation,
-                'campers' => $this->campers,
-                'nights' => ReservationUtil::getNights($this->reservation),
-                'cost' => ReservationUtil::getCost($this->reservation),
-            ]);
+            ->with(['reservation' => $this->reservation]);
     }
 }

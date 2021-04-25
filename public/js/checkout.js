@@ -102,7 +102,7 @@ function update() {
   for (var i = 0; i < CAMPING_TYPES.length; i++) {
     var ct = CAMPING_TYPES[i];
     var total = ct.price * nights + ct.price2;
-    $("#ct_cost_".concat(i + 1)).text(total.asMoney());
+    $("#ct_cost_".concat(i)).text(total.asMoney());
   }
 
   $('#r_customer_name').text("".concat($('input[name="first_name"]').val(), " ").concat($('input[name="last_name"]').val()));

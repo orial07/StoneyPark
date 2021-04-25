@@ -5,7 +5,6 @@ use App\Http\Controllers\Auth\ReservationController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Guest\GalleryController;
 use App\Http\Controllers\Guest\HomeController;
-use App\Http\Controllers\Guest\MapController;
 use App\Http\Controllers\Guest\ReserveController;
 use App\Http\Controllers\Guest\RulesController;
 

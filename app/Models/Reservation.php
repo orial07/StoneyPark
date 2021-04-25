@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helper\ReservationUtil;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,5 +23,32 @@ class Reservation extends Model
     public function campers()
     {
         return $this->hasMany(Camper::class);
+    }
+
+    public function getCampersCountAttribute() {
+        return $this->campers()->count();
+    }
+
+    public function getType()
+    {
+        
+        return ReservationUtil::getCampingTypes()[$this->camping_type];
+    }
+
+    public function getNights()
+    {
+        $arrival = strtotime($this->date_in);
+        $depature = strtotime($this->date_out);
+        return ($depature - $arrival) / 60 / 60 / 24;
+    }
+
+    public function getCost($tax = true)
+    {
+        $ct = $this->getType();
+        $cost = $ct->price; // recurring charges (price per night)
+        $cost *= $this->getNights();
+        $cost += $ct->price2; // one-time fee
+        if ($tax) $cost *= 1.05; // GST Tax Amount
+        return $cost;
     }
 }

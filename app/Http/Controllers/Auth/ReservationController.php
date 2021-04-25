@@ -18,13 +18,7 @@ class ReservationController extends Controller
             abort(404);
         }
 
-        $campers = $reservation->campers;
-        return view('public.reservation', [
-            'reservation' => $reservation,
-            'campers' => $campers,
-            'nights' => ReservationUtil::getNights($reservation),
-            'cost' => ReservationUtil::getCost($reservation),
-        ]);
+        return view('auth.reservation', ['reservation' => $reservation]);
     }
 
     public function showAll()

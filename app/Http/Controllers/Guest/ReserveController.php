@@ -58,7 +58,7 @@ class ReserveController extends Controller
 
                 'campers_count' => 'required|numeric|min:1|max:6',
                 // camping_type starts at 1 due to the blade loop directive iterations starting at 1
-                'camping_type' => 'required|numeric|min:1|max:' . sizeof($campingTypes),
+                'camping_type' => 'required|numeric|min:0|max:' . sizeof($campingTypes),
             ]
         );
         if ($validator->fails()) {
@@ -81,7 +81,7 @@ class ReserveController extends Controller
 
             'dates' => $r->input('dates'),
             // subtract 1 due to the blade loop directive iterations starting at 1
-            'camping_type' => intval($r->input('camping_type')) - 1,
+            'camping_type' => intval($r->input('camping_type')),
         ];
 
         $dates = explode(' - ', $inputs['dates']);
@@ -108,34 +108,34 @@ class ReserveController extends Controller
         }
 
         // initialize reservation ORM object
-        $res = new Reservation();
-        $res->first_name = $inputs['customer']['first'];
-        $res->last_name = $inputs['customer']['last'];
-        $res->email = $inputs['customer']['email'];
-        $res->phone = $inputs['customer']['phone'];
-        $res->age = $inputs['customer']['age'];
+        $reservation = new Reservation();
+        $reservation->first_name = $inputs['customer']['first'];
+        $reservation->last_name = $inputs['customer']['last'];
+        $reservation->email = $inputs['customer']['email'];
+        $reservation->phone = $inputs['customer']['phone'];
+        $reservation->age = $inputs['customer']['age'];
 
-        $res->camping_type = $inputs['camping_type'];
+        $reservation->camping_type = $inputs['camping_type'];
 
-        $res->date_in = $arrival;
-        $res->date_out = $departure;
+        $reservation->date_in = $arrival;
+        $reservation->date_out = $departure;
 
-        $mem = new Camper();
-        $mem->first_name = $inputs['customer']['first'];
-        $mem->last_name = $inputs['customer']['last'];
-        array_push($inputs['campers'], $mem);
+        $camper = new Camper();
+        $camper->first_name = $inputs['customer']['first'];
+        $camper->last_name = $inputs['customer']['last'];
+        array_push($inputs['campers'], $camper);
 
         // '-1' because member above is created manually
         $count = $r->input('campers') - 1;
         for ($i = 0; $i < $count; $i++) {
-            $mem = new Camper();
-            $mem->first_name = $r->input('camper' . $i . '_first_name');
-            $mem->last_name = $r->input('camper' . $i . '_last_name');
-            array_push($campers, $mem);
+            $camper = new Camper();
+            $camper->first_name = $r->input('camper' . $i . '_first_name');
+            $camper->last_name = $r->input('camper' . $i . '_last_name');
+            array_push($inputs['campers'], $camper);
         }
 
-        Session::put('data', [
-            'reservation' => $res,
+        Session::put('reservation', [
+            'reservation' => $reservation,
             'campers' => $inputs['campers'],
         ]);
 
@@ -144,20 +144,18 @@ class ReserveController extends Controller
 
     public function checkout()
     {
-        $data = Session::get('data');
+        $data = Session::get('reservation');
         if (!isset($data)) return abort(404);
 
-        $res = $data['reservation'];
-        $cost = ReservationUtil::getCost($res) * 100;
-
+        $reservation = $data['reservation'];
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $checkout_session = $stripe->checkout->sessions->create([
-            'customer_email' => $res->email,
+            'customer_email' => $reservation->email,
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'cad',
-                    'unit_amount' => $cost,
+                    'unit_amount' => $reservation->getCost() * 100,
                     'product_data' => [
                         'name' => 'Stoney Park Campgrounds Reservation'
                     ],
@@ -171,15 +169,14 @@ class ReserveController extends Controller
 
         // the 'id' is needed for stripe checkout redirect
         $data['id'] = $checkout_session->id;
-
+        Session::put('reservation', $data);
         return view('public.reserve.checkout', $data);
     }
 
     public function success()
     {
-        $data = Session::get('data');
+        $data = Session::get('reservation');
         if (!isset($data)) return abort(404);
-        // Session::forget('data');
 
         $res = $data['reservation'];
         $campers = $data['campers'];
@@ -190,21 +187,17 @@ class ReserveController extends Controller
             $camper->save();
         }
 
-        Mail::to($res->email) // send to customer
-            ->bcc(env('MAIL_TO_ADDRESS')) // send to admin
-            ->queue(new ReservationBooking($res, $campers));
+        $email_ts = session('email_ts', 0);
+        $email_wait = $email_ts->diffInMinutes(now());
 
-        return view('public.reserve.success', [
-            'reservation' => $res,
-            'campers' => $campers,
-            'nights' => ReservationUtil::getNights($res),
-        ]);
+        if (!$email_ts || $email_wait > 3) {
+            session(['email_ts' => now()]);
+            Mail::to($res->email) // send to customer
+                ->bcc(env('MAIL_TO_ADDRESS')) // send to admin
+                ->queue(new ReservationBooking($res));
+        }
 
-        // return view('email.reservation', [
-        //     'reservation' => $res,
-        //     'campers' => $campers,
-        //     'nights' => ReservationUtil::getNights($res),
-        //     'cost' => ReservationUtil::getCost($res),
-        // ]);
+        return view('public.reserve.success', ['reservation' => $res]);
+        // return view('email.reservation', ['reservation' => $res]);
     }
 }
