@@ -20,7 +20,7 @@
                 <object class="mx-auto display-1" data="{{ asset('img/tiktok.svg') }}" type="image/svg+xml"></object>
             </a>
         </div>
-        <small class="text-muted text-center"><span class="text-primary">#stoneycampgrounds</span> on all
+        <small class="text-muted text-center"><span class="text-primary">&num;stoneyparkcampgrounds</span> on all
             platforms</small>
     </div>
 </div>
