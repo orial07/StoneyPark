@@ -1,11 +1,12 @@
 <x-app>
     <x-carousel :carousel="$carousel" />
 
+    <div id="example"></div>
+    <example-component></example-component>
     <div class="container marketing">
         <x-socials>
             <h2 class="text-center display-4 p-5">Find us on social media</h2>
         </x-socials>
-
 
         <div class="row">
             <hr class="featurette-divider" />

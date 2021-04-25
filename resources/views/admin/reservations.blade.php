@@ -1,20 +1,20 @@
 <x-admin-app>
     <h1 class="fw-bold text-center p-5">Customer Reservations</h1>
-    <p>Here's a list of all customer reservations. Read-only data. Click any entry to view reservation, pricing and more.</p>
+    <p>Here's a list of all customer reservations. Read-only data. Click any entry to view reservation, pricing and
+        more.</p>
 
     {{ $reservations->links('vendor.pagination.bootstrap-4') }}
 
     <form action="{{ route('admin.reservations.search') }}" method="POST" role="search" autocomplete="off">
         @csrf
 
-        <div class="input-group">
-            <input type="text" class="form-control" name="search" placeholder="Search">
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </span>
-        </div>
+        <x-controls.input id="search" type="text" required>
+            <x-slot name="prepend">
+                <button type="button" class="btn btn-outline-secondary">a</button>
+            </x-slot>
+
+            {{ __('Search') }}
+        </x-controls.input>
     </form>
 
     <table class="table table-hover">

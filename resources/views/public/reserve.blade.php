@@ -38,49 +38,37 @@
                         <div class="row justify-content-center text-center">
                             <div class="col col-sm-10 col-md-8">
                                 <p class="text-center" id="nights"></p>
-                                <p>*You can arrive on <span class="text-primary" id="date_arrive"></span>, the date you
-                                    leave will be the morning of <span class="text-primary" id="date_depart"></span>.
+                                <p>Reservation dates include the date you arrive and depart.<br />
+                                    You can arrive on <span class="text-primary" id="date_arrive"></span>, the date you
+                                    leave is the morning of <span class="text-primary" id="date_depart"></span>.
                                 </p>
                             </div>
                         </div>
 
-                        <!-- Camping Type -->
+                        <!-- Camping Types -->
                         <fieldset class="form-group my-4">
                             <div class="g-2 row justify-content-around text-center">
-                                <div class="col-xs-12 col-md-3 card">
-                                    <input class="form-check-input" type="radio" name="camping_type" id="ct_single"
-                                        value="0" checked>
-                                    <h2>$<span id="ct_total_single">39</span></h2>
-                                    <label role="button" class="stretched-link fs-5" for="ct_single">Single Medium
-                                        Tent</label>
-                                    <small>$39 per night</small>
-                                    <p class="py-3">One tent allowed on campsite.</p>
-                                </div>
-                                <div class="col-xs-12 col-md-3 card">
-                                    <input class="form-check-input" type="radio" name="camping_type" id="ct_double"
-                                        value="1">
-                                    <h2>$<span id="ct_total_double">69</span>*</h2>
-                                    <label role="button" class="stretched-link fs-5" for="ct_double">Extra Medium
-                                        Tent</label>
-                                    <small>*$39 per night, $30 one-time fee</small>
-                                    <p class="py-3">Two tents allowed on campsite.</p>
-                                </div>
-                                <div class="col-xs-12 col-md-3 card">
-                                    <input class="form-check-input" type="radio" name="camping_type" id="ct_rv"
-                                        value="2">
-                                    <h2>$<span id="ct_total_rv">69</span></h2>
-                                    <label role="button" class="stretched-link fs-5" for="ct_rv">Recreational
-                                        Vehicle</label>
-                                    <small>$69 per night</small>
-                                    <p class="py-3">Recreational vehicles (RV) only.</p>
-                                </div>
+                                @foreach (ReservationUtil::getCampingTypes() as $ct)
+                                    <div class="col-sm col-md-4 card">
+                                        <input class="form-check-input" type="radio" name="camping_type"
+                                            id="ct_{!! $loop->iteration !!}" value="{{ $loop->iteration }}" @if ($loop->first) checked @endif>
+                                        <h2 id="ct_cost_{!! $loop->iteration !!}">${!! $ct->price + $ct->price2 !!}</h2>
+                                        <label role="button" class="stretched-link fs-4"
+                                            for="ct_{!! $loop->iteration !!}">{!! $ct->name !!}</label>
+                                        <small>
+                                            ${!! $ct->price !!}/night
+                                            @if ($ct->price2)
+                                                + ${!! $ct->price2 !!} initial fee
+                                            @endif
+                                        </small>
+                                        <p class="my-3 fw-light">{!! $ct->description !!}</p>
+                                    </div>
+                                @endforeach
                             </div>
                         </fieldset>
 
                         @auth
-                            @if (auth()->user()->web_admin)
-                                <div id="map" class="my-5 w-100 h-100" style="min-height: 75vh"></div>
-                            @endif
+                            <div id="map" class="my-5 w-100 h-100" style="min-height: 75vh"></div>
                         @endauth
 
                         <button type="button" class="btn btn-primary float-end" onclick="stepper.next()">Next</button>
@@ -92,40 +80,24 @@
                                 <h2 class="text-center mb-5">Who is reserving?</h2>
 
                                 <x-controls.input id="first_name" type="text" placeholder="First Name" required
-                                    autocomplete>
-                                    {{ __('First Name') }}
-                                </x-controls.input>
-
+                                    autocomplete>{{ __('First Name') }}</x-controls.input>
 
                                 <x-controls.input id="last_name" type="text" placeholder="Last Name" required
-                                    autocomplete>
-                                    {{ __('Last Name') }}
-                                </x-controls.input>
-
+                                    autocomplete>{{ __('Last Name') }}</x-controls.input>
 
                                 <x-controls.input id="email" type="email" placeholder="To send your confirmation"
-                                    required autocomplete>
-                                    {{ __('Email Address') }}
-                                </x-controls.input>
-
+                                    required autocomplete>{{ __('Email Address') }}</x-controls.input>
 
                                 <x-controls.input id="phone" type="tel" placeholder="To contact you" required
-                                    autocomplete>
-                                    {{ __('Phone Number') }}
-                                </x-controls.input>
-
+                                    autocomplete>{{ __('Phone Number') }}</x-controls.input>
 
                                 <x-controls.input id="age" type="number" value="18" min="18" required>
-                                    {{ __('Age') }}
-                                </x-controls.input>
-
+                                    {{ __('Age') }}</x-controls.input>
 
                                 <x-controls.input id="campers_count" type="number" value="1" min="1" max="6" required>
-                                    {{ __('Number of Campers') }}
-                                    <small class="form-text text-muted w-100">(including
-                                        yourself)</small>
+                                    {{ __('Number of Campers') }}<small
+                                        class="form-text text-muted w-100">(includingyourself)</small>
                                 </x-controls.input>
-
                                 <div class="container" id="campers"></div>
 
                                 <button type="button" class="btn btn-primary"
@@ -171,9 +143,9 @@
                                             <td>$<span id="r_nights_cost"></span></td>
                                         </tr>
                                         <tr>
-                                            <td scope="row"><span id="r_camping_type"></span></td>
-                                            <td><span id="r_camping_type_qty"></span></td>
-                                            <td>$<span id="r_camping_type_cost"></span></td>
+                                            <td scope="row"><span id="r_camping_name"></span></td>
+                                            <td><span id="r_camping_qty"></span></td>
+                                            <td>$<span id="r_camping_cost"></span></td>
                                         </tr>
                                         <tr>
                                             <td scope="row"><strong>Total</strong></td>
@@ -230,14 +202,22 @@
     </div>
 
     @section('scripts')
+        <script>
+            const CAMPING_TYPES = {!! json_encode(ReservationUtil::getCampingTypes()) !!};
+
+        </script>
+        <script src="{{ asset('js/checkout.js') }}"></script>
+        <!-- daterangepicker -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <script src="{{ asset('js/checkout.js') }}"></script>
 
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&v=weekly"
-            async>
-        </script>
-        <script src="{{ asset('js/map.js') }}"></script>
+        @auth
+            <!-- google maps -->
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&v=weekly"
+                async>
+            </script>
+            <script src="{{ asset('js/map.js') }}"></script>
+        @endauth
     @endsection
 </x-app>

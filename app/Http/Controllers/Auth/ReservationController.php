@@ -41,13 +41,19 @@ class ReservationController extends Controller
     public function showFilter(Request $r)
     {
         $search = $r->input('search');
-        return view('admin.reservations', [
-            'reservations' => DB::table('reservations')
-                ->where('first_name', 'like', '%' . $search . '%')
+        $n = intval($search);
+
+        $db = DB::table('reservations');
+        if ($n > 0) {
+            $db->where('id', $n);
+        } else {
+            $db->where('first_name', 'like', '%' . $search . '%')
                 ->orWhere('last_name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%')
-                ->orWhere('phone', 'like', '%' . $search . '%')
-                ->paginate(20)
+                ->orWhere('phone', 'like', '%' . $search . '%');
+        }
+        return view('admin.reservations', [
+            'reservations' => $db->paginate(20)
         ]);
     }
 }

@@ -94,9 +94,9 @@
 <body>
     <main class="container mx-auto">
         <section class="group">
-            <h2 class="title">Reservation</h2>
-            <p>Please remember that the <em>arrival</em> date is when you visit campgrounds and the <em>departure</em>
-                date is when you leave (the morning of that day).</p>
+            <h2 class="title">Reservation <span class="text-muted">(number #{!! $reservation->id !!})</span></h2>
+            <p>Please remember the dates <em>arrival</em> is when you visit campgrounds and <em>departure</em>
+                is when you leave (the morning of that day).</p>
             <div class="inline">
                 <p class="text-left text-muted">Arrival</p>
                 <p class="text-left"><?= date('m-d-Y (F j, Y)', strtotime($reservation->date_in)) ?></p>
@@ -120,7 +120,7 @@
                 <td>Nights reserved</td>
                 @if ($reservation->camping_type == 2)
                     <td class="text-right">${{ number_format($nights * 69, 2, '.', ',') }}</td>
-                @else
+            @else
                     <td class="text-right">${{ number_format($nights * 39, 2, '.', ',') }}</td>
                 @endif
             </tr>
@@ -129,7 +129,7 @@
                     <td>1</td>
                     <td>RV spot</td>
                     <td class="text-right">$69</td>
-                @else
+            @else
                     <td>{{ $reservation->camping_type + 1 }}</td>
                     <td>Medium tent</td>
                     <td class="text-right">${{ number_format($reservation->camping_type == 0 ? 0 : 30, 2, '.', ',') }}</td>

@@ -35,7 +35,7 @@ class ReservationBooking extends Mailable
     {
         return $this
             ->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
-            ->subject('Stoney Park Reservation')
+            ->subject('Stoney Campgrounds Reservation')
             ->view('email.reservation')
             ->with([
                 'reservation' => $this->reservation,

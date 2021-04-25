@@ -85,7 +85,7 @@
                                 <td scope="row">Medium tent</td>
                                 <td>{{ $reservation->camping_type == 0 ? 1 : 2 }}</td>
                                 <td>$39</td>
-    @else
+                            @else
                                 <td scope="row">RV spot</td>
                                 <td>1</td>
                                 <td>$69</td>

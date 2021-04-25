@@ -2,7 +2,11 @@
     <div class="container mt-4">
         <div class="text-center">
             <h1 class="text-uppercase m-0">RESERVED!</h1>
-            <p>We look forward to having you at our campground, make sure to save the date in your calendar.</p>
+            <h3 class="text-muted">Your reservation number is #{!! $reservation->id !!}</h3>
+            <p>
+                We look forward to having you at our campground, make sure to save the date in your calendar.<br />
+                In a few moments you'll receive an email showing your reservation. Don't delete it!
+            </p>
             <p class="lead">The reservation will be saved for
                 <u>{{ $reservation->first_name . ' ' . $reservation->last_name }}</u>
             </p>
@@ -21,8 +25,8 @@
                 </div>
             </div> <!-- timeline visual -->
 
-            <p>In a few moments you'll receive an email showing your reservation.</p>
-            <p>If you changed your mind, would like you cancel or have any questions, please <a href="{{ route('contact') }}">contact</a>
+            <p>If you changed your mind, would like you cancel or have any questions, please <a
+                    href="{{ route('contact') }}">contact</a>
                 us as soon as possible!</p>
         </div>
     </div>

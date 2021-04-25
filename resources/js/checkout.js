@@ -1,13 +1,5 @@
 const DAY_MILLIS = 86400000;
 const TIME_FORMAT = "MM/DD/YYYY";
-const CAMPING_TYPES = [
-    /* 
-    [recurring cost, OTF cost, title, qty, element name]
-    */
-    [39, 0, 'Medium Tent', '1', 'ct_total_single'],
-    [39, 30, 'Medium Tent', '2', 'ct_total_double'],
-    [69, 0, 'Recreational Vehicle', '1', 'ct_total_rv'],
-];
 
 var nights = 1;
 jQuery(function () {
@@ -92,22 +84,21 @@ function onCampersChanged(e) {
 
 // updates page contents
 function update() {
-    $('#nights').html(`This reservation will be for <strong>${nights} night${nights == 1 ? '' : 's'}</strong>`);
+    $('#nights').html(`This reservation will be for <span class="text-primary">${nights} night${nights == 1 ? '' : 's'}</span>`);
 
-    let campingType = getCampingType();
+    let campingType = CAMPING_TYPES[getCampingType()];
     // update review step contents
-    let type = CAMPING_TYPES[campingType];
-    let cost = type[0] * nights;
-    $('#r_camping_type_cost').text(type[1]);
-    $('#r_camping_type').text(type[2]);
-    $('#r_camping_type_qty').text(type[3]);
+    let cost = campingType.price * nights;
+    $('#r_camping_name').text(campingType.name);
+    $('#r_camping_qty').text(campingType.quantity);
+    $('#r_camping_cost').text(campingType.price2);
 
     $('#r_nights_qty').text(nights);
     $('#r_nights_cost').text(cost);
 
     for (let i = 0; i < CAMPING_TYPES.length; i++) {
         let ct = CAMPING_TYPES[i];
-        $(`#${ct[ct.length - 1]}`).text(ct[1] + (ct[0] * nights));
+        $(`#ct_cost_${i + 1}`).text(`$${(ct.price * nights) + ct.price2}`);
     }
 
     $('#r_customer_name').text(`${$('input[name="first_name"]').val()} ${$('input[name="last_name"]').val()}`);
@@ -122,7 +113,7 @@ function update() {
     $('#date_arrive').text(arrive);
     $('#date_depart').text(depart);
 
-    if (campingType == 1) cost += 30; // one-time fee
+    cost += campingType.price2;
 
     $('#total').text("$" + cost);
 }
