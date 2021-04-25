@@ -54,7 +54,8 @@
                                         <input class="form-check-input" type="radio" name="camping_type"
                                             id="ct_{!! $loop->iteration !!}" value="{{ $loop->iteration }}" @if ($loop->first) checked @endif>
                                         <p>
-                                            <span class="fs-1" id="ct_cost_{!! $loop->iteration !!}">{!! $ct->price + $ct->price2 !!}</span><small>+GST</small>
+                                            <span class="fs-1"
+                                                id="ct_cost_{!! $loop->iteration !!}">{!! $ct->price + $ct->price2 !!}</span><small>+GST</small>
                                         </p>
                                         <label role="button" class="stretched-link fs-4"
                                             for="ct_{!! $loop->iteration !!}">{!! $ct->name !!}</label>
@@ -174,7 +175,7 @@
                                     onclick="stepper.previous()">Previous</button>
                                 <div class="float-end text-end">
                                     <button type="submit" class="btn btn-success">Pay now</button>
-                                    <small class="d-block w-100 my-3">By reserving, you also agree to our<a
+                                    <small class="d-block w-100 my-3">By reserving, you also agree to our <a
                                             href="{{ route('rules') }}" target="_blank">rules</a>.
                                     </small>
                                 </div>

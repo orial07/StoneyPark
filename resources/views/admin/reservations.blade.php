@@ -36,8 +36,8 @@
                     <td>{{ $reservation->first_name }} {{ $reservation->last_name }}</td>
                     <td>{{ $reservation->email }}</td>
                     <td>{{ $reservation->phone }}</td>
-                    <td>{{ date('Y-m-d', strtotime($reservation->date_in)) }}</td>
-                    <td>{{ date('Y-m-d', strtotime($reservation->date_out)) }}</td>
+                    <td>{{ date('F j, Y', strtotime($reservation->date_in)) }}</td>
+                    <td>{{ date('F j, Y', strtotime($reservation->date_out)) }}</td>
                 </tr>
             @endforeach
         </tbody>
