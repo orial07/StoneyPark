@@ -7,5 +7,6 @@
             <div class="col">
                 {{ $slot }}
             </div>
+        </div>
     </x-container>
 </x-app>
