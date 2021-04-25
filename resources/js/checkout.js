@@ -3,6 +3,8 @@ const TIME_FORMAT = "MM/DD/YYYY";
 
 var nights = 1;
 jQuery(function () {
+    $('#date_display').removeClass('d-none');
+
     // intialize stepper
     let stepperEl = $('.bs-stepper')[0];
     let stepper = window.stepper = new Stepper(stepperEl, {
@@ -23,7 +25,6 @@ jQuery(function () {
         startDate: now.format(TIME_FORMAT),
         endDate: later.format(TIME_FORMAT),
         minDate: now.format(TIME_FORMAT),
-        autoApply: true,
     }, function (start, end, label) {
         onDateChanged(start, end);
     });
@@ -87,18 +88,21 @@ function update() {
     $('#nights').html(`This reservation will be for <span class="text-primary">${nights} night${nights == 1 ? '' : 's'}</span>`);
 
     let campingType = CAMPING_TYPES[getCampingType()];
+
+    let cost = campingType.price * nights; // recurring charges (price per night)
+
     // update review step contents
-    let cost = campingType.price * nights;
     $('#r_camping_name').text(campingType.name);
     $('#r_camping_qty').text(campingType.quantity);
-    $('#r_camping_cost').text(campingType.price2);
-
+    $('#r_camping_cost').text(campingType.price2.asMoney());
     $('#r_nights_qty').text(nights);
-    $('#r_nights_cost').text(cost);
+    $('#r_nights_cost').text(cost.asMoney());
+
+    cost += campingType.price2; // one-time fee
 
     for (let i = 0; i < CAMPING_TYPES.length; i++) {
         let ct = CAMPING_TYPES[i];
-        $(`#ct_cost_${i + 1}`).text(`$${(ct.price * nights) + ct.price2}`);
+        $(`#ct_cost_${i + 1}`).text(`$${((ct.price * nights) + ct.price2).toFixed(2)}`);
     }
 
     $('#r_customer_name').text(`${$('input[name="first_name"]').val()} ${$('input[name="last_name"]').val()}`);
@@ -108,12 +112,18 @@ function update() {
     let picker = $('input[name="dates"]').data('daterangepicker');
     let arrive = picker.startDate.format("LL"),
         depart = picker.endDate.format("LL");
+
     $('#r_arrive').text(arrive);
     $('#r_depart').text(depart);
     $('#date_arrive').text(arrive);
     $('#date_depart').text(depart);
 
-    cost += campingType.price2;
+    // calculate GST
+    $('#r_gst').text((cost * 0.05).asMoney());
+    cost *= 1.05; // add GST
+    $('#r_total').text(cost.asMoney());
+}
 
-    $('#total').text("$" + cost);
+Number.prototype.asMoney = function () {
+    return `$${this.toFixed(2)}`;
 }

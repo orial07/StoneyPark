@@ -8,8 +8,9 @@
             <div class="col">
                 <ul class="list-unstyled text-small">
                     @guest
-                    <li><a class="text-muted" href="{{ route('login') }}">Login</a></li>
+                        <li><a class="text-muted" href="{{ route('login') }}">Login</a></li>
                     @endguest
+                    <li><a class="text-muted" href="{{ route('contact') }}">Contact Us</a></li>
                 </ul>
             </div>
             <div class="col">
@@ -17,7 +18,6 @@
                     <li><a class="text-muted" href="{{ route('reserve') }}">Reserve</a></li>
                     <li><a class="text-muted" href="{{ route('rules') }}">Rules</a></li>
                     <li><a class="text-muted" href="{{ route('gallery') }}">Gallery</a></li>
-                    <li><a class="text-muted" href="{{ route('contact') }}">Contact Us</a></li>
                 </ul>
             </div>
         </div>

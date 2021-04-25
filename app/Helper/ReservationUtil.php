@@ -12,8 +12,16 @@ class ReservationUtil
     public static function getCampingTypes()
     {
         return array(
-            new CampingType("Single Medium Tent", 45, 0, "One tent allowed on campsite."),
-            new CampingType("Extra Medium Tent", 45, 25, "Two tents allowed on campsite.", 2),
+            new CampingType('Single Medium Tent', 45, 0, [
+                'tent' => '1 Medium Tent (4 - 6 people)',
+                'table' => 'Picnic Table',
+                'fire' => 'Firepit',
+            ]),
+            new CampingType('Extra Medium Tent', 45, 25, [
+                'tent' => '2 Medium Tents (8 - 12 people)',
+                'table' => 'Picnic Table',
+                'fire' => 'Firepit',
+            ], 2),
             // new CampingType("Recreation Vehicle", 69, 0, "One recreational vehicle (RV) allowed on campsite."),
         );
     }
@@ -30,10 +38,10 @@ class ReservationUtil
         $campingTypes = ReservationUtil::getCampingTypes();
         $ct = $campingTypes[$reservation->camping_type];
 
-        $cost = $ct->price;
+        $cost = $ct->price; // recurring charges (price per night)
         $cost *= ReservationUtil::getNights($reservation);
-        $cost += $ct->price2;
-
+        $cost += $ct->price2; // one-time fee
+        $cost *= 1.05; // GST Tax Amount
         return $cost;
     }
 

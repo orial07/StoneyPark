@@ -33,12 +33,13 @@
                                 <x-controls.input id="dates" type="text" required>
                                     {{ __('Reservation Dates') }}
                                 </x-controls.input>
+                                <p class="text-center" id="nights"></p>
                             </div>
                         </div>
                         <div class="row justify-content-center text-center">
                             <div class="col col-sm-10 col-md-8">
-                                <p class="text-center" id="nights"></p>
-                                <p>Reservation dates include the date you arrive and depart.<br />
+                                Reservation dates include the date you arrive and depart.
+                                <p class="d-none" id="date_display">
                                     You can arrive on <span class="text-primary" id="date_arrive"></span>, the date you
                                     leave is the morning of <span class="text-primary" id="date_depart"></span>.
                                 </p>
@@ -61,7 +62,14 @@
                                                 + ${!! $ct->price2 !!} initial fee
                                             @endif
                                         </small>
-                                        <p class="my-3 fw-light">{!! $ct->description !!}</p>
+                                        <hr />
+                                        <ul class="list-unstyled my-3 text-start">
+                                            @foreach ($ct->description as $type => $description)
+                                                <li>
+                                                    <x-amenity :type="$type">{!! $description !!}</x-amenity>
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 @endforeach
                             </div>
@@ -113,19 +121,19 @@
                             <div class="col-md col-lg-8">
                                 <dl class="row">
                                     <dt class="col-sm-3">Name</dt>
-                                    <dd class="col-sm-9"><span id="r_customer_name"></span></dd>
+                                    <dd class="col-sm-9" id="r_customer_name"></dd>
 
                                     <dt class="col-sm-3">Email</dt>
-                                    <dd class="col-sm-9"><span id="r_customer_email"></span></dd>
+                                    <dd class="col-sm-9" id="r_customer_email"></dd>
 
                                     <dt class="col-sm-3">Phone</dt>
-                                    <dd class="col-sm-9"><span id="r_customer_phone"></span></dd>
+                                    <dd class="col-sm-9" id="r_customer_phone"></dd>
 
                                     <dt class="col-sm-3">Arrival</dt>
-                                    <dd class="col-sm-9"><span id="r_arrive"></span></dd>
+                                    <dd class="col-sm-9" id="r_arrive"></dd>
 
                                     <dt class="col-sm-3">Departure</dt>
-                                    <dd class="col-sm-9"><span id="r_depart"></span></dd>
+                                    <dd class="col-sm-9" id="r_depart"></dd>
                                 </dl>
 
                                 <table class="table table-hover">
@@ -139,32 +147,33 @@
                                     <tbody>
                                         <tr>
                                             <td scope="row">Nights reserved</td>
-                                            <td><span id="r_nights_qty"></span></td>
-                                            <td>$<span id="r_nights_cost"></span></td>
+                                            <td id="r_nights_qty"></td>
+                                            <td id="r_nights_cost"></td>
                                         </tr>
                                         <tr>
-                                            <td scope="row"><span id="r_camping_name"></span></td>
-                                            <td><span id="r_camping_qty"></span></td>
-                                            <td>$<span id="r_camping_cost"></span></td>
+                                            <td scope="row" id="r_camping_name"></td>
+                                            <td id="r_camping_qty"></td>
+                                            <td id="r_camping_cost"></td>
                                         </tr>
-                                        <tr>
-                                            <td scope="row"><strong>Total</strong></td>
+                                        <tr class="fw-bold">
+                                            <td scope="row">GST</td>
                                             <td></td>
-                                            <td>
-                                                <strong>
-                                                    <small class="text-muted" id="total">Calculating...</small>
-                                                </strong>
-                                            </td>
+                                            <td id="r_gst"></td>
+                                        </tr>
+                                        <tr class="fw-bold">
+                                            <td scope="row">Total</td>
+                                            <td></td>
+                                            <td id="r_total"></td>
                                         </tr>
                                     </tbody>
                                 </table>
+
                                 <button type="button" class="btn btn-primary"
                                     onclick="stepper.previous()">Previous</button>
                                 <div class="float-end text-end">
                                     <button type="submit" class="btn btn-success">Pay now</button>
-                                    <small class="d-block w-100 my-3">
-                                        By reserving, you also agree to our
-                                        <a href="{{ route('rules') }}" target="_blank">rules</a>.
+                                    <small class="d-block w-100 my-3">By reserving, you also agree to our<a
+                                            href="{{ route('rules') }}" target="_blank">rules</a>.
                                     </small>
                                 </div>
                             </div>
@@ -174,32 +183,28 @@
                 </div>
             </div>
         </form>
-
     </div>
 
-    <!-- Map Modal -->
-    <div class="modal fade" id="maps-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="properties" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-name"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <dl class="row">
-                        <dt class="col-sm-3">Description</dt>
-                        <dd class="col-sm-9" id="modal-description"></dd>
-
-                        <dt class="col-sm-3">Ameneties</dt>
-                        <dd class="col-sm-9">
-                            <x-amenities></x-amenities>
-                        </dd>
-                    </dl>
+    @auth
+        <!-- Map Modal -->
+        <div class="modal fade" id="maps-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="properties" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-name"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <dl class="row">
+                            <dt class="col-sm-3">Description</dt>
+                            <dd class="col-sm-9" id="modal-description"></dd>
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endauth
 
     @section('scripts')
         <script>

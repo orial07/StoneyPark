@@ -10909,6 +10909,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.btn-success, .btn-success:hover,
 .btn-primary, .btn-primary:hover {
   color: #f8fafc;
 }
