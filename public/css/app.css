@@ -10910,6 +10910,7 @@ textarea.form-control-lg {
   }
 }
 .btn-success, .btn-success:hover,
+.btn-danger, .btn-danger:hover,
 .btn-primary, .btn-primary:hover {
   color: #f8fafc;
 }

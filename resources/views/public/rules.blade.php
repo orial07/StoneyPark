@@ -2,7 +2,7 @@
     @section('title', 'Rules')
 
     <x-container>
-        <p class="lead p-5">Below are rules that apply to everyone at Stoney Campgrounds. We ask that you abide these
+        <p class="m-5">Below are rules and policies that apply to everyone here at Stoney Park Campgrounds. We ask that you abide these
             rules.</p>
 
         <div class="list-group">

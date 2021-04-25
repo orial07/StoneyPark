@@ -9,6 +9,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 .btn-success, .btn-success:hover,
+.btn-danger, .btn-danger:hover,
 .btn-primary, .btn-primary:hover {
     color: $body-bg;
 }

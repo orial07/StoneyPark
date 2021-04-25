@@ -21,17 +21,17 @@
                     </textarea>
 
                     <div class="d-flex justify-content-between my-3">
-                        <div class="d-block">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
                         @if (isset($rule))
-                            <div class="d-block text-end">
+                            <div class="d-block">
                                 <a href="{{ url('/admin/rules/delete/' . $rule->id) }}"
                                     class="btn btn-danger">Delete</a>
                                 <small class="d-block text-muted w-100">Deleting is permanent and cannot be
                                     un-done.</small>
                             </div>
                         @endif
+                        <div class="d-block float-end">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </div>
                 </form>
             </div>
