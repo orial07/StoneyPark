@@ -10,7 +10,7 @@
     <meta property="og:title" content="@yield('title', 'Welcome!') &middot; {{ config('app.name') }}">
     <meta property="og:description" content="Welcome to Stoney Park Campgrounds!">
 
-    <title>{{ config('app.name') }} &middot; @yield('title', 'Welcome!')</title>
+    <title>@yield('title', 'Welcome!') &middot; {{ config('app.name') }}</title>
 
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/favicon.png') }}" />
 
