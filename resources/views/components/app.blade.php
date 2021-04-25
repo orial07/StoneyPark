@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:image" content="{{ asset('img/favicon.png') }}" />
-    <meta property="og:title" content="{{ config('app.name') }} &middot; @yield('title', 'Welcome!')">
+    <meta property="og:title" content="@yield('title', 'Welcome!') &middot; {{ config('app.name') }}">
     <meta property="og:description" content="Welcome to Stoney Park Campgrounds!">
 
     <title>{{ config('app.name') }} &middot; @yield('title', 'Welcome!')</title>
