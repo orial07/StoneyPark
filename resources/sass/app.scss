@@ -1,13 +1,16 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,500,700');
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,500,700");
 
 // Variables
-@import 'variables';
+@import "variables";
 @import "bs-stepper";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
+.btn-primary, .btn-primary:hover {
+    color: $body-bg;
+}
 
 // click-able hyperlinked SVG elements
 object {
@@ -220,7 +223,6 @@ footer a {
         }
     }
 }
-
 
 @media (max-width: 500px) {
     .gallery {
