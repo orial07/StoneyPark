@@ -12,7 +12,7 @@
             <hr class="featurette-divider" />
             <div class="col-md-7">
                 <h2 class="featurette-heading">COVID-19 Restrictions</span></h2>
-                <p class="lead">We ask taht you book only with family members or close contacts living in the same home
+                <p class="lead">We ask that you book only with family members or close contacts living in the same home
                     as you.</p>
             </div>
             <div class="col-md-5">
