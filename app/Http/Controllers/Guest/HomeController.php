@@ -14,24 +14,24 @@ class HomeController extends Controller
     {
         $this->carousel = array(
             new CarouselItem(
-                "Welcome to Stoney Campgrounds!",
-                "Open all day, everyday.",
+                "Welcome to Stoney Park Campgrounds!",
+                "Open From May 2021 - September 2021 via reservation.",
                 "Reserve Now",
                 url('/reserve'),
                 "img/banner1.jpg"
             ),
 
             new CarouselItem(
-                "A breath of fresh air",
-                "You ever been outside? Me neither.",
+                "Over 700 acres of land to explore.",
+                "",
                 "Learn More",
                 url(''),
                 "img/banner2.jpg"
             ),
 
             new CarouselItem(
-                "A park owned by a family of Parks",
-                "Now that's park-ception.",
+                "Explore our gallery",
+                "",
                 "Browse Gallery",
                 url('gallery'),
                 "img/banner3.jpg"

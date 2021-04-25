@@ -11034,7 +11034,7 @@ footer a {
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
-  height: 36rem;
+  height: 26rem;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center 45% !important;

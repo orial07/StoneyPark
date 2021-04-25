@@ -47,13 +47,15 @@
                         </div>
 
                         <!-- Camping Types -->
-                        <fieldset class="form-group my-4">
-                            <div class="g-2 row justify-content-around text-center">
+                        <fieldset>
+                            <div class="g-2 row justify-content-center gap-sm-2 gap-md-5 text-center">
                                 @foreach (ReservationUtil::getCampingTypes() as $ct)
                                     <div class="col-sm col-md-4 card">
                                         <input class="form-check-input" type="radio" name="camping_type"
                                             id="ct_{!! $loop->iteration !!}" value="{{ $loop->iteration }}" @if ($loop->first) checked @endif>
-                                        <h2 id="ct_cost_{!! $loop->iteration !!}">${!! $ct->price + $ct->price2 !!}</h2>
+                                        <p>
+                                            <span class="fs-1" id="ct_cost_{!! $loop->iteration !!}">{!! $ct->price + $ct->price2 !!}</span><small>+GST</small>
+                                        </p>
                                         <label role="button" class="stretched-link fs-4"
                                             for="ct_{!! $loop->iteration !!}">{!! $ct->name !!}</label>
                                         <small>
