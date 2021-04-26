@@ -41,8 +41,9 @@ const MODAL = new bootstrap.Modal(document.getElementById('maps-modal'));
 window.initMap = function () {
     let e = document.getElementById("map");
     if (!e) return;
+
     const MAP = new google.maps.Map(e, {
-        center: { lat: 51.05563894221939, lng: -114.07027244567871 },
+        center: { lat: 51.149171, lng: -114.998456 },
         zoom: 15,
     });
     $.ajax({

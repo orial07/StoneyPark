@@ -137,7 +137,7 @@ function CreateControl(map, data) {
 
 window.initMap = function () {
     const MAP = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 51.05563894221939, lng: -114.07027244567871 },
+        center: { lat: 51.149171, lng: -114.998456 },
         zoom: 15,
     });
     MAP.addListener('click', function (e) {
