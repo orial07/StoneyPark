@@ -41,7 +41,7 @@
     <h1><object class="mx-auto display-1" data="{{ asset('img/sad.svg') }}"></object> We&rsquo;ll be back soon!</h1>
     <div>
         <p>Sorry for the inconvenience but the site is under maintenance at the moment. If you need to, you can always
-            <a href="mailto:{{ env('MAIL_TO_ADDRESS') }}">contact us</a>, otherwise we&rsquo;ll be back online
+            <a href="mailto:{{ config('mail.to.address') }}">contact us</a>, otherwise we&rsquo;ll be back online
             shortly!
         </p>
     </div>

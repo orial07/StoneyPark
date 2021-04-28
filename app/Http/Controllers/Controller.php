@@ -39,7 +39,7 @@ class Controller extends BaseController
                 ->withInput();
         }
 
-        Mail::to(env('MAIL_TO_ADDRESS'))->queue(new ContactMail([
+        Mail::to(config('mail.to.address'))->queue(new ContactMail([
             'name' => $inputs['name'],
             'email' => $inputs['email'],
             'subject' => $inputs['subject'],

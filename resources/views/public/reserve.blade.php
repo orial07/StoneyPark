@@ -9,7 +9,7 @@
 
     <div class="container-md container-sm-fluid mt-4">
         <div class="text-center">
-            <p>By reserving, you also agree to <a href="https://www.alberta.ca/enhanced-public-health-measures.aspx"
+            <p>By reserving, you also agree to abide by <a href="https://www.alberta.ca/enhanced-public-health-measures.aspx"
                     target="_blank">Alberta's COVID Regulations</a> and
                 our <a href="{{ route('rules') }}" target="_blank">rules &amp; policies</a>
             </p>

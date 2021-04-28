@@ -6,7 +6,7 @@
         <script src="https://js.stripe.com/v3/"></script>
         <script>
             $(document).ready(function() {
-                let stripe = Stripe("{{ env('STRIPE_KEY') }}");
+                let stripe = Stripe("{{ config('app.stripe_key') }}");
                 // literally just wait for redirect *yawn*
                 stripe.redirectToCheckout({
                     sessionId: "{{ $checkout_session->id }}"

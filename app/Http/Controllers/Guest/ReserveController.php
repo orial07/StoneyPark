@@ -18,6 +18,7 @@ class ReserveController extends Controller
 {
     public function show()
     {
+        // dd();
         return view('public.reserve');
     }
 
@@ -147,7 +148,7 @@ class ReserveController extends Controller
             return redirect('/reserve');
         }
 
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient(config('app.stripe_secret'));
         $checkout_session = $stripe->checkout->sessions->create([
             'customer_email' => $reservation->email,
             'payment_method_types' => ['card'],
@@ -179,7 +180,7 @@ class ReserveController extends Controller
         $checkout_session = session('checkout_session');
         $email_ts = session('email_ts');
 
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient(config('app.stripe_secret'));
         $checkout_session = $stripe->checkout->sessions->retrieve($checkout_session->id, []);
         // dd($checkout_session);
 
@@ -202,7 +203,7 @@ class ReserveController extends Controller
             if ($send_email) {
                 session(['email_ts' => now()]);
                 Mail::to($reservation->email) // send to customer
-                    ->bcc(env('MAIL_TO_ADDRESS')) // send to admin
+                    ->bcc(config('mail.to.address')) // send to admin
                     ->queue(new ReservationBooking($reservation));
             }
 
