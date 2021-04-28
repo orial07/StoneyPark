@@ -101,16 +101,22 @@
             <h2 class="title">Reservation <span class="text-muted">(number #{!! $reservation->id !!})</span></h2>
             <p>Please remember the dates <em>arrival</em> is when you visit campgrounds and <em>departure</em>
                 is when you leave (the morning of that day).</p>
+
+            <div class="inline">
+                <p class="text-left text-muted">Payment ID</p>
+                <p class="text-left">{{ $reservation->payment_intent }}</p>
+            </div>
+
             <div class="inline">
                 <p class="text-left text-muted">Arrival</p>
                 <p class="text-left"><?= date('m-d-Y (F j, Y)', strtotime($reservation->date_in)) ?></p>
-        </div>
-        <div class="inline">
-            <p class="text-left text-muted">Departure</p>
-            <p class="text-left"><?= date('m-d-Y (F j, Y)', strtotime($reservation->date_out)) ?></p>
-        </div>
+            </div>
+            <div class="inline">
+                <p class="text-left text-muted">Departure</p>
+                <p class="text-left"><?= date('m-d-Y (F j, Y)', strtotime($reservation->date_out)) ?></p>
+            </div>
 
-        <x-reservation.receipt :reservation="$reservation"></x-reservation.receipt>
+            <x-reservation.receipt :reservation="$reservation"></x-reservation.receipt>
     </section>
     <hr/>
     <section class="group">

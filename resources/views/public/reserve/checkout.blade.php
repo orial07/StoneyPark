@@ -9,7 +9,7 @@
                 let stripe = Stripe("{{ env('STRIPE_KEY') }}");
                 // literally just wait for redirect *yawn*
                 stripe.redirectToCheckout({
-                    sessionId: "{{ $id }}"
+                    sessionId: "{{ $checkout_session->id }}"
                 });
             });
 

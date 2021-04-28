@@ -4,9 +4,12 @@
         <div class="row gap-3 justify-content-center">
             <div class="col-xs-6 col-lg-5 card">
                 <div class="card-body">
-                    <h3 class="title">Reservation</h3>
+                    <h3 class="title">Reservation <span class="text-muted">#{{ $reservation->id }}</span></h3>
                     <hr />
                     <dl class="row">
+                        <dt class="col-sm-4">Payment ID</dt>
+                        <dd class="col-sm-8">{{ $reservation->payment_intent }}</dd>
+
                         <dt class="col-sm-4">Arrival</dt>
                         <dd class="col-sm-8"><?= date('m-d-Y (F j, Y)', strtotime($reservation->date_in)) ?></dd>
 

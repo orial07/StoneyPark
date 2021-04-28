@@ -134,7 +134,7 @@ class ReserveController extends Controller
             array_push($inputs['campers'], $camper);
         }
 
-        Session::put('reservation', [
+        Session::flash('reservation', [
             'reservation' => $reservation,
             'campers' => $inputs['campers'],
         ]);
@@ -168,8 +168,9 @@ class ReserveController extends Controller
         ]);
 
         // the 'id' is needed for stripe checkout redirect
-        $data['id'] = $checkout_session->id;
-        Session::put('reservation', $data);
+        $data['checkout_session'] = $checkout_session;
+        Session::flash('reservation', $data);
+        Session::put('email_ts', 0); // reset email timestamp
         return view('public.reserve.checkout', $data);
     }
 
@@ -178,26 +179,35 @@ class ReserveController extends Controller
         $data = Session::get('reservation');
         if (!isset($data)) return abort(404);
 
+        $checkout_session = $data['checkout_session'];
         $res = $data['reservation'];
         $campers = $data['campers'];
 
+        $res->payment_intent = $checkout_session->payment_intent;
         $res->save();
         foreach ($campers as $camper) {
             $camper->reservation_id = $res->id;
             $camper->save();
         }
 
-        $email_ts = session('email_ts', 0);
-        $email_wait = $email_ts->diffInMinutes(now());
-
-        if (!$email_ts || $email_wait > 3) {
-            session(['email_ts' => now()]);
+        $email_ts = Session::get('email_ts');
+        $send_email = true;
+        if ($email_ts) {
+            $email_wait = $email_ts->diffInMinutes(now());
+            if ($email_wait < 3) {
+                $send_email = false;
+            }
+        }
+        if ($send_email) {
+            Session::put('email_ts', now());
             Mail::to($res->email) // send to customer
                 ->bcc(env('MAIL_TO_ADDRESS')) // send to admin
                 ->queue(new ReservationBooking($res));
         }
 
-        return view('public.reserve.success', ['reservation' => $res]);
+        return view('public.reserve.success', [
+            'reservation' => $res
+        ]);
         // return view('email.reservation', ['reservation' => $res]);
     }
 }
