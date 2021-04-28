@@ -8,6 +8,13 @@
     @endsection
 
     <div class="container-md container-sm-fluid mt-4">
+        <div class="text-center">
+            <p>By reserving, you also agree to <a href="https://www.alberta.ca/enhanced-public-health-measures.aspx"
+                    target="_blank">Alberta's COVID Regulations</a> and
+                our <a href="{{ route('rules') }}" target="_blank">rules &amp; policies</a>
+            </p>
+        </div>
+
         <x-errors></x-errors>
 
         <form id="reserve-form" method="POST" action="reserve">
@@ -84,8 +91,8 @@
                                     {{ __('Age') }}</x-controls.input>
 
                                 <x-controls.input id="campers_count" type="number" value="1" min="1" max="6" required>
-                                    {{ __('Number of Campers') }}<small
-                                        class="form-text text-muted w-100">(including yourself)</small>
+                                    {{ __('Number of Campers') }}<small class="form-text text-muted w-100">(including
+                                        yourself)</small>
                                 </x-controls.input>
                                 <div class="container" id="campers"></div>
 
@@ -153,8 +160,6 @@
                                     onclick="stepper.previous()">Previous</button>
                                 <div class="float-end text-end">
                                     <button type="submit" class="btn btn-success">Pay now</button>
-                                    <small class="d-block w-100 my-3">By reserving, you also agree to our <a
-                                            href="{{ route('rules') }}" target="_blank">rules</a>.
                                     </small>
                                 </div>
                             </div>

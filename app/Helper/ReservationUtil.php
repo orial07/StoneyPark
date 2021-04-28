@@ -17,7 +17,7 @@ class ReservationUtil
                 'fire' => 'Firepit',
             ]),
             new CampingType('Extra Medium Tent', 45, 25, [
-                'tent' => '2 Medium Tents (8 - 12 people)',
+                'tent' => '2 Medium Tents (up to 12 people)',
                 'table' => 'Picnic Table',
                 'fire' => 'Firepit',
             ], 2),
