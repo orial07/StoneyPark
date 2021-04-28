@@ -103,8 +103,8 @@
                 is when you leave (the morning of that day).</p>
 
             <div class="inline">
-                <p class="text-left text-muted">Payment ID</p>
-                <p class="text-left">{{ $reservation->payment_intent }}</p>
+                <p class="text-left text-muted">Transaction ID</p>
+                <p class="text-left">{{ $reservation->transaction_id }}</p>
             </div>
 
             <div class="inline">

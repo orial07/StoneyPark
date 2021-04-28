@@ -30,8 +30,10 @@
             <p>
                 If you changed your mind, would like you cancel or have any questions, please <a
                     href="{{ route('contact') }}">contact</a> us as soon as possible!<br />
-                Didn't receive the email? <a href="{{ url()->current() }}">Try sending another</a><span
-                    class="text-muted"> (3 minute cooldown)</span>
+                Didn't receive the email? <a href="{{ url()->current() }}">Try sending another</a>
+                @if ($email_wait)
+                    <br/>Sorry if you haven't received the email! Have you checked your spam folder? Please wait {{ $email_wait }} minute{{ $email_wait != 1 ? 's' : ''}} before trying again.
+                @endif
             </p>
         </div>
     </div>

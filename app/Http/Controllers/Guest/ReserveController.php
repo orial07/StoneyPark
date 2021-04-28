@@ -35,7 +35,7 @@ class ReserveController extends Controller
                 $result = $result->where('camping_type', 2);
                 break;
             default:
-                throw new Exception("invalid camping_type: " . $camping_type);
+                throw new Exception("unknown camping_type: " . $camping_type);
         }
 
         // amt of ppl still camping when the reservation starts
@@ -75,10 +75,7 @@ class ReserveController extends Controller
                 'phone' => $r->input('phone'),
                 'age' => $r->input('age'),
             ],
-
             'campers_count' => intval($r->input('campers_count')),
-            'campers' => array(),
-
             'dates' => $r->input('dates'),
             // subtract 1 due to the blade loop directive iterations starting at 1
             'camping_type' => intval($r->input('camping_type')),
@@ -120,10 +117,11 @@ class ReserveController extends Controller
         $reservation->date_in = $arrival;
         $reservation->date_out = $departure;
 
+        $campers = array();
         $camper = new Camper();
         $camper->first_name = $inputs['customer']['first'];
         $camper->last_name = $inputs['customer']['last'];
-        array_push($inputs['campers'], $camper);
+        array_push($campers, $camper);
 
         // '-1' because member above is created manually
         $count = $r->input('campers') - 1;
@@ -131,12 +129,12 @@ class ReserveController extends Controller
             $camper = new Camper();
             $camper->first_name = $r->input('camper' . $i . '_first_name');
             $camper->last_name = $r->input('camper' . $i . '_last_name');
-            array_push($inputs['campers'], $camper);
+            array_push($campers, $camper);
         }
 
-        Session::flash('reservation', [
+        session([
             'reservation' => $reservation,
-            'campers' => $inputs['campers'],
+            'campers' => $campers,
         ]);
 
         return redirect('/reserve/checkout');
@@ -144,10 +142,11 @@ class ReserveController extends Controller
 
     public function checkout()
     {
-        $data = Session::get('reservation');
-        if (!isset($data)) return abort(404);
+        $reservation = session('reservation', null);
+        if ($reservation == null) {
+            return redirect('/reserve');
+        }
 
-        $reservation = $data['reservation'];
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $checkout_session = $stripe->checkout->sessions->create([
             'customer_email' => $reservation->email,
@@ -167,47 +166,53 @@ class ReserveController extends Controller
             'cancel_url' => url('/reserve'),
         ]);
 
-        // the 'id' is needed for stripe checkout redirect
-        $data['checkout_session'] = $checkout_session;
-        Session::flash('reservation', $data);
-        Session::put('email_ts', 0); // reset email timestamp
-        return view('public.reserve.checkout', $data);
+        session(['checkout_session' => $checkout_session]);
+        session(['email_ts' => 0]); // reset email timestamp
+
+        return view('public.reserve.checkout', ['checkout_session' => $checkout_session]);
     }
 
     public function success()
     {
-        $data = Session::get('reservation');
-        if (!isset($data)) return abort(404);
+        $reservation = session('reservation');
+        $campers = session('campers');
+        $checkout_session = session('checkout_session');
+        $email_ts = session('email_ts');
 
-        $checkout_session = $data['checkout_session'];
-        $res = $data['reservation'];
-        $campers = $data['campers'];
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $checkout_session = $stripe->checkout->sessions->retrieve($checkout_session->id, []);
+        // dd($checkout_session);
 
-        $res->payment_intent = $checkout_session->payment_intent;
-        $res->save();
-        foreach ($campers as $camper) {
-            $camper->reservation_id = $res->id;
-            $camper->save();
-        }
-
-        $email_ts = Session::get('email_ts');
-        $send_email = true;
-        if ($email_ts) {
-            $email_wait = $email_ts->diffInMinutes(now());
-            if ($email_wait < 3) {
-                $send_email = false;
+        if ($checkout_session->payment_status == 'paid') {
+            $reservation->transaction_id = $checkout_session->id;
+            $reservation->save();
+            foreach ($campers as $camper) {
+                $camper->reservation_id = $reservation->id;
+                $camper->save();
             }
-        }
-        if ($send_email) {
-            Session::put('email_ts', now());
-            Mail::to($res->email) // send to customer
-                ->bcc(env('MAIL_TO_ADDRESS')) // send to admin
-                ->queue(new ReservationBooking($res));
-        }
 
-        return view('public.reserve.success', [
-            'reservation' => $res
-        ]);
-        // return view('email.reservation', ['reservation' => $res]);
+            $send_email = true;
+            $email_wait = 0;
+            if ($email_ts) {
+                $email_wait = $email_ts->diffInMinutes(now());
+                if ($email_wait < 3) {
+                    $send_email = false;
+                }
+            }
+            if ($send_email) {
+                session(['email_ts' => now()]);
+                Mail::to($reservation->email) // send to customer
+                    ->bcc(env('MAIL_TO_ADDRESS')) // send to admin
+                    ->queue(new ReservationBooking($reservation));
+            }
+
+            return view('public.reserve.success', [
+                'reservation' => $reservation,
+                'email_wait' => 3 - $email_wait,
+            ]);
+            // view outgoing-email reservation
+            // return view('email.reservation', ['reservation' => $reservation]);
+        }
+        abort(404);
     }
 }
