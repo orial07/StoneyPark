@@ -40,7 +40,7 @@
                         <!-- Reservation dates -->
                         <div class="row justify-content-center">
                             <div class="col col-sm-8 col-lg-4">
-                                <x-controls.input id="dates" type="text" required>
+                                <x-controls.input id="dates" type="text" required readonly>
                                     {{ __('Reservation Dates') }}
                                 </x-controls.input>
                                 <p class="text-center" id="nights"></p>
