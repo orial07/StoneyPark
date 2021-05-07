@@ -1,5 +1,6 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,500,700");
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 
 // Variables
 @import "variables";
@@ -8,9 +9,12 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-.btn-success, .btn-success:hover,
-.btn-danger, .btn-danger:hover,
-.btn-primary, .btn-primary:hover {
+.btn-success,
+.btn-success:hover,
+.btn-danger,
+.btn-danger:hover,
+.btn-primary,
+.btn-primary:hover {
     color: $body-bg;
 }
 
@@ -81,6 +85,30 @@ footer a {
     border-radius: 0 !important;
 }
 
+.ff-serif {
+    font-family: "Anton", sans-serif;
+}
+
+/* HERO (HOME-PAGE) ELEMENT
+  -------------------------------------------------- */
+
+.hero {
+    position: relative;
+    color: $body-bg;
+
+    & > video {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 25em;
+    }
+
+    .descriptor {
+        position: absolute;
+        top: calc(50% - 4rem);
+    }
+}
+
 /* TIMELINE ELEMENT
   -------------------------------------------------- */
 
@@ -133,48 +161,6 @@ footer a {
         right: 0;
     }
 }
-
-/* CUSTOMIZE THE CAROUSEL
-  -------------------------------------------------- */
-
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
-    bottom: 3rem;
-    z-index: 10;
-}
-
-/* Declare heights because of positioning of img element */
-.carousel-item {
-    height: 26rem;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-position: center 45% !important;
-}
-.carousel-item > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-}
-
-/* MARKETING CONTENT
-  -------------------------------------------------- */
-
-/* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-.marketing h2 {
-    font-weight: 400;
-}
-/* rtl:begin:ignore */
-.marketing .col-lg-4 p {
-    margin-right: 0.75rem;
-    margin-left: 0.75rem;
-}
-/* rtl:end:ignore */
 
 /* Featurettes
   ------------------------- */
