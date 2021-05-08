@@ -4,7 +4,7 @@ return [
 
     'stripe_key' => env('STRIPE_KEY', ''),
     'stripe_secret' => env('STRIPE_SECRET', ''),
-    'stripe_currency' => env('CASHIER_CURRENCY', 'cad'),
+    'stripe_currency' => env('STRIPE_CURRENCY', 'cad'),
 
     /*
     |--------------------------------------------------------------------------
@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Stoney Campgrounds'),
 
     /*
     |--------------------------------------------------------------------------

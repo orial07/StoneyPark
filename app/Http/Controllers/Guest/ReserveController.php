@@ -10,7 +10,6 @@ use App\Models\Camper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Exception;
 
@@ -192,6 +191,7 @@ class ReserveController extends Controller
                 $camper->save();
             }
 
+
             $send_email = true;
             $email_wait = 0;
             if ($email_ts) {
@@ -202,8 +202,9 @@ class ReserveController extends Controller
             }
             if ($send_email) {
                 session(['email_ts' => now()]);
-                Mail::to($reservation->email) // send to customer
-                    ->bcc(config('mail.to.address')) // send to admin
+                // send to customer & administrator
+                Mail::to($reservation->email)
+                    ->bcc(config('mail.bcc'))
                     ->queue(new ReservationBooking($reservation));
             }
 
