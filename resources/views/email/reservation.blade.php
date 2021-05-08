@@ -297,6 +297,13 @@
                                                         {{ date('F j, Y (m-d-Y)', strtotime($reservation->date_in)) }}
                                                         <br>Leaving
                                                         {{ date('F j, Y (m-d-Y)', strtotime($reservation->date_out)) }}
+                                                        <br>
+                                                        <br>
+                                                        @foreach ($reservation->campers as $camper)
+                                                            @if (!$loop->first)
+                                                                {{ $camper->first_name . ' ' . $camper->last_name }}
+                                                            @endif
+                                                        @endforeach
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -333,7 +340,7 @@
                                     </tr>
                                     <tr>
                                         <td class="content-block aligncenter">
-                                            51°08'57.0"N 114°59'54.4"W<br />
+                                            51°08'57.0"N 114°59'54.4"W<br>
                                             Stoney 142, 143, 144, AB
                                         </td>
                                     </tr>
@@ -344,8 +351,10 @@
                     <div class="footer">
                         <table width="100%">
                             <tr>
-                                <td class="aligncenter content-block">Questions? Email <a
-                                        href="mailto:">support@acme.inc</a></td>
+                                <td class="aligncenter content-block">
+                                    Visit <a href="https://stoneycampgrounds.com">Stoney
+                                        Campgrounds</a> for more information
+                                </td>
                             </tr>
                         </table>
                     </div>

@@ -64,10 +64,6 @@
                             </div>
                         </fieldset>
 
-                        @auth
-                            <div id="map" class="my-5 w-100 h-100" style="min-height: 75vh"></div>
-                        @endauth
-
                         <button type="button" class="btn btn-primary float-end" onclick="stepper.next()">Next</button>
                     </x-controls.stepper-step>
 
@@ -128,31 +124,26 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Item</th>
-                                            <th scope="col">Qty.</th>
+                                            <th scope="col"></th>
                                             <th scope="col">Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td scope="row">Nights reserved</td>
-                                            <td id="r_nights_qty"></td>
-                                            <td id="r_nights_cost"></td>
+                                            <td scope="row"><span id="r_nights_qty"></span>x Reserved</td>
+                                            <td class="text-end" id="r_nights_cost"></td>
                                         </tr>
                                         <tr>
-                                            <td scope="row" id="r_camping_name"></td>
-                                            <td id="r_camping_qty"></td>
-                                            <td id="r_camping_cost"></td>
+                                            <td scope="row"><span id="r_camping_name"></span></td>
+                                            <td class="text-end" id="r_camping_cost"></td>
                                         </tr>
                                         <tr class="fw-bold">
                                             <td scope="row">GST</td>
-                                            <td></td>
-                                            <td id="r_gst"></td>
+                                            <td class="text-end" id="r_gst"></td>
                                         </tr>
                                         <tr class="fw-bold">
                                             <td scope="row">Total</td>
-                                            <td></td>
-                                            <td id="r_total"></td>
+                                            <td class="text-end" id="r_total"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -172,27 +163,6 @@
         </form>
     </div>
 
-    @auth
-        <!-- Map Modal -->
-        <div class="modal fade" id="maps-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="properties" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-name"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <dl class="row">
-                            <dt class="col-sm-3">Description</dt>
-                            <dd class="col-sm-9" id="modal-description"></dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endauth
-
     @section('scripts')
         <script>
             const CAMPING_TYPES = {!! json_encode(ReservationUtil::getCampingTypes()) !!};
@@ -202,14 +172,5 @@
         <!-- daterangepicker -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-        @auth
-            <!-- google maps -->
-            <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRE6SEIjNbmklk--s8yVx3XbyRmzC3yNM&callback=initMap&v=weekly"
-                async>
-            </script>
-            <script src="{{ asset('js/map.js') }}"></script>
-        @endauth
     @endsection
 </x-app>

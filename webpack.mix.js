@@ -16,7 +16,5 @@ mix
     .js('resources/js/app.js', 'public/js')
 
     .js('resources/js/checkout.js', 'public/js')
-    .js('resources/js/map.js', 'public/js')
-    .js('resources/js/admin.map.js', 'public/js')
 
     .disableNotifications();

@@ -202,6 +202,7 @@ class ReserveController extends Controller
             }
             if ($send_email) {
                 session(['email_ts' => now()]);
+                $email_wait = 0;
                 // send to customer & administrator
                 Mail::to($reservation->email)
                     ->bcc(config('mail.bcc'))

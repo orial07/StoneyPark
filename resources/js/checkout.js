@@ -8,7 +8,7 @@ jQuery(function () {
     // intialize stepper
     let stepperEl = $('.bs-stepper')[0];
     let stepper = window.stepper = new Stepper(stepperEl, {
-        linear: true,
+        linear: false,
         animation: false,
         selectors: {
             steps: '.step',
@@ -93,7 +93,7 @@ function update() {
 
     // update review step contents
     $('#r_camping_name').text(campingType.name);
-    $('#r_camping_qty').text(campingType.quantity);
+    // $('#r_camping_qty').text(campingType.quantity);
     $('#r_camping_cost').text(campingType.price2.asMoney());
     $('#r_nights_qty').text(nights);
     $('#r_nights_cost').text(cost.asMoney());

@@ -11,10 +11,10 @@
                         <dd class="col-sm-8">{{ $reservation->transaction_id }}</dd>
 
                         <dt class="col-sm-4">Arrival</dt>
-                        <dd class="col-sm-8"><?= date('m-d-Y (F j, Y)', strtotime($reservation->date_in)) ?></dd>
+                        <dd class="col-sm-8"><?= date('F j, Y (m-d-Y)', strtotime($reservation->date_in)) ?></dd>
 
                         <dt class="col-sm-4">Departure</dt>
-                        <dd class="col-sm-8"><?= date('m-d-Y (F j, Y)', strtotime($reservation->date_out)) ?></dd>
+                        <dd class="col-sm-8"><?= date('F j, Y (m-d-Y)', strtotime($reservation->date_out)) ?></dd>
                     </dl>
                 </div> <!-- card body end -->
             </div> <!-- card/column end -->

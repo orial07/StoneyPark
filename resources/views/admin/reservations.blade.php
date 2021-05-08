@@ -1,10 +1,7 @@
 <x-admin-app>
     <h1 class="fw-bold text-center p-5">Customer Reservations</h1>
-    <p>Here's a list of all customer reservations. Read-only data. Click any entry to view reservation, pricing and
-        more.</p>
 
     {{ $reservations->links('vendor.pagination.bootstrap-4') }}
-
     <form action="{{ route('admin.reservations.search') }}" method="POST" role="search" autocomplete="off">
         @csrf
 
