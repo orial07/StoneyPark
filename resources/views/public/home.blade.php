@@ -11,8 +11,22 @@
     </div>
 
     <div class="container">
+
+        <div class="row justify-content-center my-5">
+            <div class="col-10 text-center">
+                <h3>Welcome to Stoney Park Campgrounds!</h3>
+                <p>
+                    For the first time in over 20 years the park will be opening its gates to the public. We have been
+                    working day and night for the past year to make this happen. Originally we were set to open in the Spring of
+                    2022 but we have pushed our agenda to allow visitors the chance to visit in 2021. This Spring we are
+                    welcoming the general public to come enjoy 100 camping spots each equipped with a picnic table and firepit
+                    along with over 700 acres of land to explore!
+                </p>
+            </div>
+        </div>
+
         <x-socials>
-            <h1 class="text-center my-4">Find us on social media</h1>
+            <h2 class="text-center my-4">Find us on social media</h2>
         </x-socials>
     </div>
 </x-app>
