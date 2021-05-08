@@ -312,7 +312,7 @@
                                                     <td>
                                                         <table class="invoice-items" cellpadding="0" cellspacing="0">
                                                             <tr>
-                                                                <td>Nights Reserved</td>
+                                                                <td>{{ $reservation->getNights() }}x Nights Reserved</td>
                                                                 <td class="alignright">$
                                                                     {{ number_format($reservation->getNights() * $reservation->getType()->price, 2, '.', ',') }}
                                                                 </td>
