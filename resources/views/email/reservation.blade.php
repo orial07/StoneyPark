@@ -283,7 +283,9 @@
                                 <table width="100%" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td class="content-block">
-                                            <h1 class="aligncenter">${{ $reservation->getCost(true) }} Paid</h1>
+                                            <h1 class="aligncenter">
+                                                ${{ number_format($reservation->getCost(true), '2', '.', ',') }} Paid
+                                            </h1>
                                         </td>
                                     </tr>
                                     <tr>
@@ -318,7 +320,8 @@
                                                             <tr>
                                                                 <td>{{ $reservation->getType()->name }}</td>
                                                                 <td class="alignright">$
-                                                                    {{ $reservation->getType()->price2 }}</td>
+                                                                    {{ number_format($reservation->getType()->price2, 2, '.', ',') }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>GST</td>
