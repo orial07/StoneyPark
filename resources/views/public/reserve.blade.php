@@ -40,7 +40,7 @@
                         <!-- Reservation dates -->
                         <div class="row justify-content-center">
                             <div class="col col-sm-8 col-lg-4 text-center">
-                                <x-controls.input id="dates" type="text" required readonly></x-controls.input>
+                                <x-controls.input id="dates" type="text" required></x-controls.input>
                                 <p id="nights"></p>
                             </div>
                         </div>
