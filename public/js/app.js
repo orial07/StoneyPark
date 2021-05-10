@@ -5001,6 +5001,65 @@ window.GetCampgrounds = function (cb_success, cb_error) {
   });
 };
 
+jQuery(function () {
+  var cg = {
+    // container for all campsites
+    campsites: document.querySelector('#cg-campsite-list'),
+    // used as a form input when selecting from #cg-campsite-list
+    input: document.querySelector('#cg-campsite-value')
+  };
+  if (!cg.campsites) return;
+  var previous; // the previously selected element
+
+  var OnCampsiteClick = function OnCampsiteClick(event) {
+    event.preventDefault();
+    var e = event.target;
+    if (previous == e) return; // same element; ignore interaction
+
+    e.classList.add('bg-primary', 'text-white');
+    if (previous) previous.classList.remove('bg-primary', 'text-white');
+    previous = e;
+    var sp = e.id.split('-');
+    var section = sp[0];
+    var number = parseInt(sp[1]);
+
+    if (cg.input) {
+      cg.input.value = "".concat(section, "-").concat(number);
+    } // jQuery.ajax(`/api/cg/get/${section}/${number}`, {
+    //     method: 'POST',
+    //     dataType: 'json',
+    //     error: (r, status, error) => console.log(r, status, error),
+    //     success: (data, status, r) => {
+    //         if (r.status == 200 && r.readyState == 4) {
+    //             let campground = data[0];
+    //         }
+    //     }
+    // });
+
+  };
+
+  GetCampgrounds(function (data, status, r) {
+    for (var i = 0; i < data.length; i++) {
+      var camp = data[i];
+      var campsite = document.createElement('div');
+      campsite.id = "".concat(camp.section, "-").concat(camp.number);
+      campsite.innerHTML = "Site ".concat(camp.section, "-").concat(camp.number);
+      campsite.classList.add('list-group-item');
+      campsite.setAttribute('role', 'button');
+      campsite.onclick = OnCampsiteClick;
+
+      var _status = document.createElement('span');
+
+      _status.id = "".concat(camp.section, "-").concat(camp.number, "-status");
+
+      _status.classList.add('badge', 'float-end', 'bg-secondary');
+
+      campsite.append(_status);
+      cg.campsites.append(campsite);
+    }
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

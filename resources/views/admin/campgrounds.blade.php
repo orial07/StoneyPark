@@ -1,41 +1,31 @@
 <x-admin.app>
     <div class="row">
-        <div id="campground-body" class="col">
-            <div class="row justify-content-around fs-5">
-                <div class="col">
-                    <x-amenity :type="'fire'">Fire Pit</x-amenity>
-                </div>
-                <div class="col">
-                    <x-amenity :type="'table'">Picnic Table</x-amenity>
-                </div>
-            </div>
-
-            <div id="campground-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="col">
+            <div class="carousel slide" id="cg-carousel" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://via.placeholder.com/1" class="d-block w-100" alt="...">
-                    </div>
+                    <div class="carousel-item active"><img src="https://dummyimage.com/1"></div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#campground-carousel"
-                    data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#cg-carousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#campground-carousel"
-                    data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#cg-carousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
         </div>
-        <div class="col-3">
-            <ul id="campground-sections" class="d-flex list-group overflow-auto">
-                @foreach (ReservationUtil::getCampgrounds() as $item)
-                    <li class="list-group-item" id="{{ $item->section }}-{{ $item->number }}">
-                        <a href="#" class="stretched-link text-decoration-none">Site
-                            {{ $item->section }}-{{ $item->number }}</a>
-                    </li>
-                @endforeach
+        <div class="col-xs-12 col-lg-6">
+            <dl class="row">
+                <dt class="col-4">Amenities</dt>
+                <dd class="col-8">
+                    <x-svg-icon :icon="'fire'">Firepit</x-svg-icon>
+                    <x-svg-icon :icon="'table'">Picnic Table</x-svg-icon>
+                </dd>
+            </dl>
+        </div>
+        <div class="col-3 user-select-none d-flex position-relative">
+            <ul id="cg-campsite-list" class="position-absolute w-100 h-100 overflow-auto">
             </ul>
         </div>
     </div>

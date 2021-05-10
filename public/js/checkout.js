@@ -1,100 +1,8 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./resources/js/campsites.js":
-/*!***********************************!*\
-  !*** ./resources/js/campsites.js ***!
-  \***********************************/
-/***/ (() => {
-
-jQuery(function () {
-  var cg = {
-    campsites: document.querySelector('#cg-campsite-list'),
-    input: document.querySelector('#cg-campsite-value')
-  };
-  var previous; // the previously selected element
-
-  var OnCampsiteClick = function OnCampsiteClick(event) {
-    event.preventDefault();
-    var e = event.target;
-    if (previous == e) return; // same element; ignore interaction
-
-    e.classList.add('bg-primary', 'text-white');
-    if (previous) previous.classList.remove('bg-primary', 'text-white');
-    previous = e;
-    var sp = e.id.split('-');
-    var section = sp[0];
-    var number = parseInt(sp[1]);
-    cg.input.value = "".concat(section, "-").concat(number); // jQuery.ajax(`/api/cg/get/${section}/${number}`, {
-    //     method: 'POST',
-    //     dataType: 'json',
-    //     error: (r, status, error) => console.log(r, status, error),
-    //     success: (data, status, r) => {
-    //         if (r.status == 200 && r.readyState == 4) {
-    //             let campground = data[0];
-    //         }
-    //     }
-    // });
-  };
-
-  GetCampgrounds(function (data, status, r) {
-    for (var i = 0; i < data.length; i++) {
-      var camp = data[i];
-      var campsite = document.createElement('div');
-      campsite.id = "".concat(camp.section, "-").concat(camp.number);
-      campsite.innerHTML = "Site ".concat(camp.section, "-").concat(camp.number);
-      campsite.classList.add('list-group-item');
-      campsite.setAttribute('role', 'button');
-      campsite.onclick = OnCampsiteClick;
-
-      var _status = document.createElement('span');
-
-      _status.id = "".concat(camp.section, "-").concat(camp.number, "-status");
-
-      _status.classList.add('badge', 'float-end', 'bg-secondary');
-
-      campsite.append(_status);
-      cg.campsites.append(campsite);
-    }
-  });
-});
-
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!**********************************!*\
   !*** ./resources/js/checkout.js ***!
   \**********************************/
-__webpack_require__(/*! ./campsites */ "./resources/js/campsites.js");
-
 Number.prototype.asMoney = function () {
   return "$ ".concat(this.toFixed(2));
 };
@@ -212,7 +120,5 @@ function update() {
     }
   });
 }
-})();
-
 /******/ })()
 ;

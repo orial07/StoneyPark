@@ -1,5 +1,3 @@
-require('./campsites');
-
 Number.prototype.asMoney = function () {
     return `$ ${this.toFixed(2)}`;
 }
