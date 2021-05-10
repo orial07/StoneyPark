@@ -34,6 +34,33 @@ function onDateChanged(start, end) {
         return;
     }
     update();
+
+    // check campsite status based on selected reservation dates
+    // any campsites returned in ${data} is meant to be unavailable
+    GetReservationsStatus(`${start.format(TIME_FORMAT)} - ${end.format(TIME_FORMAT)}`, (data, status, r) => {
+        let campsites = document.querySelectorAll('#cg-campsite-list > div');
+        // loop thru all campsites
+        for (let a = 0; a < campsites.length; a++) {
+            let campsite = campsites[a]; // DOM element
+            let status = document.querySelector(`#${campsite.id}-status`); // DOM element
+            status.innerHTML = "Checking...";
+            status.classList.remove('bg-danger', 'bg-success');
+
+            let available = true;
+            for (let b = 0; b < data.length; b++) {
+                // campsite was found in the returned ${data}
+                if (campsite.id == data[b].campground_id) {
+                    status.classList.add('bg-danger');
+                    status.innerHTML = "Unavaialble";
+                    available = false;
+                    break;
+                }
+            }
+
+            status.classList.add('bg-success');
+            if (available) status.innerHTML = "Available";
+        }
+    });
 }
 
 // updates form control inputs for number of campers
@@ -89,30 +116,4 @@ function update() {
     let date_in = picker.startDate.format("LL"), date_out = picker.endDate.format("LL");
     $('#date-in').text(date_in);
     $('#date-out').text(date_out);
-
-    // check campsite status based on selected reservation dates
-    // any campsites returned in ${data} is meant to be unavailable
-    GetReservationsStatus(picker.element[0].value, (data, status, r) => {
-        let campsites = document.querySelectorAll('#cg-campsite-list > div');
-        // loop thru all campsites
-        for (let a = 0; a < campsites.length; a++) {
-            let campsite = campsites[a];
-            let status = document.querySelector(`#${campsite.id}-status`);
-            status.classList.remove('bg-danger', 'bg-success', 'bg-secondary');
-
-            let available = true;
-            for (let b = 0; b < data.length; b++) {
-                // campsite was found in the returned ${data}
-                if (campsite.id == data[b].campground_id) {
-                    status.classList.add('bg-danger');
-                    status.innerHTML = "Unavaialble";
-                    available = false;
-                    break;
-                }
-            }
-            
-            status.classList.add('bg-success');
-            if (available) status.innerHTML = "Available";
-        }
-    });
 }
