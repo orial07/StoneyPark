@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPaymentIntentToReservationsTable extends Migration
+class AddCampgroundsIdToReservationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddPaymentIntentToReservationsTable extends Migration
     public function up()
     {
         Schema::table('reservations', function (Blueprint $table) {
-            $table->string('payment_intent')->index();
+            $table->string('campground_id', 4)->index();
         });
     }
 
@@ -26,7 +26,8 @@ class AddPaymentIntentToReservationsTable extends Migration
     public function down()
     {
         Schema::table('reservations', function (Blueprint $table) {
-            $table->dropColumn('payment_intent');
+            // $table->dropForeign('campground_id');
+            $table->dropColumn('campground_id');
         });
     }
 }

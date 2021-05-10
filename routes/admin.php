@@ -2,7 +2,7 @@
 // must be logged-in and verified
 
 use App\Http\Controllers\Admin\GalleryController;
-use App\Http\Controllers\Admin\MapController;
+use App\Http\Controllers\Admin\CampgroundsController;
 use App\Http\Controllers\Admin\RulesController;
 use App\Http\Controllers\Auth\ReservationController;
 use Illuminate\Support\Facades\Route;
@@ -38,11 +38,10 @@ Route::name('admin') // all route names will be prefixed with
             });
 
         // map group; admin.map
-        Route::name('.map')
-            ->prefix('map')
+        Route::name('.campgrounds')
+            ->prefix('campgrounds')
             ->group(function () {
-                Route::get('/', [MapController::class, 'show']);
-                Route::post('/save', [MapController::class, 'save'])->name('.save');
+                Route::get('/', [CampgroundsController::class, 'show']);
             });
 
         // gallery group; admin.gallery

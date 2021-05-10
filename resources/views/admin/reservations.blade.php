@@ -1,4 +1,4 @@
-<x-admin-app>
+<x-admin.app>
     <h1 class="fw-bold text-center p-5">Customer Reservations</h1>
 
     {{ $reservations->links('vendor.pagination.bootstrap-4') }}
@@ -39,4 +39,4 @@
             @endforeach
         </tbody>
     </table>
-</x-admin-app>
+</x-admin.app>

@@ -11,7 +11,16 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     window.bootstrap = require('bootstrap');
-} catch (e) {}
+
+    // enable tooltips everywhere
+    jQuery(function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

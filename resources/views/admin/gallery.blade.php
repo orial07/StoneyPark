@@ -1,7 +1,4 @@
-<x-admin-app>
-    <p class="lead p-5">All changes made can immediately affect the <a href="{{ route('gallery') }}">Gallery</a> page.
-        Any modifications cannot be un-done.</p>
-
+<x-admin.app>
     <x-errors></x-errors>
 
     <div class="row justify-content-center">
@@ -46,4 +43,4 @@
             <x-gallery :pictures="$pictures" :admin="true"></x-gallery>
         </div>
     </div>
-</x-admin-app>
+</x-admin.app>

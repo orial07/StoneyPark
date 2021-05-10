@@ -7,6 +7,7 @@ use App\Models\Reservation;
 use App\Mail\ReservationBooking;
 use App\Http\Controllers\Controller;
 use App\Models\Camper;
+use App\Models\Campground;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -17,30 +18,7 @@ class ReserveController extends Controller
 {
     public function show()
     {
-        // dd();
         return view('public.reserve');
-    }
-
-    public static function getReservationsOn($date, $camping_type)
-    {
-        $result = DB::table('reservations');
-        switch ($camping_type) {
-            case 0: // single tent
-            case 1: // double tent
-                $result = $result
-                    ->where('camping_type', 0)
-                    ->orWhere('camping_type', 1);
-                break;
-            case 2: // RV spot
-                $result = $result->where('camping_type', 2);
-                break;
-            default:
-                throw new Exception("unknown camping_type: " . $camping_type);
-        }
-
-        // amt of ppl still camping when the reservation starts
-        $result = $result->where('date_out', '>=', $date)->get();
-        return sizeof($result);
     }
 
     public function submit(Request $r)
@@ -50,15 +28,28 @@ class ReserveController extends Controller
             $r->all(),
             [ // rules
 
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required|email',
-                'phone' => 'required|regex:/^\(?\d{3,}\)?[ -]?\d{3,}[ -]?\d{4,}$/',
-                'age' => 'required|numeric|min:18',
-
-                'campers_count' => 'required|numeric|min:1|max:6',
-                // camping_type starts at 1 due to the blade loop directive iterations starting at 1
-                'camping_type' => 'required|numeric|min:0|max:' . sizeof($campingTypes),
+                'user-name-first' => 'required',
+                'user-name-last' => 'required',
+                'user-email' => 'required|email',
+                'user-phone' => 'required|regex:/^\(?\d{3,}\)?[ -]?\d{3,}[ -]?\d{4,}$/',
+                'user-age' => 'required|numeric|min:18',
+                'campers-count' => 'required|numeric|min:1|max:6',
+                'camp-type' => 'required|numeric|min:0|max:' . sizeof($campingTypes),
+                'cg-campsite-value' => 'required|regex:/^\w-\d$/', // the selected campsite
+            ],
+            [ // messages
+                'camp-type.required' => 'You must select a :attribute',
+                'cg-campsite-value.required' => 'You must select a :attribute'
+            ],
+            [ // names
+                'user-name-first' => 'first name',
+                'user-name-last' => 'last name',
+                'user-email' => 'email',
+                'user-phone' => 'phone number',
+                'user-age' => 'age',
+                'campers-count' => 'campers',
+                'camp-type' => 'camping type',
+                'cg-campsite-value' => 'campsite',
             ]
         );
         if ($validator->fails()) {
@@ -68,67 +59,75 @@ class ReserveController extends Controller
         }
 
         $inputs = [
-            'customer' => [
-                'first' => $r->input('first_name'),
-                'last' => $r->input('last_name'),
-                'email' => $r->input('email'),
-                'phone' => $r->input('phone'),
-                'age' => $r->input('age'),
+            'user' => [
+                'name-first' => $r->input('user-name-first'),
+                'name-last' => $r->input('user-name-last'),
+                'email' => $r->input('user-email'),
+                'phone' => $r->input('user-phone'),
+                'age' => intval($r->input('user-age')),
             ],
-            'campers_count' => intval($r->input('campers_count')),
+            'campsite' => $r->input('cg-campsite-value'),
+            'campers' => intval($r->input('campers-count')),
             'dates' => $r->input('dates'),
-            // subtract 1 due to the blade loop directive iterations starting at 1
-            'camping_type' => intval($r->input('camping_type')),
+            'camp-type' => intval($r->input('camp-type')),
         ];
 
-        $dates = explode(' - ', $inputs['dates']);
-        $arrival = strtotime($dates[0]);
-        $departure = strtotime($dates[1]);
-        if (!$arrival || !$departure || $arrival > $departure) {
+        $sp = explode('-', $inputs['campsite']);
+        $campground = Campground::where('section', $sp[0])->where('number', $sp[1]);
+        if (!$campground->count()) {
+            return redirect('/reserve')
+                ->withErrors(['error' => 'Invalid campsite selected'])
+                ->withInput();
+        }
+
+        $sp = explode(' - ', $inputs['dates']);
+        $date_in = strtotime($sp[0]);
+        $date_out = strtotime($sp[1]);
+        if (!$date_in || !$date_out || $date_in > $date_out) {
             return redirect('/reserve')
                 ->withErrors(['error' => 'Invalid reservation date provided'])
                 ->withInput();
         }
         // convert from (seconds -> minutes -> hours -> days)
-        $nights = (($departure - $arrival) / 60 / 60 / 24);
+        $nights = (($date_out - $date_in) / 60 / 60 / 24);
         if ($nights < 1) {
             return redirect('/reserve')
-                ->withErrors(['error' => 'Reservation must be at least 1 night'])
+                ->withErrors(['error' => 'Reservation must be at least 1 night long.'])
                 ->withInput();
         }
 
-        $count = $this->getReservationsOn($arrival, $inputs['camping_type']);
-        if ($count >= ReservationUtil::getMaxReservations()) {
+        if (ReservationUtil::isCampgroundReserved($inputs['campsite'], $date_in, $date_out)) {
             return redirect('/reserve')
-                ->withErrors(['error' => 'Sorry! All campgrounds are currently reserved for those days'])
+                ->withErrors(['error' => 'The campsite is already booked on that date.'])
                 ->withInput();
         }
 
         // initialize reservation ORM object
         $reservation = new Reservation();
-        $reservation->first_name = $inputs['customer']['first'];
-        $reservation->last_name = $inputs['customer']['last'];
-        $reservation->email = $inputs['customer']['email'];
-        $reservation->phone = $inputs['customer']['phone'];
-        $reservation->age = $inputs['customer']['age'];
+        $reservation->first_name = $inputs['user']['name-first'];
+        $reservation->last_name = $inputs['user']['name-last'];
+        $reservation->email = $inputs['user']['email'];
+        $reservation->phone = $inputs['user']['phone'];
+        $reservation->age = $inputs['user']['age'];
 
-        $reservation->camping_type = $inputs['camping_type'];
+        $reservation->camping_type = $inputs['camp-type'];
+        $reservation->campground_id  = $inputs['campsite'];
 
-        $reservation->date_in = $arrival;
-        $reservation->date_out = $departure;
+        $reservation->date_in = $date_in;
+        $reservation->date_out = $date_out;
 
         $campers = array();
         $camper = new Camper();
-        $camper->first_name = $inputs['customer']['first'];
-        $camper->last_name = $inputs['customer']['last'];
+        $camper->first_name = $inputs['user']['name-first'];
+        $camper->last_name = $inputs['user']['name-last'];
         array_push($campers, $camper);
 
         // '-1' because member above is created manually
         $count = $r->input('campers') - 1;
         for ($i = 0; $i < $count; $i++) {
             $camper = new Camper();
-            $camper->first_name = $r->input('camper' . $i . '_first_name');
-            $camper->last_name = $r->input('camper' . $i . '_last_name');
+            $camper->first_name = $r->input('camper-name-first-' . $i);
+            $camper->last_name = $r->input('camper-name-last-' . $i);
             array_push($campers, $camper);
         }
 

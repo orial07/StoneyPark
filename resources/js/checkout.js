@@ -1,23 +1,13 @@
+require('./campsites');
+
+Number.prototype.asMoney = function () {
+    return `$ ${this.toFixed(2)}`;
+}
+
 const DAY_MILLIS = 86400000;
 const TIME_FORMAT = "MM/DD/YYYY";
 
-var nights = 1;
 jQuery(function () {
-    $('#date_display').removeClass('d-none');
-
-    // intialize stepper
-    let stepperEl = $('.bs-stepper')[0];
-    let stepper = window.stepper = new Stepper(stepperEl, {
-        linear: false,
-        animation: false,
-        selectors: {
-            steps: '.step',
-            trigger: '.step-trigger',
-            stepper: '.bs-stepper'
-        }
-    });
-    stepper.reset();
-
     // initialize date-range-picker
     let now = moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }),
         later = moment(now).add(1, 'day');
@@ -28,57 +18,47 @@ jQuery(function () {
     }, function (start, end, label) {
         onDateChanged(start, end);
     });
+
+
     onDateChanged(now, later); // initialize number of nights
-
-    let form = $('#reserve-form')[0];
-    onCampersChanged($('#campers_count')[0]); // initialize fields for number of campers
-    form.addEventListener('change', function (e) {
-        if (e.target.name == "campers_count") onCampersChanged(e.target);
-        update();
-    });
+    onCampersChanged(); // initialize fields for number of campers
+    document.querySelector('#campers-count').onchange = (e) => onCampersChanged();
+    document.querySelector('#reserve-form').onchange = (e) => update();
 });
-
-// gets the selected camping type
-function getCampingType() {
-    // by looping through all radio buttons
-    let es = document.getElementsByName('camping_type');
-    for (let i = 0; i < es.length; i++) {
-        // return the first input that's checked
-        if (es[i].checked) return i;
-    }
-    return undefined;
-}
 
 // updates number of nights based on arrival and departure reservation dates
 function onDateChanged(start, end) {
     start = start.startOf('day');
     end = end.startOf('day');
-
-    let days = moment.duration(end.diff(start)).asDays();
-
-    if (days < 1) {
-        $('#nights').html(`<span class="text-danger fw-bold">The reservation must be at least 1 night.</span>`);
+    nights = moment.duration(end.diff(start)).asDays();
+    if (nights < 1) {
+        $('#nights').html(`<span class="text-danger">The reservation must be at least 1 night long.</span>`);
         return;
     }
-
-    nights = Math.round(days);
     update();
 }
 
 // updates form control inputs for number of campers
-function onCampersChanged(e) {
-    let count = Math.max(1, Math.min(6, e.value));
-    let campers = $('#campers')[0];
-    campers.innerHTML = ""; // reset
+function onCampersChanged() {
+    let container = document.querySelector('#campers-container');
+    let count = Math.max(1, Math.min(6, document.querySelector('#campers-count').value));
+
+    container.innerHTML = ""; // reset contents, then add inputs
     for (let i = 0; i < count - 1; i++) {
-        // add inputs
-        campers.innerHTML += `\
-<div class="input-group mb-3">\
-    <div class="input-group-prepend">\
-        <span class="input-group-text" id="">Name</span>\
+        container.innerHTML += `\
+<div class="row">\
+    <div class="col">\
+        <div class="mb-3">\
+            <label class="form-label w-100" for="camper-name-first-${i}">First Name</label>\
+            <input class="form-control" id="camper-name-first-${i}" name="camper-name-first-${i}" type="text" autocomplete="on" required="true" placeholder="First Name">\
+        </div>\
     </div>\
-    <input type="text" class="form-control" placeholder="First Name" name="camper${i}_first_name" autofocus required />\
-    <input type="text" class="form-control" placeholder="Last Name" name="camper${i}_last_name" required />\
+    <div class="col">\
+        <div class="mb-3">\
+            <label class="form-label w-100" for="camper-name-last-${i}">Last Name</label>\
+            <input class="form-control" id="camper-name-last-${i}" name="camper-name-last-${i}" type="text" autocomplete="on" required="true" placeholder="Last Name">\
+        </div>\
+    </div>\
 </div>`;
     }
 }
@@ -87,44 +67,54 @@ function onCampersChanged(e) {
 function update() {
     $('#nights').html(`This reservation will be for <span class="text-primary">${nights} night${nights == 1 ? '' : 's'}</span>`);
 
-    let campingType = CAMPING_TYPES[getCampingType()];
-
-    let cost = campingType.price * nights; // recurring charges (price per night)
+    let ct = CAMPING_TYPES[document.querySelector('input[name=camp-type]:checked').value];
+    let cost = ct.price * nights; // recurring charges (price per night)
 
     // update review step contents
-    $('#r_camping_name').text(campingType.name);
-    // $('#r_camping_qty').text(campingType.quantity);
-    $('#r_camping_cost').text(campingType.price2.asMoney());
-    $('#r_nights_qty').text(nights);
-    $('#r_nights_cost').text(cost.asMoney());
+    $('#invoice-camp-type').text(ct.name);
+    $('#invoice-camp-price').text(ct.price2.asMoney());
+    $('#invoice-nights-qty').text(nights);
+    $('#invoice-nights-price').text(cost.asMoney());
 
-    cost += campingType.price2; // one-time fee
+    cost += ct.price2; // one-time fee
+
+    $('#invoice-tax-gst').text((cost * 0.05).asMoney());
+    $('#invoice-total').text((cost *= 1.05).asMoney());
 
     for (let i = 0; i < CAMPING_TYPES.length; i++) {
         let ct = CAMPING_TYPES[i];
         let total = ((ct.price * nights) + ct.price2);
-        $(`#ct_cost_${i}`).text(total.asMoney());
+        $(`#camp-type-price-${i}`).text(total.asMoney());
     }
 
-    $('#r_customer_name').text(`${$('input[name="first_name"]').val()} ${$('input[name="last_name"]').val()}`);
-    $('#r_customer_email').text(`${$('input[name="email"]').val()}`);
-    $('#r_customer_phone').text(`${$('input[name="phone"]').val()}`);
-
     let picker = $('input[name="dates"]').data('daterangepicker');
-    let arrive = picker.startDate.format("LL"),
-        depart = picker.endDate.format("LL");
+    let date_in = picker.startDate.format("LL"), date_out = picker.endDate.format("LL");
+    $('#date-in').text(date_in);
+    $('#date-out').text(date_out);
 
-    $('#r_arrive').text(arrive);
-    $('#r_depart').text(depart);
-    $('#date_arrive').text(arrive);
-    $('#date_depart').text(depart);
+    // check campsite status based on selected reservation dates
+    // any campsites returned in ${data} is meant to be unavailable
+    GetReservationsStatus(picker.element[0].value, (data, status, r) => {
+        let campsites = document.querySelectorAll('#cg-campsite-list > div');
+        // loop thru all campsites
+        for (let a = 0; a < campsites.length; a++) {
+            let campsite = campsites[a];
+            let status = document.querySelector(`#${campsite.id}-status`);
+            status.classList.remove('bg-danger', 'bg-success', 'bg-secondary');
 
-    // calculate GST
-    $('#r_gst').text((cost * 0.05).asMoney());
-    cost *= 1.05; // add GST
-    $('#r_total').text(cost.asMoney());
-}
-
-Number.prototype.asMoney = function () {
-    return `$${this.toFixed(2)}`;
+            let available = true;
+            for (let b = 0; b < data.length; b++) {
+                // campsite was found in the returned ${data}
+                if (campsite.id == data[b].campground_id) {
+                    status.classList.add('bg-danger');
+                    status.innerHTML = "Unavaialble";
+                    available = false;
+                    break;
+                }
+            }
+            
+            status.classList.add('bg-success');
+            if (available) status.innerHTML = "Available";
+        }
+    });
 }

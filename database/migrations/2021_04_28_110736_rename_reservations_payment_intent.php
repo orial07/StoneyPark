@@ -26,7 +26,7 @@ class RenameReservationsPaymentIntent extends Migration
     public function down()
     {
         Schema::table('reservations', function (Blueprint $table) {
-            //
+            $table->renameColumn('transaction_id', 'payment_intent');
         });
     }
 }

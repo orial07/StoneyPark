@@ -9,19 +9,31 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-.btn-success,
-.btn-success:hover,
-.btn-danger,
-.btn-danger:hover,
-.btn-primary,
-.btn-primary:hover {
-    color: $body-bg;
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+        @include button-variant(
+            $value,
+            $value,
+            $hover-background: lighten($value, 7.5%),
+            $hover-border: lighten($value, 10%),
+            $active-background: lighten($value, 10%),
+            $active-border: lighten($value, 12.5%),
+            $color: #fff,
+            $hover-color: #fff,
+            $active-color: #fff
+        );
+    }
 }
 
 // click-able hyperlinked SVG elements
 object {
     pointer-events: none;
     width: 1em;
+}
+
+img,
+svg {
+    object-fit: cover;
 }
 
 footer a {
@@ -38,19 +50,9 @@ footer a {
     max-height: 100%;
 }
 
-// remove rounding on input controls
-.input-group-text {
-    border-radius: 0;
-}
-
 // move toasts z-index to top-most layer
 .toast {
     z-index: $zindex-modal;
-}
-
-// remove rounding on modals
-.modal-content {
-    border-radius: 0 !important;
 }
 
 // abstract sizing on gallery images
@@ -87,6 +89,18 @@ footer a {
 
 .ff-serif {
     font-family: "Anton", sans-serif;
+}
+
+.carousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item img {
+    height: 100%;
+}
+
+.carousel-item img {
+    display: block;
+    width: 100%;
 }
 
 /* HERO (HOME-PAGE) ELEMENT
