@@ -21,7 +21,7 @@
 
             <h2 class="my-5 text-center">Where would you like to camp?</h2>
             <div class="row">
-                <div class="col-sm-9 col-md-10">
+                <div class="col-9 col-md-10">
                     <div class="row">
                         <div class="col-xs-12 col-lg-6">
                             <div class="carousel slide" id="cg-carousel" data-bs-ride="carousel">
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3 col-md-2 g-0 user-select-none d-flex position-relative">
+                <div class="col g-0 user-select-none d-flex position-relative">
                     <input type="text" class="d-none" id="cg-campsite-value" name="cg-campsite-value" required readonly autocomplete="off" />
                     <div id="cg-campsite-list" class="position-absolute w-100 h-100 overflow-auto text-wrap">
                     </div>
