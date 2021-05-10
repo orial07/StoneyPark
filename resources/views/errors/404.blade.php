@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-6">
                 <div class="d-flex align-items-center">
-                    <img class="m-5" style="height: 8rem;" src="{{ asset('img/confused.svg') }}" />
+                    <img class="m-5" style="height: 8rem;" src="{{ asset('img/emoji/confused.svg') }}" />
                     <h1>Error &HorizontalLine; 404</h1>
                 </div>
                 <p class="display-6">We don't know where that page is.</p>

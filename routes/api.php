@@ -3,6 +3,7 @@
 use App\Helper\ReservationUtil;
 use App\Models\Campground;
 use App\Models\Reservation;
+use Illuminate\Database\Eloquent\JsonEncodingException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,7 @@ Route::post('/cg/status', function (Request $r) {
     $date_in = date('Y-m-d H:i', $date_in);
     $date_out = date('Y-m-d H:i', $date_out);
 
-    $result = Reservation::select(['campground_id'])
+    $result = Reservation::select(['campground_id', 'status'])
         ->where('date_in', '>=', $date_in)
         ->where('date_out', '<=', $date_out)
         ->get();
@@ -57,5 +58,5 @@ Route::post('/cg/reserved/{section}/{number}', function (Request $r, $section, $
     $date_in = strtotime($dates[0]);
     $date_out = strtotime($dates[1]);
     $campground = $section . '-' . $number;
-    return ReservationUtil::isCampgroundReserved($campground, $date_in, $date_out);
+    return json_encode(ReservationUtil::getReservation($campground, $date_in, $date_out)->count());
 });

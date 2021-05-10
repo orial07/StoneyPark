@@ -96,10 +96,23 @@ class ReserveController extends Controller
                 ->withInput();
         }
 
-        if (ReservationUtil::isCampgroundReserved($inputs['campsite'], $date_in, $date_out)) {
-            return redirect('/reserve')
-                ->withErrors(['error' => 'The campsite is already booked on that date.'])
-                ->withInput();
+        $reservations = ReservationUtil::getReservation($inputs['campsite'], $date_in, $date_out)->get();
+        if ($reservations->count() > 0) {
+            foreach ($reservations as $row) {
+                $diff = now()->diff($row->updated_at);
+                if ($row->status == 'paid') {
+                    return redirect('/reserve')
+                        ->withErrors(['error' => 'The campsite is already booked on that date.'])
+                        ->withInput();
+                } else if ($diff->i >= 5) {
+                    Reservation::destroy($row->id);
+                    break;
+                } else {
+                    return redirect('/reserve')
+                        ->withErrors(['error' => "The campsite is being booked by another person. Please try again in $diff->format('m')"])
+                        ->withInput();
+                }
+            }
         }
 
         // initialize reservation ORM object
@@ -142,9 +155,10 @@ class ReserveController extends Controller
     public function checkout()
     {
         $reservation = session('reservation', null);
-        if ($reservation == null) {
-            return redirect('/reserve');
-        }
+        if (!$reservation) return redirect('/reserve');
+
+        $reservation->status = "pending";
+        $reservation->save();
 
         $stripe = new \Stripe\StripeClient(config('app.stripe_secret'));
         $checkout_session = $stripe->checkout->sessions->create([
@@ -174,6 +188,7 @@ class ReserveController extends Controller
     public function success()
     {
         $reservation = session('reservation');
+        if (!$reservation) return redirect('/reserve');
         $campers = session('campers');
         $checkout_session = session('checkout_session');
         $email_ts = session('email_ts');

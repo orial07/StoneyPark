@@ -23,14 +23,14 @@ class ReservationUtil
     }
 
     /**
-     * Check if a campground is in-use on a given reservation date (arrival and departure).
+     * Check if a reservation exists on a given campground and reservation date (arrival and departure).
      * 
      * @param string $campground    The campground identifier (letter-number)
      * @param int $date_in     The arrival date
      * @param int $date_out    The departure date
-     * @return boolean  true if the campground is reserved, false otherwise
+     * @return \Illuminate\Database\Query\Builder
      */
-    public static function isCampgroundReserved($campground, $date_in, $date_out)
+    public static function getReservation($campground, $date_in, $date_out)
     {
         if (!$date_in || !$date_out || $date_in > $date_out) {
             throw new Exception('Invalid dates provided.');
@@ -44,12 +44,9 @@ class ReservationUtil
         $date_in = date('Y-m-d H:i', $date_in);
         $date_out = date('Y-m-d H:i', $date_out);
 
-        $result = DB::table('reservations')
+        return DB::table('reservations')
             ->where('campground_id', $campground)
             ->where('date_in', '<', $date_out)
-            ->where('date_out', '>', $date_in)
-            ->count();
-
-        return json_encode($result);
+            ->where('date_out', '>', $date_in);
     }
 }

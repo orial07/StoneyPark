@@ -52,12 +52,17 @@ function onDateChanged(start, end) {
             let available = true;
             for (let b = 0; b < data.length; b++) {
                 // campsite was found in the returned ${data}
-                if (campsite.id == data[b].campground_id) {
+                let row = data[b];
+                if (campsite.id != row.campground_id) continue;
+                if (row.status == 'paid') {
                     status.classList.add('bg-danger');
                     status.innerHTML = "Unavaialble";
-                    available = false;
-                    break;
+                } else if (row.status == 'pending') {
+                    status.classList.add('bg-warning', 'text-dark');
+                    status.innerHTML = "Pending";
                 }
+                available = false;
+                break;
             }
 
             status.classList.add('bg-success');

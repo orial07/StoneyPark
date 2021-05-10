@@ -14,13 +14,17 @@ class CampgroundSeeder extends Seeder
      */
     public function run()
     {
-        $faker = \Faker\Factory::create();
-        for ($i = 1; $i < 101; $i++) {
+        Campground::truncate();
+        for ($i = 1; $i < 63; $i++) {
             Campground::create([
                 'section' => 'A',
                 'number' => $i,
-                'has_fire' => $faker->boolean(),
-                'has_table' => $faker->boolean(),
+            ]);
+        }
+        for ($i = 1; $i < 37; $i++) {
+            Campground::create([
+                'section' => 'B',
+                'number' => $i,
             ]);
         }
     }
