@@ -19,9 +19,11 @@
         <form id="reserve-form" method="POST" action="reserve">
             @csrf
 
+            <h2 class="my-5 text-center">Where would you like to camp?</h2>
             <div class="row">
                 <div class="col-9">
                     <div class="row">
+
                         <div class="col-xs-12 col-lg-6">
                             <div class="carousel slide" id="cg-carousel" data-bs-ride="carousel">
                                 <div class="carousel-inner">
