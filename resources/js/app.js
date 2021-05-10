@@ -80,6 +80,7 @@ jQuery(function () {
             cg.input.value = `${section}-${number}`;
         }
 
+        // update description of campsite if present
         // jQuery.ajax(`/api/cg/get/${section}/${number}`, {
         //     method: 'POST',
         //     dataType: 'json',
