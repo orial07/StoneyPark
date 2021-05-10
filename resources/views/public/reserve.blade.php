@@ -47,8 +47,8 @@
                                 </dd>
                             </dl>
                             <p>
-                                Selected dates include the date you arrive and depart. You can arrive on <span class="text-primary" id="date-in">the
-                                    first selected date</span> and leave on the morning of <span class="text-primary" id="date-out">the second seleced
+                                Selected dates include the date you arrive and depart. You can arrive on <span class="fw-bold" id="date-in">the
+                                    first selected date</span> and leave on the morning of <span class="fw-bold" id="date-out">the second seleced
                                     date</span>.</p>
                             <x-controls.input id="dates" type="text" required>
                                 <span for="dates" id="nights"></span>
@@ -158,7 +158,7 @@
                     </table>
 
                     <div class="d-grid">
-                        <button class="btn btn-success" type="button" onclick="this.form.submit()">Pay now</button>
+                        <button class="btn btn-success" type="button" onclick="this.form.submit()">Continue To Payment</button>
                     </div>
                 </div>
             </div>

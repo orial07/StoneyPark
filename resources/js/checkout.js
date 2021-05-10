@@ -93,7 +93,7 @@ function onCampersChanged() {
 
 // updates page contents
 function update() {
-    $('#nights').html(`This reservation will be for <span class="text-primary">${nights} night${nights == 1 ? '' : 's'}</span>`);
+    $('#nights').html(`This reservation will be for <span class="fw-bold">${nights} night${nights == 1 ? '' : 's'}</span>`);
 
     let ct = CAMPING_TYPES[document.querySelector('input[name=camp-type]:checked').value];
     let cost = ct.price * nights; // recurring charges (price per night)

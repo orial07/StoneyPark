@@ -19,7 +19,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/cg/get', function () {
-    return Campground::all();
+    return DB::table('campgrounds')
+        ->orderBy('section')
+        ->orderBy('number')
+        ->get();
 });
 
 Route::post('/cg/status', function (Request $r) {
