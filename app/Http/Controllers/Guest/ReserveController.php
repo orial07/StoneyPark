@@ -180,7 +180,6 @@ class ReserveController extends Controller
 
         $stripe = new \Stripe\StripeClient(config('app.stripe_secret'));
         $checkout_session = $stripe->checkout->sessions->retrieve($checkout_session->id, []);
-        // dd($checkout_session);
 
         if ($checkout_session->payment_status == 'paid') {
             $reservation->transaction_id = $checkout_session->id;
