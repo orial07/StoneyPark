@@ -69,7 +69,7 @@ function onDateChanged(start, end) {
 // updates form control inputs for number of campers
 function onCampersChanged() {
     let container = document.querySelector('#campers-container');
-    let count = Math.max(1, Math.min(6, document.querySelector('#campers-count').value));
+    let count = Math.max(1, Math.min(12, document.querySelector('#campers-count').value));
 
     container.innerHTML = ""; // reset contents, then add inputs
     for (let i = 0; i < count - 1; i++) {

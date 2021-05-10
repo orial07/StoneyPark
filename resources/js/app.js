@@ -133,7 +133,7 @@ jQuery(function () {
 
             let status = document.createElement('span');
             status.id = `${camp.section}-${camp.number}-status`;
-            status.classList.add('badge', 'float-md-end', 'bg-secondary', 'd-block');
+            status.classList.add('badge', 'float-md-end', 'bg-secondary', 'd-block', 'pe-none');
             campsite.append(status);
 
             cg.campsites.append(campsite);
