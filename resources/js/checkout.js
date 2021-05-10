@@ -5,6 +5,11 @@ Number.prototype.asMoney = function () {
 const DAY_MILLIS = 86400000;
 const TIME_FORMAT = "MM/DD/YYYY";
 
+Stoney.OnCampgroundsLoaded = () => {
+    let picker = $('input[name="dates"]').data('daterangepicker');
+    onDateChanged(picker.startDate, picker.endDate); // initialize number of nights
+};
+
 jQuery(function () {
     // initialize date-range-picker
     let now = moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }),
@@ -17,8 +22,6 @@ jQuery(function () {
         onDateChanged(start, end);
     });
 
-
-    onDateChanged(now, later); // initialize number of nights
     onCampersChanged(); // initialize fields for number of campers
     document.querySelector('#campers-count').onchange = (e) => onCampersChanged();
     document.querySelector('#reserve-form').onchange = (e) => update();
@@ -37,7 +40,7 @@ function onDateChanged(start, end) {
 
     // check campsite status based on selected reservation dates
     // any campsites returned in ${data} is meant to be unavailable
-    GetReservationsStatus(`${start.format(TIME_FORMAT)} - ${end.format(TIME_FORMAT)}`, (data, status, r) => {
+    Stoney.GetCampgroundsStatus(`${start.format(TIME_FORMAT)} - ${end.format(TIME_FORMAT)}`, (data, status, r) => {
         let campsites = document.querySelectorAll('#cg-campsite-list > div');
         // loop thru all campsites
         for (let a = 0; a < campsites.length; a++) {

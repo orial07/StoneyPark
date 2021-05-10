@@ -21,9 +21,8 @@
 
             <h2 class="my-5 text-center">Where would you like to camp?</h2>
             <div class="row">
-                <div class="col-9">
+                <div class="col-sm-9 col-md-10">
                     <div class="row">
-
                         <div class="col-xs-12 col-lg-6">
                             <div class="carousel slide" id="cg-carousel" data-bs-ride="carousel">
                                 <div class="carousel-inner">
@@ -56,13 +55,13 @@
                             </x-controls.input>
 
                             <fieldset>
-                                <div class="row">
+                                <div class="row g-1">
                                     @foreach (ReservationUtil::getCampingTypes() as $ct)
-                                        <div class="col-xs-12 col-md-6 card">
+                                        <div class="col-12 bg-white border position-relative">
                                             <input class="form-check-input" type="radio" name="camp-type" id="camp-type-{{ $loop->index }}"
                                                 value="{{ $loop->index }}" @if ($loop->first) checked @endif>
 
-                                            <div class="text-center">
+                                            <div class="text-center p-4">
                                                 <h1><span id="camp-type-price-{{ $loop->index }}">{!! $ct->price + $ct->price2 !!}</span><small
                                                         class="fs-6">+GST</small></h1>
                                                 <label role="button" class="stretched-link fs-4"
@@ -70,14 +69,14 @@
                                                 <small>${!! $ct->price !!}/night @if ($ct->price2)
                                                         +${!! $ct->price2 !!} initial fee @endif</small>
                                                 <hr>
+                                                <ul class="list-unstyled">
+                                                    @foreach ($ct->description as $type => $description)
+                                                        <li>
+                                                            <x-svg-icon :icon="$type">{!! $description !!}</x-svg-icon>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
                                             </div>
-                                            <ul class="list-unstyled">
-                                                @foreach ($ct->description as $type => $description)
-                                                    <li>
-                                                        <x-svg-icon :icon="$type">{!! $description !!}</x-svg-icon>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
                                         </div>
                                     @endforeach
                                 </div>
@@ -85,9 +84,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 user-select-none d-flex position-relative">
+                <div class="col-sm-3 col-md-2 g-0 user-select-none d-flex position-relative">
                     <input type="text" class="d-none" id="cg-campsite-value" name="cg-campsite-value" required readonly autocomplete="off" />
-                    <div id="cg-campsite-list" class="position-absolute w-100 h-100 overflow-auto">
+                    <div id="cg-campsite-list" class="position-absolute w-100 h-100 overflow-auto text-wrap">
                     </div>
                 </div>
             </div>

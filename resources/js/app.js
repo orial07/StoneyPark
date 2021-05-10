@@ -2,55 +2,82 @@ window.Stepper = require('bs-stepper');
 require('./bootstrap');
 require('./gallery');
 
-window.GetReservationsStatus = function(date, cb_success, cb_error) {
-    jQuery.ajax(`/api/cg/status`, {
-        method: 'POST',
-        dataType: 'json',
-        data: {
-            dates: date
-        },
-        error: (r, status, error) => {
-            if (cb_error) cb_error(r, status, error);
-        },
-        success: (data, status, r) => {
-            if (r.status == 200 && r.readyState == 4) {
-                if (cb_success) cb_success(data, status, r);
+window.Stoney = {
+    /**
+     * Gets all campgrounds
+     * 
+     * @param {function} cb_success callback function for succes
+     * @param {fucntion} cb_error callback function for error
+     */
+    GetCampgrounds: function (cb_success, cb_error) {
+        jQuery.ajax(`/api/cg/get`, {
+            method: 'POST',
+            dataType: 'json',
+            error: (r, status, error) => {
+                if (cb_error) cb_error(r, status, error);
+            },
+            success: (data, status, r) => {
+                if (r.status == 200 && r.readyState == 4) {
+                    if (cb_success) cb_success(data, status, r);
+                }
             }
-        }
-    });
-}
+        });
+    },
 
-window.ReservationAvailable = function (section, number, date, cb_success, cb_error) {
-    jQuery.ajax(`/api/cg/reserved/${section}/${number}`, {
-        method: 'POST',
-        dataType: 'text',
-        data: {
-            dates: date
-        },
-        error: (r, status, error) => {
-            if (cb_error) cb_error(r, status, error);
-        },
-        success: (data, status, r) => {
-            if (r.status == 200 && r.readyState == 4) {
-                if (cb_success) cb_success(data, status, r);
+    /**
+     * Gets all campgrounds that are reserved during the reservation dates
+     * 
+     * @param {string} date date range (MM/DD/YYYY - MM/DD/YYYY)
+     * @param {function} cb_success callback function for success
+     * @param {fucntion} cb_error callback function for error
+     */
+    GetCampgroundsStatus: function (date, cb_success, cb_error) {
+        jQuery.ajax(`/api/cg/status`, {
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                dates: date
+            },
+            error: (r, status, error) => {
+                if (cb_error) cb_error(r, status, error);
+            },
+            success: (data, status, r) => {
+                if (r.status == 200 && r.readyState == 4) {
+                    if (cb_success) cb_success(data, status, r);
+                }
             }
-        }
-    });
-}
+        });
+    },
 
-window.GetCampgrounds = function (cb_success, cb_error) {
-    jQuery.ajax(`/api/cg/get`, {
-        method: 'POST',
-        dataType: 'json',
-        error: (r, status, error) => {
-            if (cb_error) cb_error(r, status, error);
-        },
-        success: (data, status, r) => {
-            if (r.status == 200 && r.readyState == 4) {
-                if (cb_success) cb_success(data, status, r);
+    /**
+     * 
+     * @param {*} section 
+     * @param {*} number 
+     * @param {*} date 
+     * @param {*} cb_success 
+     * @param {*} cb_error 
+     */
+    ReservationAvailable: function (section, number, date, cb_success, cb_error) {
+        jQuery.ajax(`/api/cg/reserved/${section}/${number}`, {
+            method: 'POST',
+            dataType: 'text',
+            data: {
+                dates: date
+            },
+            error: (r, status, error) => {
+                if (cb_error) cb_error(r, status, error);
+            },
+            success: (data, status, r) => {
+                if (r.status == 200 && r.readyState == 4) {
+                    if (cb_success) cb_success(data, status, r);
+                }
             }
-        }
-    });
+        });
+    },
+
+    OnCampgroundsLoaded: function() {
+
+    }
 }
 
 jQuery(function () {
@@ -93,23 +120,27 @@ jQuery(function () {
         // });
     };
 
-    GetCampgrounds((data, status, r) => {
+    Stoney.GetCampgrounds((data, status, r) => {
         for (let i = 0; i < data.length; i++) {
             let camp = data[i];
 
             let campsite = document.createElement('div');
             campsite.id = `${camp.section}-${camp.number}`;
             campsite.innerHTML = `Site ${camp.section}-${camp.number}`;
-            campsite.classList.add('list-group-item');
+            campsite.classList.add('list-group-item', 'overflow-auto');
             campsite.setAttribute('role', 'button');
             campsite.onclick = OnCampsiteClick;
 
             let status = document.createElement('span');
             status.id = `${camp.section}-${camp.number}-status`;
-            status.classList.add('badge', 'float-end', 'bg-secondary');
+            status.classList.add('badge', 'float-md-end', 'bg-secondary', 'd-block');
             campsite.append(status);
 
             cg.campsites.append(campsite);
+        }
+
+        if (Stoney.OnCampgroundsLoaded) {
+            Stoney.OnCampgroundsLoaded();
         }
     });
 });
