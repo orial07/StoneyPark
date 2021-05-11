@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helper\ReservationUtil;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ReservationController extends Controller
+class ReservationsController extends Controller
 {
     public function show($id)
     {
@@ -25,9 +24,7 @@ class ReservationController extends Controller
     {
         return view('admin.reservations', [
             'reservations' => DB::table('reservations')
-                // show only reservations in-progress, or soon to come
-                // ->where('date_in', '>=', (new DateTime())->format("Y-m-d"))
-                // ->orWhere('date_out', '>=', (new DateTime())->format("Y-m-d"))
+                ->where('status', 'paid')
                 ->paginate(20)
         ]);
     }

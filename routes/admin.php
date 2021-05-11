@@ -4,7 +4,7 @@
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\CampgroundsController;
 use App\Http\Controllers\Admin\RulesController;
-use App\Http\Controllers\Auth\ReservationController;
+use App\Http\Controllers\Auth\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin') // all route names will be prefixed with
@@ -33,8 +33,8 @@ Route::name('admin') // all route names will be prefixed with
         Route::name('.reservations')
             ->prefix('reservations')
             ->group(function () {
-                Route::get('/', [ReservationController::class, 'showAll']);
-                Route::post('/search', [ReservationController::class, 'showFilter'])->name('.search');
+                Route::get('/', [ReservationsController::class, 'showAll']);
+                Route::post('/search', [ReservationsController::class, 'showFilter'])->name('.search');
             });
 
         // map group; admin.map

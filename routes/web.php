@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ProfileController;
-use App\Http\Controllers\Auth\ReservationController;
+use App\Http\Controllers\Auth\ReservationsController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Guest\GalleryController;
 use App\Http\Controllers\Guest\HomeController;
@@ -42,7 +42,7 @@ Route::name('reserve')
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/account', [ProfileController::class, 'show'])->name('account');
-    Route::get('/reservation/{id}', [ReservationController::class, 'show'])->name('reservation');
+    Route::get('/reservation/{id}', [ReservationsController::class, 'show'])->name('reservation');
 });
 
 require __DIR__ . '/auth.php';

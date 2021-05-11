@@ -3,6 +3,7 @@
 namespace App\Helper;
 
 use App\Models\Campground;
+use App\Models\Reservation;
 use App\Objects\CampingType;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -23,14 +24,14 @@ class ReservationUtil
     }
 
     /**
-     * Check if a reservation exists on a given campground and reservation date (arrival and departure).
+     * Get all reservations for a specified campground within a date range.
      * 
-     * @param string $campground    The campground identifier (letter-number)
-     * @param int $date_in     The arrival date
-     * @param int $date_out    The departure date
+     * @param string $campground The campground identifier (letter-number)
+     * @param int $date_in The arrival date
+     * @param int $date_out The departure date
      * @return \Illuminate\Database\Query\Builder
      */
-    public static function getReservation($campground, $date_in, $date_out)
+    public static function getReservations($campground, $date_in, $date_out)
     {
         if (!$date_in || !$date_out || $date_in > $date_out) {
             throw new Exception('Invalid dates provided.');
@@ -38,15 +39,17 @@ class ReservationUtil
         // convert from (seconds -> minutes -> hours -> days)
         $nights = (($date_out - $date_in) / 60 / 60 / 24);
         if ($nights < 1) {
-            throw new Exception('Same in and out date provided.');
+            throw new Exception('Same arrival and departure date provided.');
         }
 
         $date_in = date('Y-m-d H:i', $date_in);
         $date_out = date('Y-m-d H:i', $date_out);
 
-        return DB::table('reservations')
+        // check reservations where date_in conflicts:
+        // [reservation.date_in] <- request.date_in -> [reservation.date_out]
+        return Reservation::select()
             ->where('campground_id', $campground)
-            ->where('date_in', '<', $date_out)
-            ->where('date_out', '>', $date_in);
+            ->where('date_in', '<=', $date_in) // inclusive; reservations start
+            ->where('date_out', '>', $date_in); // exclusive; reservations end
     }
 }

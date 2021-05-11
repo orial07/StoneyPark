@@ -9,10 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Camper;
 use App\Models\Campground;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Exception;
 
 class ReserveController extends Controller
 {
@@ -35,7 +33,7 @@ class ReserveController extends Controller
                 'user-age' => 'required|numeric|min:18',
                 'campers-count' => 'required|numeric|min:1|max:6',
                 'camp-type' => 'required|numeric|min:0|max:' . sizeof($campingTypes),
-                'cg-campsite-value' => 'required|regex:/^\w-\d$/', // the selected campsite
+                'cg-campsite-value' => 'required|regex:/^\w-\d+$/', // the selected campsite
             ],
             [ // messages
                 'camp-type.required' => 'You must select a :attribute',
@@ -53,11 +51,10 @@ class ReserveController extends Controller
             ]
         );
         if ($validator->fails()) {
-            return redirect('reserve')
-                ->withErrors($validator)
-                ->withInput();
+            return redirect('reserve')->withErrors($validator)->withInput();
         }
 
+        $errors = $validator->errors();
         $inputs = [
             'user' => [
                 'name-first' => $r->input('user-name-first'),
@@ -74,43 +71,60 @@ class ReserveController extends Controller
 
         $sp = explode('-', $inputs['campsite']);
         $campground = Campground::where('section', $sp[0])->where('number', $sp[1]);
-        if (!$campground->count()) {
-            return redirect('/reserve')
-                ->withErrors(['error' => 'Invalid campsite selected'])
-                ->withInput();
+        if (!$campground->count()) { // could not find any campgrounds identified with the specified {section-number}
+            $errors->add('cg-campsite-value', 'Unknown campsite selected');
+            return redirect('/reserve')->withErrors($validator)->withInput();
         }
 
         $sp = explode(' - ', $inputs['dates']);
         $date_in = strtotime($sp[0]);
         $date_out = strtotime($sp[1]);
         if (!$date_in || !$date_out || $date_in > $date_out) {
-            return redirect('/reserve')
-                ->withErrors(['error' => 'Invalid reservation date provided'])
-                ->withInput();
+            $errors->add('dates', 'System failed to understand the selected dates');
+            return redirect('/reserve')->withErrors($validator)->withInput();
         }
         // convert from (seconds -> minutes -> hours -> days)
         $nights = (($date_out - $date_in) / 60 / 60 / 24);
         if ($nights < 1) {
-            return redirect('/reserve')
-                ->withErrors(['error' => 'Reservation must be at least 1 night long.'])
-                ->withInput();
+            $errors->add('dates', 'Reservation must be at least 1 night long');
+            return redirect('/reserve')->withErrors($validator)->withInput();
         }
 
-        $reservations = ReservationUtil::getReservation($inputs['campsite'], $date_in, $date_out)->get();
+        $reservations = ReservationUtil::getReservations($inputs['campsite'], $date_in, $date_out)->get();
+        // find all reservations during a specified date range
         if ($reservations->count() > 0) {
             foreach ($reservations as $row) {
-                $diff = now()->diff($row->updated_at);
+                // if a reservation is found under the 'paid' status, it cannot be reserved
                 if ($row->status == 'paid') {
-                    return redirect('/reserve')
-                        ->withErrors(['error' => 'The campsite is already booked on that date.'])
-                        ->withInput();
-                } else if ($diff->i >= 5) {
+                    $errors->add('campsite', 'The campsite is already booked on that date.');
+                    return redirect('/reserve')->withErrors($validator)->withInput();
+                }
+
+                // if a reservation is found at this point, its status is either 'unpaid' or 'pending'
+                // in both cases the reservation is unimportant and can be disposed after a certain amount of time
+                $diff = now()->diff($row->updated_at);
+                $lifetime = config('session.reservation_lifetime');
+
+                // check if enough time has passed to allow someone else to reserve
+                if ($diff->i >= $lifetime) {
+                    // sufficient time has passed, delete old data
                     Reservation::destroy($row->id);
-                    break;
+                    break; // allow reservation
                 } else {
-                    return redirect('/reserve')
-                        ->withErrors(['error' => "The campsite is being booked by another person. Please try again in $diff->format('m')"])
-                        ->withInput();
+                    $reservation = session('reservation');
+                    // check if the current user is the person holding the reservation spot
+                    if ($reservation && $reservation->id == $row->id) {
+                        // user submitted again when the previous is incomplete; delete the previous data
+                        if ($reservation->status == 'pending') {
+                            $reservation->delete();
+                            session()->forget('reservation');
+                            session()->forget('campers');
+                            break; // allow reservation
+                        }
+                    }
+                    // not enough time has passed and the reservation doesn't belong to the current user
+                    $errors->add('cg-campsite-value', 'Another person is reserving that campsite. Please try again in ' . ($lifetime - $diff->i) . ' minutes');
+                    return redirect('/reserve')->withErrors($validator)->withInput();
                 }
             }
         }
