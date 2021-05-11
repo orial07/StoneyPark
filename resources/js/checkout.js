@@ -36,10 +36,10 @@ const DoRefreshCampgroundsStatus = function () {
 
                 if (row.status == 'paid') {
                     status.classList.add('bg-danger');
-                    status.innerHTML = "Unavaialble";
+                    status.innerHTML = "Reserved";
                 } else if (row.status == 'pending') {
                     let diff = moment.duration(moment().diff(moment(row.updated_at)));
-                    if (diff.asMinutes() >= 5) break;
+                    if (diff.asMinutes() >= 5) break; // sufficient time has passed; the campsite is available
                     status.classList.add('bg-warning', 'text-dark');
                     status.innerHTML = "Pending";
                 }
@@ -69,7 +69,7 @@ const OnDateChanged = function (start, end) {
 
 
 // updates form control inputs for number of campers
-function OnCampersCountChanged() {
+const OnCampersCountChanged = function () {
     let container = document.querySelector('#campers-container');
     let count = Math.max(1, Math.min(12, document.querySelector('#campers-count').value));
 

@@ -42,14 +42,20 @@ class ReservationUtil
             throw new Exception('Same arrival and departure date provided.');
         }
 
-        $date_in = date('Y-m-d H:i', $date_in);
-        $date_out = date('Y-m-d H:i', $date_out);
+        $date_in = date('Y-m-d 23:59:59', $date_in);
+        $date_out = date('Y-m-d 23:59:59', $date_out);
 
-        // check reservations where date_in conflicts:
-        // [reservation.date_in] <- request.date_in -> [reservation.date_out]
         return Reservation::select()
             ->where('campground_id', $campground)
-            ->where('date_in', '<=', $date_in) // inclusive; reservations start
-            ->where('date_out', '>', $date_in); // exclusive; reservations end
+            // find reservations that start before, and continue during the requested date
+            ->where(function ($query) use ($date_in) {
+                $query->where('date_in', '<=', $date_in); // inclusive; reservations start
+                $query->where('date_out', '>', $date_in); // exclusive; reservations end
+            })
+            // find reservations that start after the requested date
+            ->orWhere(function ($query) use ($date_in) {
+                $query->where('date_in', '>=', $date_in); // inclusive; reservations start
+            })
+            ->get();
     }
 }

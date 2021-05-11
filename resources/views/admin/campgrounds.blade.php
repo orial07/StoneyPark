@@ -19,8 +19,8 @@
             <dl class="row">
                 <dt class="col-4">Amenities</dt>
                 <dd class="col-8">
-                    <x-svg-icon :icon="'fire'">Firepit</x-svg-icon>
-                    <x-svg-icon :icon="'table'">Picnic Table</x-svg-icon>
+                    <x-svg-icon class="d-none" id="cg-amenity-fire" :icon="'fire'">Firepit</x-svg-icon>
+                    <x-svg-icon class="d-none" id="cg-amenity-table" :icon="'table'">Picnic Table</x-svg-icon>
                 </dd>
             </dl>
         </div>

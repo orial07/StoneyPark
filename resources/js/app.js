@@ -96,11 +96,13 @@ jQuery(function () {
                     campsite.setAttribute('role', 'button');
                     campsite.onclick = OnCampsiteClick;
 
-                    let status = document.createElement('span');
-                    status.id = `${camp.section}-${camp.number}-status`;
-                    status.innerHTML = 'Loading...';
-                    status.classList.add('badge', 'float-md-end', 'bg-secondary', 'd-block', 'pe-none');
-                    campsite.append(status);
+                    if (cg.input) {
+                        let status = document.createElement('span');
+                        status.id = `${camp.section}-${camp.number}-status`;
+                        status.innerHTML = 'Loading...';
+                        status.classList.add('badge', 'float-md-end', 'bg-secondary', 'd-block', 'pe-none');
+                        campsite.append(status);
+                    }
 
                     cg.campsites.append(campsite);
                 }

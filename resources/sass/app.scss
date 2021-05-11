@@ -52,7 +52,7 @@ footer a {
 
 // move toasts z-index to top-most layer
 .toast {
-    z-index: $zindex-modal;
+    z-index: $zindex-tooltip;
 }
 
 // abstract sizing on gallery images
