@@ -15,9 +15,6 @@ class AddIndexToReservationsTable extends Migration
     {
         Schema::table('reservations', function (Blueprint $table) {
             $table->string('status', 15)->index()->change();
-            $table->dateTime('date_in')->index()->change();
-            $table->dateTime('date_out')->index()->change();
-
         });
     }
 
@@ -29,9 +26,7 @@ class AddIndexToReservationsTable extends Migration
     public function down()
     {
         Schema::table('reservations', function (Blueprint $table) {
-            $table->dropIndex('status');                
-            $table->dropIndex('date_in');            
-            $table->dropIndex('date_out');                
+            $table->dropIndex('reservations_status_index');
         });
     }
 }
