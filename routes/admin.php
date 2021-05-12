@@ -33,8 +33,8 @@ Route::name('admin') // all route names will be prefixed with
         Route::name('.reservations')
             ->prefix('reservations')
             ->group(function () {
-                Route::get('/', [ReservationsController::class, 'showAll']);
-                Route::post('/search', [ReservationsController::class, 'showFilter'])->name('.search');
+                Route::get('/', [ReservationsController::class, 'search']);
+                Route::post('/', [ReservationsController::class, 'search'])->name('search');
             });
 
         // map group; admin.map

@@ -49,18 +49,10 @@ Route::post('/cg/status', function (Request $r) {
 
     $date_in = strtotime($dates[0]);
     $date_out = strtotime($dates[1]);
-    $date_in = date('Y-m-d 23:59:59', $date_in);
-    $date_out = date('Y-m-d H:i', $date_out);
 
-    // similar to ReservationUtil::getReservations but selecting specific data, on all campgrounds
-    $result = Reservation::select(['campground_id', 'status', 'updated_at'])
-        ->where(function ($query) use ($date_in) {
-            $query->where('date_in', '<=', $date_in); // inclusive; reservations start
-            $query->where('date_out', '>', $date_in); // exclusive; reservations end
-        })
-        ->orWhere(function($query) use ($date_in, $date_out) {
-            $query->where('date_in', '>=', $date_in);
-        })
-        ->get();
-    return json_encode($result);
+    return json_encode(ReservationUtil::getReservations(
+        ['campground_id', 'updated_at', 'status'],
+        $date_in,
+        $date_out
+    )->get());
 });

@@ -14,6 +14,21 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+            <hr>
+            <form method="POST" action="" enctype="multipart/form-data">
+                @csrf
+                <select name="delete[]" class="form-select" size="5" aria-label="size 5 multiple select" multiple>
+                    
+                </select>
+                <button type="submit" class="btn btn-primary w-100">Delete Selected</button>
+            </form>
+            <hr>
+            <form method="POST" action="" enctype="multipart/form-data">
+                @csrf
+
+                <input class="form-control" type="file" name="upload[]" accept="image/*" multiple>
+                <button type="submit" class="btn btn-primary w-100">Upload Pictures</button>
+            </form>
         </div>
         <div class="col-xs-12 col-lg-6">
             <dl class="row">

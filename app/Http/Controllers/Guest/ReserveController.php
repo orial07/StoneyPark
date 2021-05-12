@@ -51,7 +51,7 @@ class ReserveController extends Controller
             ]
         );
         if ($validator->fails()) {
-            return redirect('reserve')->withErrors($validator)->withInput();
+            return redirect('/reserve')->withErrors($validator)->withInput();
         }
 
         $errors = $validator->errors();
@@ -70,7 +70,7 @@ class ReserveController extends Controller
         ];
 
         $sp = explode('-', $inputs['campsite']);
-        $campground = Campground::where('section', $sp[0])->where('number', $sp[1]);
+        $campground = Campground::select(['section', 'number'])->where('section', $sp[0])->where('number', $sp[1]);
         if (!$campground->count()) { // could not find any campgrounds identified with the specified {section-number}
             $errors->add('cg-campsite-value', 'Unknown campsite selected');
             return redirect('/reserve')->withErrors($validator)->withInput();
@@ -79,10 +79,12 @@ class ReserveController extends Controller
         $sp = explode(' - ', $inputs['dates']);
         $date_in = strtotime($sp[0]);
         $date_out = strtotime($sp[1]);
+
         if (!$date_in || !$date_out || $date_in > $date_out) {
             $errors->add('dates', 'System failed to understand the selected dates');
             return redirect('/reserve')->withErrors($validator)->withInput();
         }
+
         // convert from (seconds -> minutes -> hours -> days)
         $nights = (($date_out - $date_in) / 60 / 60 / 24);
         if ($nights < 1) {
@@ -90,7 +92,12 @@ class ReserveController extends Controller
             return redirect('/reserve')->withErrors($validator)->withInput();
         }
 
-        $reservations = ReservationUtil::getReservations($inputs['campsite'], $date_in, $date_out)->get();
+        $reservations = ReservationUtil::getReservations(
+            ['id', 'updated_at', 'status'],
+            $date_in,
+            $date_out
+        )->where('campground_id', $inputs['campsite'])->get();
+
         // find all reservations during a specified date range
         if ($reservations->count() > 0) {
             foreach ($reservations as $row) {

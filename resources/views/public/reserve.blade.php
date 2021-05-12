@@ -8,46 +8,17 @@
     @endsection
 
     <div class="container-md container-sm-fluid mt-4">
-        <div class="text-center my-5">
-            We ask that you make reservations only with family members or close contacts living in the same home as you.<br>
-            By reserving, you also agree to abide by <a href="https://www.alberta.ca/enhanced-public-health-measures.aspx" target="_blank">Alberta's
-                COVID Regulations</a> and our <a href="{{ route('rules') }}" target="_blank">rules &amp; policies</a>.
-        </div>
-
         <x-errors></x-errors>
 
         <form id="reserve-form" method="POST" action="reserve">
             @csrf
 
             <h2 class="my-5 text-center">Where would you like to camp?</h2>
-            <div class="row">
-                <div class="col-9 col-md-10">
+            <div class="row justify-content-center">
+                <div class="col col-md-5">
                     <div class="row">
-                        <div class="col-xs-12 col-lg-6">
-                            <div class="carousel slide" id="cg-carousel" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active"><img src="https://dummyimage.com/1"></div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#cg-carousel" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#cg-carousel" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-lg-6">
-                            <dl class="row">
-                                <dt class="col-4">Amenities</dt>
-                                <dd class="col-8">
-                                    <x-svg-icon class="d-none" id="cg-amenity-fire" :icon="'fire'">Firepit</x-svg-icon>
-                                    <x-svg-icon class="d-none" id="cg-amenity-table" :icon="'table'">Picnic Table</x-svg-icon>
-                                </dd>
-                            </dl>
-                            <p>
-                                Selected dates include the date you arrive and depart. You can arrive on <span class="fw-bold" id="date-in">the
+                        <div class="col">
+                            <p>Selected dates include the date you arrive and depart. You can arrive on <span class="fw-bold" id="date-in">the
                                     first selected date</span> and leave on the morning of <span class="fw-bold" id="date-out">the second seleced
                                     date</span>.</p>
                             <x-controls.input id="dates" type="text" required>
@@ -84,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col g-0 user-select-none d-flex position-relative">
+                <div class="col-3 g-0 user-select-none d-flex position-relative">
                     <input type="text" class="d-none" id="cg-campsite-value" name="cg-campsite-value" required readonly autocomplete="off" />
                     <div id="cg-campsite-list" class="position-absolute w-100 h-100 overflow-auto text-wrap">
                         <button type="button" id="cg-campsite-refresh" class="btn btn-success w-100">Refresh</button>

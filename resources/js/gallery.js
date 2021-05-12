@@ -6,6 +6,7 @@ jQuery(function () {
         let image = images[i];
         if (!image.attributes.lazysrc) continue;
         image.src = image.attributes.lazysrc.value;
+        image.removeAttribute('lazysrc', );
     }
 
     let e = document.getElementById("gallery-modal");

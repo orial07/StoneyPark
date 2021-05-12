@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ReservationsController extends Controller
 {
@@ -20,28 +21,28 @@ class ReservationsController extends Controller
         return view('auth.reservation', ['reservation' => $reservation]);
     }
 
-    public function showAll()
+    public function search(Request $r)
     {
-        return view('admin.reservations', [
-            'reservations' => DB::table('reservations')
-                ->where('status', 'paid')
-                ->paginate(20)
-        ]);
-    }
-
-    public function showFilter(Request $r)
-    {
-        $search = $r->input('search');
-        $n = intval($search);
-
         $db = DB::table('reservations');
-        if ($n > 0) {
-            $db->where('id', $n);
-        } else {
-            $db->where('first_name', 'like', '%' . $search . '%')
-                ->orWhere('last_name', 'like', '%' . $search . '%')
-                ->orWhere('email', 'like', '%' . $search . '%')
-                ->orWhere('phone', 'like', '%' . $search . '%');
+        if (sizeof($r->all()) > 0) {
+            $validator = Validator::make(
+                $r->all(),
+                ['search' => 'required|string']
+            );
+            if ($validator->fails()) {
+                return redirect('/admin/reservations')->withErrors($validator)->withInput();
+            }
+            $search = $r->input('search');
+            $n = intval($search);
+
+            if ($n > 0) {
+                $db->where('id', $n);
+            } else {
+                $db->where('first_name', 'like', '%' . $search . '%')
+                    ->orWhere('last_name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%');
+            }
         }
         return view('admin.reservations', [
             'reservations' => $db->paginate(20)

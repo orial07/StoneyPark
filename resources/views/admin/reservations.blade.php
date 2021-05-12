@@ -2,7 +2,7 @@
     <h1 class="fw-bold text-center p-5">Customer Reservations</h1>
 
     {{ $reservations->links('vendor.pagination.bootstrap-4') }}
-    <form action="{{ route('admin.reservations.search') }}" method="POST" role="search" autocomplete="off">
+    <form action="{{ route('admin.reservations') }}" method="POST" role="search" autocomplete="off">
         @csrf
 
         <x-controls.input id="search" type="text" required>

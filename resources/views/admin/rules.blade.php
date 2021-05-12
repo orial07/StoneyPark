@@ -3,11 +3,10 @@
 
     @foreach ($rules as $rule)
         <div class="mt-5">
-            <h5 class="fs-4 mb-1 fw-bold">
-                <a href="{{ url('/admin/rules/edit/' . $rule->id) }}"><img class="svg-icon"
-                        src="{{ asset('img/pencil.svg') }}" /></a>
-                {!! $rule->title !!}
-            </h5>
+            <a href="{{ url('/admin/rules/edit/' . $rule->id) }}">
+                <x-svg-icon :icon="'pencil'" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit this rule"></x-svg-icon>
+                <h5 class="d-inline fw-bold">{!! $rule->title !!}</h5>
+            </a>
             <p>{!! $rule->description !!}</p>
         </div>
     @endforeach
