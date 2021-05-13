@@ -23,6 +23,14 @@
                     along with over 700 acres of land to explore!
                 </p>
             </div>
+            <div class="w-100">
+                <hr>
+            </div>
+            <div class="col-10 text-center">
+                <h3>Where you can find us</h3>
+                <p>You can find us at <a href="https://goo.gl/maps/ZJxecqCRmiBxJdq18"><i class="fas fa-map-marker-alt"></i> Stoney 142, 143, 144, AB</a></p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9633.090248066968!2d-114.99912450019522!3d51.14868292939065!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDA4JzU3LjAiTiAxMTTCsDU5JzU0LjQiVw!5e0!3m2!1sen!2sca!4v1620948347902!5m2!1sen!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
 
         <x-socials>
