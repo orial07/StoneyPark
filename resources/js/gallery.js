@@ -1,4 +1,6 @@
 jQuery(function () {
+    let eMODAL = document.getElementById("img-modal");
+
     // "lazy" load any img elements with the lazysrc attribute
     let images = document.getElementsByTagName('img');
     for (let i = 0; i < images.length; i++) {
@@ -6,21 +8,20 @@ jQuery(function () {
         let image = images[i];
         if (!image.attributes.lazysrc) continue;
         image.src = image.attributes.lazysrc.value;
-        image.removeAttribute('lazysrc', );
+        image.removeAttribute('lazysrc');
+        if (eMODAL) {
+            image.setAttribute('role', 'button');
+        }
     }
 
-    let e = document.getElementById("gallery-modal");
-    if (!e) return;
+    if (!eMODAL) return;
+    const MODAL = new bootstrap.Modal(eMODAL);
 
-    const MODAL = new bootstrap.Modal(e);
-    const MODAL_IMAGE = document.getElementById("gallery-modal-img");
-
-    const IMAGES = document.getElementsByClassName('gallery-img');
-    for (let i = 0; i < IMAGES.length; i++) {
-        let image = IMAGES[i];
+    for (let i = 0; i < images.length; i++) {
+        let image = images[i];
 
         image.addEventListener('click', function () {
-            MODAL_IMAGE.src = image.src;
+            document.querySelector('#img-modal-img').src = image.src.replace('thumbnail/', '');
             MODAL.show();
         });
     }

@@ -13,8 +13,8 @@
     <title>@yield('title', 'Welcome!') &middot; {{ config('app.name') }}</title>
 
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/favicon.png') }}" />
-
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    <script src="https://kit.fontawesome.com/fa6beb4299.js" crossorigin="anonymous"></script>
     @yield('head')
 </head>
 
