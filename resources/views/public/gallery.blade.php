@@ -1,9 +1,9 @@
 <x-app>
-    @section('title', 'Gallery')
+    @section('title', 'Campsite Gallery')
 
     <div class="row g-0">
         <div class="col-12 col-md-2">
-            <nav id="campsites" class="navbar navbar-light bg-light flex-column align-items-stretch p-3 sticky-top">
+            <nav id="campsites" class="navbar navbar-light bg-light flex-column align-items-stretch p-3 sticky-top" style="z-index: 0;">
                 <a class="navbar-brand" href="#">Campsites</a>
                 <nav class="nav nav-pills flex-column">
                     <a class="nav-link" href="#A1-A10">Site A1 - A10</a>
