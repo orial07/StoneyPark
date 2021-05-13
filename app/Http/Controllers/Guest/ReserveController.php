@@ -90,7 +90,13 @@ class ReserveController extends Controller
         $sp = explode(' - ', $inputs['dates']);
         $date_in = strtotime($sp[0]);
         $date_out = strtotime($sp[1]);
+        $date_min = strtotime('2021-05-21'); // may 21
+        $date_max = strtotime('2021-10-18'); // oct 18
 
+        if ($date_in < $date_min || $date_in > $date_max || $date_out > $date_max) {
+            $errors->add('dates', 'The selected dates are not available for reservation.');
+            return redirect('/reserve')->withErrors($validator)->withInput();
+        }
         if (!$date_in || !$date_out || $date_in > $date_out) {
             $errors->add('dates', 'System failed to understand the selected dates');
             return redirect('/reserve')->withErrors($validator)->withInput();

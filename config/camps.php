@@ -1,27 +1,28 @@
 <?php
 return [
     'types' => [
-        'Single Medium Tent' => [
+        'Small' => [
             'disabled' => false,
-            'name' => 'Single Medium Tent',
+            'name' => 'Small Camp',
             'campers' => 5,
             'price' => 45,
             'price2' => 0,
             'descriptor' => [
-                'tent' => '1 Medium Tent (4 - 6 people)',
+                'people' => 'Up to 5 people',
+                'tent' => 'Small tent / camper / tent trailer',
                 'fire' => 'Firepit',
                 'table' => 'Picnic table'
             ]
         ],
-        'Extra Medium Tent' => [
+        'medium' => [
             'disabled' => true,
-            'name' => 'Extra Medium Tent',
+            'name' => 'Medium Camp',
             'campers' => 12,
-            'name' => 'Extra Medium Tent',
             'price' => 45,
             'price2' => 25,
             'descriptor' => [
-                'tent' => '2 Medium Tents (up to 12 people)',
+                'people' => 'Up to 12 people',
+                'tent' => 'Small tent / camper / tent trailer',
                 'fire' => 'Firepit',
                 'table' => 'Picnic table'
             ]

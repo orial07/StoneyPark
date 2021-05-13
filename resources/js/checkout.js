@@ -142,12 +142,17 @@ Number.prototype.asMoney = function () {
 
 jQuery(function () {
     // initialize date-range-picker
-    let now = moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }),
-        later = moment(now).add(1, 'day');
+    let min = moment('2021-05-21');
+    let max = moment('2021-10-18');
+    let start = min.isAfter(moment()) ? min : moment();
+    start.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+    let end = moment(start).add(1, 'day');
+
     $('input[name="dates"]').daterangepicker({
-        startDate: now.format(TIME_FORMAT),
-        endDate: later.format(TIME_FORMAT),
-        minDate: now.format(TIME_FORMAT),
+        startDate: start.format(TIME_FORMAT),
+        endDate: end.format(TIME_FORMAT),
+        minDate: min.format(TIME_FORMAT),
+        maxDate: max.format(TIME_FORMAT),
     }, function (start, end, label) {
         OnDateChanged(start, end);
     });
