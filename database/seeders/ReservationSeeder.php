@@ -15,7 +15,7 @@ class ReservationSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('reservations')->delete();
-        Reservation::factory()->count(100)->create();
+        // DB::table('reservations')->delete();
+        // Reservation::factory()->count(100)->create();
     }
 }
