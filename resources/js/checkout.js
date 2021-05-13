@@ -70,8 +70,8 @@ const OnDateChanged = function (start, end) {
 
 // updates form control inputs for number of campers
 const OnCampersCountChanged = function () {
-    let container = document.querySelector('#campers-container');
-    let count = Math.max(1, Math.min(12, document.querySelector('#campers-count').value));
+    let container = document.querySelector('#campers-container');    
+    let count = document.querySelector('#campers-count').value;
 
     container.innerHTML = ""; // reset contents, then add inputs
     for (let i = 0; i < count - 1; i++) {
@@ -97,22 +97,28 @@ const OnCampersCountChanged = function () {
 const DoUpdateDOM = function () {
     $('#nights').html(`This reservation will be for <span class="fw-bold">${nights} night${nights == 1 ? '' : 's'}</span>`);
 
-    let ct = CAMPING_TYPES[document.querySelector('input[name=camp-type]:checked').value];
-    let cost = ct.price * nights; // recurring charges (price per night)
+    let ctIndex = document.querySelector('input[name=camp-type]:checked').value;
+    let keys = Object.keys(Stoney.Camps);
+    let cg = Stoney.Camps[keys[ctIndex]];
+
+    let cost = cg.price * nights; // recurring charges (price per night)
+
+    // set max amount of campers
+    document.querySelector('#campers-count').setAttribute('max', cg.campers);
 
     // update review step contents
-    $('#invoice-camp-type').text(ct.name);
-    $('#invoice-camp-price').text(ct.price2.asMoney());
+    $('#invoice-camp-type').text(cg.name);
+    $('#invoice-camp-price').text(cg.price2.asMoney());
     $('#invoice-nights-qty').text(nights);
     $('#invoice-nights-price').text(cost.asMoney());
 
-    cost += ct.price2; // one-time fee
+    cost += cg.price2; // one-time fee
 
     $('#invoice-tax-gst').text((cost * 0.05).asMoney());
     $('#invoice-total').text((cost *= 1.05).asMoney());
 
-    for (let i = 0; i < CAMPING_TYPES.length; i++) {
-        let ct = CAMPING_TYPES[i];
+    for (let i = 0; i < keys.length; i++) {
+        let ct = Stoney.Camps[keys[i]];
         let total = ((ct.price * nights) + ct.price2);
         $(`#camp-type-price-${i}`).text(total.asMoney());
     }

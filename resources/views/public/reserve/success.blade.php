@@ -1,5 +1,15 @@
 <x-app>
     <div class="container mt-4">
+        @if ($email_sent)
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <div class="alert alert-success" role="alert">
+                        Email Sent!
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="text-center">
             <h1 class="text-uppercase m-0">RESERVED!</h1>
             <h3 class="text-muted">Your reservation number is #{!! $reservation->id !!}</h3>
@@ -32,7 +42,7 @@
                     href="{{ route('contact') }}">contact</a> us as soon as possible!<br />
                 Didn't receive the email? <a href="{{ url()->current() }}">Try sending another</a>
                 @if ($email_wait)
-                    <br/>Sorry if you haven't received the email! Have you checked your spam folder? Please wait {{ $email_wait }} minute{{ $email_wait != 1 ? 's' : ''}} before trying again.
+                    <br/>If you haven't received the email, please check your spam folder. Otherwise, please wait {{ $email_wait }} minute{{ $email_wait != 1 ? 's' : ''}} before trying again.
                 @endif
             </p>
         </div>

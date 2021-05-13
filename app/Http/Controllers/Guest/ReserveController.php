@@ -21,7 +21,7 @@ class ReserveController extends Controller
 
     public function submit(Request $r)
     {
-        $campingTypes = ReservationUtil::getCampingTypes();
+        $campTypes = config('camps.types');
         $validator = Validator::make(
             $r->all(),
             [ // rules
@@ -31,8 +31,8 @@ class ReserveController extends Controller
                 'user-email' => 'required|email',
                 'user-phone' => 'required|regex:/^\(?\d{3,}\)?[ -]?\d{3,}[ -]?\d{4,}$/',
                 'user-age' => 'required|numeric|min:18',
-                'campers-count' => 'required|numeric|min:1|max:6',
-                'camp-type' => 'required|numeric|min:0|max:' . sizeof($campingTypes),
+                'campers-count' => 'required|numeric|min:1|max:12',
+                'camp-type' => 'required|numeric|min:0|max:' . sizeof($campTypes),
                 'cg-campsite-value' => 'required|regex:/^\w-\d+$/', // the selected campsite
             ],
             [ // messages
@@ -69,6 +69,17 @@ class ReserveController extends Controller
             'camp-type' => intval($r->input('camp-type')),
         ];
 
+        $i = 0;
+        foreach ($campTypes as $ct) {
+            if ($i == $inputs['camp-type']) {
+                if ($ct['disabled']) {
+                    $errors->add('camp-type', $ct['name']. ' is disabled. Please select another option.');
+                    return redirect('/reserve')->withErrors($validator)->withInput();
+                }
+            }
+            $i++;
+        }
+
         $sp = explode('-', $inputs['campsite']);
         $campground = Campground::select(['section', 'number'])->where('section', $sp[0])->where('number', $sp[1]);
         if (!$campground->count()) { // could not find any campgrounds identified with the specified {section-number}
@@ -103,7 +114,7 @@ class ReserveController extends Controller
             foreach ($reservations as $row) {
                 // if a reservation is found under the 'paid' status, it cannot be reserved
                 if ($row->status == 'paid') {
-                    $errors->add('campsite', 'The campsite is already booked on that date.');
+                    $errors->add('campsite', 'The campsite is already reserved on that date.');
                     return redirect('/reserve')->withErrors($validator)->withInput();
                 }
 
@@ -218,6 +229,7 @@ class ReserveController extends Controller
         $checkout_session = $stripe->checkout->sessions->retrieve($checkout_session->id, []);
 
         if ($checkout_session->payment_status == 'paid') {
+            $reservation->status = 'paid';
             $reservation->transaction_id = $checkout_session->id;
             $reservation->save();
             foreach ($campers as $camper) {
@@ -226,15 +238,15 @@ class ReserveController extends Controller
             }
 
 
-            $send_email = true;
+            $email_send = true;
             $email_wait = 0;
             if ($email_ts) {
                 $email_wait = $email_ts->diffInMinutes(now());
                 if ($email_wait < 3) {
-                    $send_email = false;
+                    $email_send = false;
                 }
             }
-            if ($send_email) {
+            if ($email_send) {
                 session(['email_ts' => now()]);
                 $email_wait = 0;
                 // send to customer & administrator
@@ -246,6 +258,7 @@ class ReserveController extends Controller
             return view('public.reserve.success', [
                 'reservation' => $reservation,
                 'email_wait' => 3 - $email_wait,
+                'email_sent' => $email_send,
             ]);
             // view outgoing-email reservation
             // return view('email.reservation', ['reservation' => $reservation]);

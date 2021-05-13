@@ -314,13 +314,13 @@
                                                             <tr>
                                                                 <td>{{ $reservation->getNights() }}x Nights Reserved</td>
                                                                 <td class="alignright">$
-                                                                    {{ number_format($reservation->getNights() * $reservation->getType()->price, 2, '.', ',') }}
+                                                                    {{ number_format($reservation->getNights() * $reservation->getType()['price'], 2, '.', ',') }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>{{ $reservation->getType()->name }}</td>
+                                                                <td>{{ $reservation->getType()['name'] }}</td>
                                                                 <td class="alignright">$
-                                                                    {{ number_format($reservation->getType()->price2, 2, '.', ',') }}
+                                                                    {{ number_format($reservation->getType()['price2'], 2, '.', ',') }}
                                                                 </td>
                                                             </tr>
                                                             <tr>

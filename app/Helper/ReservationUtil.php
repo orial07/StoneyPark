@@ -2,31 +2,11 @@
 
 namespace App\Helper;
 
-use App\Models\Campground;
 use App\Models\Reservation;
-use App\Objects\CampingType;
 use Exception;
-use Illuminate\Support\Facades\DB;
 
 class ReservationUtil
 {
-    public static function getCampingTypes()
-    {
-        return array(
-            new CampingType('Single Medium Tent', 45, 0, [
-                'fire' => 'Firepit',
-                'table' => 'Picnic table',
-                'tent' => '1 Medium Tent (4 - 6 people)',
-            ]),
-            new CampingType('Extra Medium Tent', 45, 25, [
-                'fire' => 'Firepit',
-                'table' => 'Picnic table',
-                'tent' => '2 Medium Tents (up to 12 people)',
-            ], 2),
-            // new CampingType("Recreation Vehicle", 69, 0, "One recreational vehicle (RV) allowed on campsite."),
-        );
-    }
-
     /**
      * Get all reservations for a specified campground within a date range.
      * 
