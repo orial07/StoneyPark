@@ -9,11 +9,11 @@
         <tr>
             <td scope="row">{{ $reservation->getNights() }}x Nights Reserved</td>
             <td class="text-end">$
-                {{ number_format($reservation->getNights() * $reservation->getType()->price, 2, '.', ',') }}</td>
+                {{ number_format($reservation->getNights() * $reservation->getType()['price'], 2, '.', ',') }}</td>
         </tr>
         <tr>
-            <td scope="row">{{ $reservation->getType()->name }}</td>
-            <td class="text-end">$ {{ number_format($reservation->getType()->price2, 2, '.', ',') }}</td>
+            <td scope="row">{{ $reservation->getType()['name'] }}</td>
+            <td class="text-end">$ {{ number_format($reservation->getType()['price2'], 2, '.', ',') }}</td>
         </tr>
         <tr class="fw-bold">
             <td scope="row">GST</td>

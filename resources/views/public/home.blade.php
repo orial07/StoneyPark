@@ -1,7 +1,7 @@
 <x-app>
     <div class="hero">
-        <video class="img-fluid" crossorigin="anonymous" autoplay muted loop preload="auto"
-            src="{{ asset('img/video/sunrise.mp4') }}">
+        <video poster="{{ asset('img/banner.jpg') }}" class="img-fluid" crossorigin="anonymous" autoplay muted loop preload="auto">
+            <source src="{{ asset('img/video/sunrise.mp4') }}" type='video/mp4'>
         </video>
         <div class="descriptor w-100 text-center">
             <h1 class="ff-serif display-1 fw-bold">{{ config('app.name') }}</h1>
