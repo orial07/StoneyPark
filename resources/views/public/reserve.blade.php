@@ -24,6 +24,7 @@
                 <div class="w-100"></div>
 
                 <div class="col col-md-5">
+                    <p>For photos of campsites, please refer to our <a href="{{ route('gallery') }}" target="_blank">gallery</a>.</p>
                     <p>Selected dates include the date you arrive and depart. You can arrive on <span class="fw-bold" id="date-in">the
                             first selected date</span> and leave on the morning of <span class="fw-bold" id="date-out">the second seleced
                             date</span>.</p>
@@ -128,6 +129,7 @@
 
                     <div class="d-grid">
                         <button class="btn btn-success" type="button" onclick="this.form.submit()">Continue To Payment</button>
+                        <small class="text-center">By reserving, you also agree to our <a href="{{ route('rules') }}" target="_blank">rules</a>.</small>
                     </div>
                 </div>
             </div>
