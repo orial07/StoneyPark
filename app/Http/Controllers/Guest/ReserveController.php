@@ -140,7 +140,6 @@ class ReserveController extends Controller
                     if ($reservation && $reservation->id == $row->id) {
                         // user submitted again when the previous is incomplete; delete the previous data
                         if ($reservation->status == 'pending') {
-                            $reservation->delete();
                             session()->forget('reservation');
                             session()->forget('campers');
                             break; // allow reservation

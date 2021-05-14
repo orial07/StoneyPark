@@ -34,17 +34,22 @@ const DoRefreshCampgroundsStatus = function () {
                 let row = data[b]; // check if campsite was found in the returned ${data}
                 if (campsite.id != row.campground_id) continue;
 
-                if (row.status == 'paid') {
-                    status.classList.add('bg-danger');
-                    status.innerHTML = "Reserved";
-                } else if (row.status == 'pending') {
-                    let diff = moment.duration(moment().diff(moment(row.updated_at)));
-                    if (diff.asMinutes() >= 5) break; // sufficient time has passed; the campsite is available
-                    status.classList.add('bg-warning', 'text-dark');
-                    status.innerHTML = "Pending";
+                switch (row.status) {
+                    case 'paid': {
+                        status.classList.add('bg-danger');
+                        status.innerHTML = "Reserved";
+                        available = false;
+                        break;
+                    }
+                    case 'pending': {
+                        let diff = moment.duration(moment().diff(moment(row.updated_at)));
+                        if (diff.asMinutes() >= 5) break; // sufficient time has passed; the campsite is available
+                        status.classList.add('bg-warning', 'text-dark');
+                        status.innerHTML = "Pending";
+                        available = false;
+                        break;
+                    }
                 }
-                available = false;
-                break;
             }
 
             status.classList.add('bg-success');

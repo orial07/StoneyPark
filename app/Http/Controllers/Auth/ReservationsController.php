@@ -26,8 +26,8 @@ class ReservationsController extends Controller
 
     public function search(Request $r)
     {
-        $db = DB::table('reservations')
-            ->where('status', 'paid');
+        $db = DB::table('reservations');
+
         if (sizeof($r->all()) > 0) {
             $validator = Validator::make(
                 $r->all(),
@@ -45,7 +45,8 @@ class ReservationsController extends Controller
                 $db->where('first_name', 'like', '%' . $search . '%')
                     ->orWhere('last_name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('phone', 'like', '%' . $search . '%');
+                    ->orWhere('phone', 'like', '%' . $search . '%')
+                    ->orWhere('status', 'like', '%' . $search . '%');
             }
         }
         return view('admin.reservations', [
@@ -114,5 +115,15 @@ class ReservationsController extends Controller
         $reservation->date_out = date('Y-m-d H:i:s', $date_out);
         $reservation->save();
         return redirect()->back()->withErrors(['success' => 'Dates changed successfully']);
+    }
+
+    public function cancel($id)
+    {
+        $reservation = Reservation::find($id);
+        if (!$reservation) abort(404);
+        $reservation->status = 'canceled';
+        $reservation->save();
+
+        return redirect()->back()->withErrors(['success' => 'Reservation marked as canceled']);
     }
 }

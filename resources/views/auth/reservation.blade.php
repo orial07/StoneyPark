@@ -27,9 +27,15 @@
                             <button type="submit" class="btn btn-primary">Change Dates</button>
                         </div>
                     </form>
-                    <hr>
+
                     @if ($reservation->transaction_id)
+                    <hr>
                     <a href="{{ route('admin.reservations.email', $reservation->id) }}" class="btn btn-primary w-100">Send Receipt</a>
+                    @endif
+
+                    @if ($reservation->status == 'paid')
+                    <hr>
+                    <a href="{{ route('admin.reservations.cancel', $reservation->id) }}" class="btn btn-danger w-100">Cancel Reservation</a>
                     @endif
                 </div>
             </div>
@@ -39,8 +45,11 @@
                     <h3 class="title">Reservation <span class="text-muted">#{{ $reservation->id }}</span></h3>
                     <hr />
                     <dl class="row">
+                        <dt class="col-sm-4">Status</dt>
+                        <dd class="col-sm-8 user-select-all">{{ $reservation->status }}</dd>
+
                         <dt class="col-sm-4">Transaction ID</dt>
-                        <dd class="col-sm-8 user-select-all">{{ $reservation->transaction_id ?? $reservation->status }}</dd>
+                        <dd class="col-sm-8 user-select-all">{{ $reservation->transaction_id }}</dd>
 
                         <dt class="col-sm-4">Arrival</dt>
                         <dd class="col-sm-8"><?= date('F j, Y (m-d-Y)', strtotime($reservation->date_in)) ?></dd>
