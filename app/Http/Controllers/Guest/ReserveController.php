@@ -164,8 +164,8 @@ class ReserveController extends Controller
         $reservation->camping_type = $inputs['camp-type'];
         $reservation->campground_id  = $inputs['campsite'];
 
-        $reservation->date_in = $date_in;
-        $reservation->date_out = $date_out;
+        $reservation->date_in = date('Y-m-d H:i:s', $date_in);
+        $reservation->date_out = date('Y-m-d H:i:s', $date_out);
 
         $campers = array();
         $camper = new Camper();

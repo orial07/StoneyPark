@@ -1,13 +1,40 @@
 <x-app>
-    <div class="container mt-4">
+    @section('head')
+    <!-- date picker -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @endsection
 
-        <div class="row gap-3 justify-content-center">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
             <div class="col-5">
                 <x-errors></x-errors>
             </div>
 
             <div class="w-100"></div>
-            <div class="col-xs-6 col-lg-5 card">
+            <div class="col-12 col-md-4 card">
+                <div class="card-body">
+                    <h3 class="title">Tools</h3>
+                    <hr />
+                    <form class="row" method="POST" action="{{ route('admin.reservations.update', $reservation->id) }}">
+                        @csrf
+                        <div class="col-12">
+                            <x-controls.input id="dates" type="text" required>
+                                <span for="dates">New Date</span>
+                            </x-controls.input>
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <button type="submit" class="btn btn-primary">Change Dates</button>
+                        </div>
+                    </form>
+                    <hr>
+                    @if ($reservation->transaction_id)
+                    <a href="{{ route('admin.reservations.email', $reservation->id) }}" class="btn btn-primary w-100">Send Receipt</a>
+                    @endif
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 card">
                 <div class="card-body">
                     <h3 class="title">Reservation <span class="text-muted">#{{ $reservation->id }}</span></h3>
                     <hr />
@@ -24,14 +51,10 @@
                         <dt class="col-sm-4">Campsite</dt>
                         <dd class="col-sm-8">{{ $reservation->campground_id }}</dd>
                     </dl>
-
-                    @if ($reservation->transaction_id)
-                    <a href="{{ route('admin.reservations.email', $reservation->id) }}" class="btn btn-primary">Send Receipt</a>
-                    @endif
                 </div> <!-- card body end -->
             </div> <!-- card/column end -->
 
-            <div class="col-xs-6 col-lg-5 card">
+            <div class="col-12 col-md-4 card">
                 <div class="card-body">
                     <h3 class="title">Customer</h3>
                     <hr />
@@ -67,6 +90,15 @@
                 <x-reservation.receipt :reservation="$reservation"></x-reservation.receipt>
             </div>
         </div>
-
     </div> <!-- container end -->
+
+    @section('scripts')
+    <script>
+        var reservation = {!! json_encode($reservation) !!};
+    </script>
+    <script src="{{ asset('js/admin.js') }}"></script>
+    <!-- daterangepicker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    @endsection
 </x-app>

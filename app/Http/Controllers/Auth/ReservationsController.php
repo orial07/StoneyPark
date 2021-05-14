@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helper\ReservationUtil;
 use App\Http\Controllers\Controller;
 use App\Mail\ReservationBooking;
 use App\Models\Reservation;
@@ -61,5 +62,57 @@ class ReservationsController extends Controller
             ->queue(new ReservationBooking($reservation));
 
         return redirect('/reservation/' . $reservation->id)->withErrors(['success' => 'Email sent!']);
+    }
+
+    public function update(Request $r, $id)
+    {
+        $reservation = Reservation::find($id);
+        if (!$reservation) abort(404);
+
+        $inputs = [
+            'dates' => $r->input('dates'),
+        ];
+
+        $sp = explode(' - ', $inputs['dates']);
+        $date_in = strtotime($sp[0]);
+        $date_out = strtotime($sp[1]);
+
+        $nights = ReservationUtil::getCountNights($date_in, $date_out);
+        if ($nights != $reservation->getNights()) {
+            return redirect()->back()->withErrors(['dates' => sprintf(
+                'Number of nights do not match (should be %d but given %d)',
+                $reservation->getNights(),
+                $nights
+            )]);
+        }
+
+        $reservations = ReservationUtil::getReservations(
+            ['id', 'updated_at', 'status'],
+            $date_in,
+            $date_out
+        )->where('campground_id', $reservation->campground_id)->get();
+        if ($reservations->count() > 0) {
+            foreach ($reservations as $row) {
+                // if a reservation is found under the 'paid' status, it cannot be reserved
+                if ($row->status == 'paid') {
+                    return redirect()->back()->withErrors(['dates' => 'A campsite is already reserved on that date.'])->withInput();
+                }
+
+                // if a reservation is found at this point, its status is either 'unpaid' or 'pending'
+                // in both cases the reservation is unimportant and can be disposed after a certain amount of time
+                $diff = now()->diff($row->updated_at);
+                $lifetime = config('session.reservation_lifetime');
+
+                // check if enough time has passed to allow someone else to reserve
+                if ($diff->i < $lifetime) {
+                    return redirect()->back()->withErrors(['dates' => 'A campsite is currently being reserved on that date.'])->withInput();
+                }
+            }
+        }
+
+        $reservation->date_in = date('Y-m-d H:i:s', $date_in);
+        $reservation->date_out = date('Y-m-d H:i:s', $date_out);
+        $reservation->save();
+        return redirect()->back()->withErrors(['success' => 'Dates changed successfully']);
     }
 }

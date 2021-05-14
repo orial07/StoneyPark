@@ -70,7 +70,7 @@ const OnDateChanged = function (start, end) {
 
 // updates form control inputs for number of campers
 const OnCampersCountChanged = function () {
-    let container = document.querySelector('#campers-container');    
+    let container = document.querySelector('#campers-container');
     let count = document.querySelector('#campers-count').value;
 
     container.innerHTML = ""; // reset contents, then add inputs

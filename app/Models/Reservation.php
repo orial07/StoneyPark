@@ -17,8 +17,8 @@ class Reservation extends Model
      * @var array
      */
     protected $casts = [
-        'date_in' => 'datetime',
-        'date_out' => 'datetime',
+        'date_in' => 'string',
+        'date_out' => 'string',
     ];
 
     public function campers()
@@ -46,7 +46,7 @@ class Reservation extends Model
     {
         $arrival = strtotime($this->date_in);
         $depature = strtotime($this->date_out);
-        return ($depature - $arrival) / 60 / 60 / 24;
+        return ReservationUtil::getCountNights($arrival, $depature);
     }
 
     public function getCost($tax = true)

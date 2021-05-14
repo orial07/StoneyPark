@@ -33,4 +33,16 @@ class ReservationUtil
             ->where('date_in', '<', $date_out)
             ->where('date_out', '>', $date_in);
     }
+
+    /**
+     * Counts the number of nights within a specified date range
+     * 
+     * @param int $date_in The arrival date
+     * @param int $date_out The departure date
+     * @return int the number of nights
+     */
+    public static function getCountNights($date_in, $date_out)
+    {
+        return ($date_out - $date_in) / 60 / 60 / 24;
+    }
 }

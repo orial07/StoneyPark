@@ -34,6 +34,7 @@ window.Stoney = {
     }
 }
 
+// load campsites on page load, if possible
 jQuery(function () {
     const cg = {
         // container for all campsites
@@ -62,20 +63,6 @@ jQuery(function () {
             // elements are contained in a form and needs to update an input field (cg-campsite-value)
             cg.input.value = `${section}-${number}`;
         }
-
-        // update description of campsite if present
-        // jQuery.ajax(`/api/cg/get/${section}/${number}`, {
-        //     method: 'POST',
-        //     dataType: 'json',
-        //     error: (r, status, error) => console.log(r, status, error),
-        //     success: (data, status, r) => {
-        //         if (r.status == 200 && r.readyState == 4) {
-        //             let campground = data[0];
-        //             document.querySelector('#cg-amenity-fire').classList[campground.has_fire ? 'remove' : 'add']('d-none');
-        //             document.querySelector('#cg-amenity-table').classList[campground.has_table ? 'remove' : 'add']('d-none');
-        //         }
-        //     }
-        // });
     };
 
     jQuery.ajax(`/api/cg/get`, {

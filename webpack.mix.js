@@ -16,5 +16,6 @@ mix
     .js('resources/js/app.js', 'public/js')
 
     .js('resources/js/checkout.js', 'public/js')
+    .js('resources/js/admin.js', 'public/js')
 
     .disableNotifications();
