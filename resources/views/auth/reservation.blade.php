@@ -13,7 +13,7 @@
                     <hr />
                     <dl class="row">
                         <dt class="col-sm-4">Transaction ID</dt>
-                        <dd class="col-sm-8 user-select-all">{{ $reservation->transaction_id }}</dd>
+                        <dd class="col-sm-8 user-select-all">{{ $reservation->transaction_id ?? $reservation->status }}</dd>
 
                         <dt class="col-sm-4">Arrival</dt>
                         <dd class="col-sm-8"><?= date('F j, Y (m-d-Y)', strtotime($reservation->date_in)) ?></dd>
