@@ -10,6 +10,7 @@
     <meta property="og:title" content="@yield('title', 'Welcome!') &middot; {{ config('app.name') }}">
     <meta property="og:description" content="@yield('description', 'Welcome to Stoney Park Campgrounds!')">
     <meta name="description" content="@yield('description', 'Welcome to Stoney Park Campgrounds!')" />
+    <meta name="keywords" content="campground, campgrounds, campsite, camping, calgary, tourism, kananaskis, hiking, tent, outdoor, trailer, reserve, bow, river, alberta" />
 
     <title>@yield('title', 'Welcome!') &middot; {{ config('app.name') }}</title>
 
