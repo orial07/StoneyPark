@@ -31,6 +31,6 @@ class ReservationUtil
 
         return Reservation::select($columns)
             ->where('date_in', '<', $date_out)
-            ->where('date_out', '>=', $date_in);
+            ->where('date_out', '>', $date_in);
     }
 }
