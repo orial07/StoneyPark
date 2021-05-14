@@ -52,6 +52,9 @@ class ReservationsController extends Controller
                     ->orWhere('status', 'like', '%' . $search . '%');
             }
         }
+
+        $db->orderBy('date_in');
+
         return view('admin.reservations', [
             'reservations' => $db->paginate(20)
         ]);
