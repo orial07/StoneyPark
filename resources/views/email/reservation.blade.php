@@ -1,5 +1,4 @@
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -266,7 +265,6 @@
                 width: 100% !important
             }
         }
-
     </style>
 </head>
 
@@ -293,18 +291,17 @@
                                             <table class="invoice">
                                                 <tr>
                                                     <td>
-                                                        {{ $reservation->first_name . ' ' . $reservation->last_name }}<br>Reservation
-                                                        #{{ $reservation->id }}
-                                                        <br>Arriving
-                                                        {{ date('F j, Y (m-d-Y)', strtotime($reservation->date_in)) }}
-                                                        <br>Leaving
-                                                        {{ date('F j, Y (m-d-Y)', strtotime($reservation->date_out)) }}
+                                                        {{ $reservation->first_name . ' ' . $reservation->last_name }}<br>
+                                                        Reservation #{{ $reservation->id }}<br>
+                                                        Campsite {{ $reservation->campground_id }}<br>
+                                                        Arriving {{ date('F j, Y (m-d-Y)', strtotime($reservation->date_in)) }}<br>
+                                                        Leaving {{ date('F j, Y (m-d-Y)', strtotime($reservation->date_out)) }}<br>
                                                         <br>
                                                         <br>
                                                         @foreach ($reservation->campers as $camper)
-                                                            @if (!$loop->first)
-                                                                {{ $camper->first_name . ' ' . $camper->last_name }}
-                                                            @endif
+                                                        @if (!$loop->first)
+                                                        {{ $camper->first_name . ' ' . $camper->last_name }}
+                                                        @endif
                                                         @endforeach
                                                     </td>
                                                 </tr>

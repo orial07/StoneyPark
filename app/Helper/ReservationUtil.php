@@ -27,10 +27,10 @@ class ReservationUtil
         }
 
         $date_in = date('Y-m-d 00:00:00', $date_in);
-        $date_out = date('Y-m-d 23:59:59', $date_out);
+        $date_out = date('Y-m-d 00:00:00', $date_out);
 
         return Reservation::select($columns)
-            ->where('date_in', '<=', $date_out)
+            ->where('date_in', '<', $date_out)
             ->where('date_out', '>=', $date_in);
     }
 }

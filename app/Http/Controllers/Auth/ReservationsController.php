@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ReservationBooking;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ReservationsController extends Controller
@@ -23,7 +25,8 @@ class ReservationsController extends Controller
 
     public function search(Request $r)
     {
-        $db = DB::table('reservations');
+        $db = DB::table('reservations')
+            ->where('status', 'paid');
         if (sizeof($r->all()) > 0) {
             $validator = Validator::make(
                 $r->all(),
@@ -47,5 +50,16 @@ class ReservationsController extends Controller
         return view('admin.reservations', [
             'reservations' => $db->paginate(20)
         ]);
+    }
+
+    public function email($id)
+    {
+        $reservation = Reservation::find($id);
+        if (!$reservation) abort(404);
+        Mail::to($reservation->email)
+            ->bcc(config('mail.bcc'))
+            ->queue(new ReservationBooking($reservation));
+
+        return redirect('/reservation/' . $reservation->id)->withErrors(['success' => 'Email sent!']);
     }
 }
