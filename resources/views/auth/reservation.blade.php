@@ -12,10 +12,11 @@
             </div>
 
             <div class="w-100"></div>
+            @if (auth()->user()->web_admin)
             <div class="col-12 col-md-4 card">
                 <div class="card-body">
                     <h3 class="title">Tools</h3>
-                    <hr />
+                    <hr>
                     <form class="row" method="POST" action="{{ route('admin.reservations.update', $reservation->id) }}">
                         @csrf
                         <div class="col-12">
@@ -39,17 +40,25 @@
                     @endif
                 </div>
             </div>
+            @endif
 
             <div class="col-12 col-md-4 card">
                 <div class="card-body">
                     <h3 class="title">Reservation <span class="text-muted">#{{ $reservation->id }}</span></h3>
-                    <hr />
+                    <hr>
                     <dl class="row">
                         <dt class="col-sm-4">Status</dt>
-                        <dd class="col-sm-8 user-select-all">{{ $reservation->status }}</dd>
+                        <dd class="col-sm-8">{{ $reservation->status }}</dd>
 
                         <dt class="col-sm-4">Transaction ID</dt>
                         <dd class="col-sm-8 user-select-all">{{ $reservation->transaction_id }}</dd>
+
+                        @if (auth()->user()->web_admin)
+                        @if ($checkout)
+                        <dt class="col-sm-4">Payment Intent</dt>
+                        <dd class="col-sm-8 user-select-all">{{ $checkout->payment_intent }}</dd>
+                        @endif
+                        @endif
 
                         <dt class="col-sm-4">Arrival</dt>
                         <dd class="col-sm-8"><?= date('F j, Y (m-d-Y)', strtotime($reservation->date_in)) ?></dd>
@@ -66,7 +75,7 @@
             <div class="col-12 col-md-4 card">
                 <div class="card-body">
                     <h3 class="title">Customer</h3>
-                    <hr />
+                    <hr>
                     <dl class="row">
                         <dt class="col-sm-3">Name</dt>
                         <dd class="col-sm-9">{{ $reservation->first_name }} {{ $reservation->last_name }}</dd>

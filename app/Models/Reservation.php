@@ -26,7 +26,8 @@ class Reservation extends Model
         return $this->hasMany(Camper::class);
     }
 
-    public function getCampersCountAttribute() {
+    public function getCampersCountAttribute()
+    {
         return $this->campers()->count();
     }
 
@@ -39,7 +40,7 @@ class Reservation extends Model
             }
             $i++;
         }
-        throw new Exception('Unknown camping type: '. $this->camping_type);
+        throw new Exception('Unknown camping type: ' . $this->camping_type);
     }
 
     public function getNights()
@@ -57,5 +58,15 @@ class Reservation extends Model
         $cost += $ct['price2']; // one-time fee
         if ($tax) $cost *= 1.05; // GST Tax Amount
         return $cost;
+    }
+
+    public function getCheckoutSession()
+    {
+        try {
+            $stripe = new \Stripe\StripeClient(config('app.stripe_secret'));
+            return $stripe->checkout->sessions->retrieve($this->transaction_id, []);
+        } catch (Exception $e) {
+            return null;
+        }
     }
 }

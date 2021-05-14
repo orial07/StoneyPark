@@ -21,7 +21,10 @@ class ReservationsController extends Controller
             abort(404);
         }
 
-        return view('auth.reservation', ['reservation' => $reservation]);
+        return view('auth.reservation', [
+            'reservation' => $reservation,
+            'checkout' => $reservation->getCheckoutSession(),
+        ]);
     }
 
     public function search(Request $r)
