@@ -23,6 +23,7 @@
                 <th scope="col">Phone</th>
                 <th scope="col">Check-In</th>
                 <th scope="col">Check-Out</th>
+                <th scole="col">Campsite</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,7 @@
                     <td>{{ $reservation->phone }}</td>
                     <td>{{ date('F j, Y', strtotime($reservation->date_in)) }}</td>
                     <td>{{ date('F j, Y', strtotime($reservation->date_out)) }}</td>
+                    <td>{{ $reservation->campground_id }}</td>
                 </tr>
             @endforeach
         </tbody>
