@@ -1,6 +1,6 @@
 <x-app>
-    @section('title', 'Contact Us');
-    @section('description', 'Send a message if you have any questions, suggestions, comments or concerns');
+    @section('title', 'Contact Us')
+    @section('description', 'Send a message if you have any questions, suggestions, comments or concerns')
 
     <div class="container-md container-sm-fluid mt-4">
         <h1 class="text-center">What can we help with?</h1>
