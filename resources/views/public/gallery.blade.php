@@ -1,5 +1,6 @@
 <x-app>
     @section('title', 'Campsite Gallery')
+    @section('description', 'View photos of campsites at Stoney Park Campgrounds');
 
     <div class="row g-0">
         <div class="col-12 col-md-2">

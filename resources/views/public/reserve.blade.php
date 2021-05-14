@@ -1,5 +1,6 @@
 <x-app>
     @section('title', 'Reserve')
+    @section('description', 'Create a reservation to stay at Stoney Park Campgrounds');
 
     @section('head')
     <!-- date picker -->

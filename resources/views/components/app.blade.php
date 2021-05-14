@@ -8,7 +8,8 @@
     <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:image" content="{{ asset('img/favicon.png') }}" />
     <meta property="og:title" content="@yield('title', 'Welcome!') &middot; {{ config('app.name') }}">
-    <meta property="og:description" content="Welcome to Stoney Park Campgrounds!">
+    <meta property="og:description" content="@yield('description', 'Welcome to Stoney Park Campgrounds!')">
+    <meta name="description" content="@yield('description', 'Welcome to Stoney Park Campgrounds!')" />
 
     <title>@yield('title', 'Welcome!') &middot; {{ config('app.name') }}</title>
 
