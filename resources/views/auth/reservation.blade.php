@@ -25,7 +25,9 @@
                         <dd class="col-sm-8">{{ $reservation->campground_id }}</dd>
                     </dl>
 
+                    @if ($reservation->transaction_id)
                     <a href="{{ route('admin.reservations.email', $reservation->id) }}" class="btn btn-primary">Send Receipt</a>
+                    @endif
                 </div> <!-- card body end -->
             </div> <!-- card/column end -->
 
