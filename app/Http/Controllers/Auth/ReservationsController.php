@@ -43,7 +43,7 @@ class ReservationsController extends Controller
             $n = intval($search);
 
             if ($n > 0) {
-                $db->where('id', $n);
+                return redirect(url('reservation', $n));
             } else {
                 $db->where('first_name', 'like', '%' . $search . '%')
                     ->orWhere('last_name', 'like', '%' . $search . '%')
