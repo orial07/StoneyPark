@@ -34,7 +34,10 @@ class ReservationsController extends Controller
         if (sizeof($r->all()) > 0) {
             $validator = Validator::make(
                 $r->all(),
-                ['search' => 'required|string']
+                [
+                    'search' => 'string',
+                    'page' => 'string',
+                ]
             );
             if ($validator->fails()) {
                 return redirect('/admin/reservations')->withErrors($validator)->withInput();

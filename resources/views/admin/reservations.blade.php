@@ -7,13 +7,10 @@
     <form action="{{ route('admin.reservations') }}" method="POST" role="search" autocomplete="off">
         @csrf
 
-        <x-controls.input id="search" type="text" required>
-            <x-slot name="prepend">
-                <button type="button" class="btn btn-outline-secondary">a</button>
-            </x-slot>
-
-            {{ __('Search') }}
-        </x-controls.input>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="search" name="search">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
     </form>
 
     <table class="table table-hover">
