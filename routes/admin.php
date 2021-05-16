@@ -35,7 +35,7 @@ Route::name('admin') // all route names will be prefixed with
             ->group(function () {
                 Route::get('/', [ReservationsController::class, 'search']);
                 Route::post('/', [ReservationsController::class, 'search'])->name('search');
-                Route::get('/send-email/{id}', [ReservationsController::class, 'email'])->name('.email');
+                Route::get('/send-email/{id}', [ReservationsController::class, 'sendEmail'])->name('.email');
                 Route::post('/update/{id}', [ReservationsController::class, 'update'])->name('.update');
                 Route::get('/cancel/{id}', [ReservationsController::class, 'cancel'])->name('.cancel');
             });

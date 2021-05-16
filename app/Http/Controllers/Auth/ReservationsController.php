@@ -53,14 +53,15 @@ class ReservationsController extends Controller
             }
         }
 
-        $db->orderBy('date_in');
+        $db->orderBy('id')
+            ->orderBy('email');
 
         return view('admin.reservations', [
             'reservations' => $db->paginate(20)
         ]);
     }
 
-    public function email($id)
+    public function sendEmail($id)
     {
         $reservation = Reservation::find($id);
         if (!$reservation) abort(404);

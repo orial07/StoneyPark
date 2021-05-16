@@ -265,8 +265,6 @@ class ReserveController extends Controller
                 'email_wait' => 3 - $email_wait,
                 'email_sent' => $email_send,
             ]);
-            // view outgoing-email reservation
-            // return view('email.reservation', ['reservation' => $reservation]);
         }
         abort(404);
     }
