@@ -15,6 +15,8 @@
     <title>@yield('title', 'Welcome!') &middot; {{ config('app.name') }}</title>
 
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/favicon.png') }}" />
+
+    <!-- app styling -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     <!-- Font Awesome icons -->
     <script src="https://kit.fontawesome.com/fa6beb4299.js" crossorigin="anonymous"></script>
@@ -28,8 +30,6 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-NNTG4B2');
     </script>
-    <!-- End Google Tag Manager -->
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJ22NSCV7G"></script>
     <script>

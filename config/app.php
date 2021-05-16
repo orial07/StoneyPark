@@ -5,6 +5,7 @@ return [
     'stripe_key' => env('STRIPE_KEY', ''),
     'stripe_secret' => env('STRIPE_SECRET', ''),
     'stripe_currency' => env('STRIPE_CURRENCY', 'cad'),
+    'google_recaptcha' => env('GOOGLE_RECAPTCHA', ''),
 
     /*
     |--------------------------------------------------------------------------
