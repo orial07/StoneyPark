@@ -16,12 +16,14 @@ jQuery(function () {
 
     if (!eMODAL) return;
     const MODAL = new bootstrap.Modal(eMODAL);
+    const MODAL_IMG = document.querySelector('#img-modal-img');
 
     for (let i = 0; i < images.length; i++) {
         let image = images[i];
 
         image.addEventListener('click', function () {
-            document.querySelector('#img-modal-img').src = image.src.replace('thumbnail/', '');
+            MODAL_IMG.src = '';
+            MODAL_IMG.src = image.src.replace('thumbnail/', '');
             MODAL.show();
         });
     }
