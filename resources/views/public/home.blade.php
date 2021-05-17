@@ -13,23 +13,29 @@
     <div class="container">
 
         <div class="row justify-content-center my-5">
-            <div class="col-10 text-center">
-                <h3>Welcome to Stoney Park Campgrounds!</h3>
+            <div class="col-10">
+                <h3 class="text-center">Welcome to Stoney Park Campgrounds!</h3>
                 <p>
-                    For the first time in over 20 years the park will be opening its gates to the public. We have been
-                    working day and night for the past year to make this happen. Originally we were set to open in the Spring of
-                    2022 but we have pushed our agenda to allow visitors the chance to visit in 2021. This Spring we are
-                    welcoming the general public to come enjoy 100 camping spots each equipped with a picnic table and firepit
-                    along with over 700 acres of land to explore!
+                    For the first time in over 20 years the park will be opening to the public. We have been working day and night for the past year to make this happen. Originally we were set to open in the spring of 2022 but have pushed the agenda to allow visitors the chance to visit in 2021.
+                </p>
+                <p>
+                    Spring 2021 we are welcoming everyone to enjoy 100 camping spots, with more to come later this year, and the next! Every campsite is equipped with a picnic table and fire pit. Trailers and RV camping will be available in spring 2022. We're working hard every day to give our campers the best and most comfortable camping experience possible.
+                </p>
+                <p>
+                    With a fire pit in every campsite, beautiful hills, mountains, rivers, mountains and over 600 acres of unexplored land to hike, we hope you enjoy your stay at Stoney Campgrounds!
                 </p>
             </div>
             <div class="w-100">
                 <hr>
             </div>
             <div class="col-10 text-center">
-                <h3>Where you can find us</h3>
-                <p>You can find us at <a href="https://goo.gl/maps/ZJxecqCRmiBxJdq18"><i class="fas fa-map-marker-alt"></i> Stoney 142, 143, 144, AB</a></p>
-                <iframe class="mw-100 w-100" height="400" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9633.090248066968!2d-114.99912450019522!3d51.14868292939065!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDA4JzU3LjAiTiAxMTTCsDU5JzU0LjQiVw!5e0!3m2!1sen!2sca!4v1620948347902!5m2!1sen!2sca" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                <p>
+                    From Calgary, expect up to a 60 minute drive, and 15 &HorizontalLine; 30 minute drive from campgrounds to Kananaskis.<br>
+                    Our park can be found at <a href="https://goo.gl/maps/ZJxecqCRmiBxJdq18">Stoney 142, 143, 144, AB</a>.
+                </p>
+
+                <iframe class="mw-100 w-100 shadow" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10012.059942042568!2d-115.00073440111706!3d51.14507476438579!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371270862209493%3A0x9c3d4f3fba281f93!2sStoney%20Park%20Campgrounds!5e0!3m2!1sen!2sca!4v1621284575713!5m2!1sen!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
 
