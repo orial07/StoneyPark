@@ -10,11 +10,12 @@
     <div class="container-md container-sm-fluid mt-4">
         <h1 class="text-center">What can we help with?</h1>
 
-
         <form id="contact-form" action="{{ route('contact.send') }}" method="POST" class="card border shadow p-5">
             @csrf
 
             <x-errors></x-errors>
+
+            <p>If you have any questions, comments, suggestions or concerns then don't hesitate to send us a message. We'll get back to you as soon as possible.</p>
 
             <div class="form-group my-3">
                 <label for="name">Name *</label>
