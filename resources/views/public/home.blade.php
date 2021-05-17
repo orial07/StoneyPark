@@ -14,7 +14,7 @@
 
         <div class="row justify-content-center my-5">
             <div class="col-10">
-                <h3 class="text-center">Welcome to Stoney Park Campgrounds!</h3>
+                <h1 class="text-center">Welcome to Stoney Park Campgrounds!</h1>
                 <p>
                     For the first time in over 20 years the park will be opening to the public. We have been working day and night for the past year to make this happen. Originally we were set to open in the spring of 2022 but have pushed the agenda to allow visitors the chance to visit in 2021.
                     <br><br>
