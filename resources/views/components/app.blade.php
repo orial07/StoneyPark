@@ -31,9 +31,10 @@
     <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:image" content="{{ asset('img/favicon.png') }}" />
     <meta property="og:title" content="@yield('title', 'Welcome!') &middot; {{ config('app.name') }}">
-    <meta property="og:description" content="@yield('description', 'Welcome to Stoney Park Campgrounds!')">
-    <meta name="description" content="@yield('description', 'Welcome to Stoney Park Campgrounds!')" />
-    <meta name="keywords" content="campground, campgrounds, campsite, camping, calgary, tourism, kananaskis, hiking, tent, outdoor, trailer, reserve, bow, river, alberta" />
+    <meta property="og:description" content="@yield('description', 'Reservations for camping available at Stoney Park Campgrounds.')">
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta name="description" content="@yield('description', 'Reservations for camping available at Stoney Park Campgrounds.')" />
+    <meta name="keywords" content="campground, campgrounds, campsite, camping, calgary, tourism, kananaskis, hiking, tent, outdoor, trailer, reserve, reservation, bow, river, alberta" />
 
     <title>@yield('title', 'Welcome!') &middot; {{ config('app.name') }}</title>
 

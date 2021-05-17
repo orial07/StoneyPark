@@ -17,11 +17,9 @@
                 <h3 class="text-center">Welcome to Stoney Park Campgrounds!</h3>
                 <p>
                     For the first time in over 20 years the park will be opening to the public. We have been working day and night for the past year to make this happen. Originally we were set to open in the spring of 2022 but have pushed the agenda to allow visitors the chance to visit in 2021.
-                </p>
-                <p>
+                    <br><br>
                     Spring 2021 we are welcoming everyone to enjoy 100 camping spots, with more to come later this year, and the next! Every campsite is equipped with a picnic table and fire pit. Trailers and RV camping will be available in spring 2022. We're working hard every day to give our campers the best and most comfortable camping experience possible.
-                </p>
-                <p>
+                    <br><br>
                     With a fire pit in every campsite, beautiful hills, mountains, rivers, mountains and over 600 acres of unexplored land to hike, we hope you enjoy your stay at Stoney Campgrounds!
                 </p>
             </div>

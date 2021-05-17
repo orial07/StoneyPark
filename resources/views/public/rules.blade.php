@@ -1,5 +1,6 @@
 <x-app>
-    @section('title', 'Rules')
+    @section('title', 'Camping Rules')
+    @section('description', 'See our rules and policies here at Stoney Park Campgrounds.')
 
     <x-container>
         <p class="lead my-5">

@@ -1,6 +1,6 @@
 <x-app>
     @section('title', 'Contact Us')
-    @section('description', 'Send a message if you have any questions, suggestions, comments or concerns')
+    @section('description', 'Send a message if you have any questions, comments, suggestions or concerns.')
 
     @section('head')
     <!-- google recaptcha api -->
