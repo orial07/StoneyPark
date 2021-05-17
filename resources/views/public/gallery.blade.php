@@ -32,7 +32,7 @@
             <div class="row justify-content-center">
                 <div class="col-6">
                     <x-socials class="my-5">
-                        <p class="text-center">See more photos, announcements and behind the scenes on these pages!</p>
+                        <p class="text-center">See more campsite photos, general announcements and behind the scenes on our media pages!</p>
                     </x-socials>
                     <p class="lead alert text-center">Click any photo to see it in higher quality.<br>
                         <i class="fas fa-exclamation-circle"></i> This may use lots of cellular data.</p>
@@ -45,7 +45,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/A1-A10.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site A1 - A10
+                                Campsite A1 - A10
                             </p>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/A11.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site A11
+                                Campsite A11
                             </p>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/A12-A30.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site A12 - A30
+                                Campsite A12 - A30
                             </p>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/A31-A35.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site A31 - A35
+                                Campsite A31 - A35
                             </p>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/A36-A43.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site A36 - A43
+                                Campsite A36 - A43
                             </p>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/A44-A63.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site A44 - A63<br>
+                                Campsite A44 - A63<br>
                                 <p class="alert alert-danger">
                                     <i class="fas fa-walking" aria-hidden="true"></i> These campsites are near a cliffside.
                                 </p>
@@ -108,7 +108,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B1-B13.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B1 - B13
+                                Campsite B1 - B13
                             </p>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B14-B15.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B14 - B15
+                                Campsite B14 - B15
                             </p>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B16.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B16
+                                Campsite B16
                             </p>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B17-B23.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B17 - B23
+                                Campsite B17 - B23
                             </p>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B24-B25.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B24 - B25
+                                Campsite B24 - B25
                             </p>
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B26-B27.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B26 - B27
+                                Campsite B26 - B27
                             </p>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B28.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B28
+                                Campsite B28
                             </p>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B29.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B29
+                                Campsite B29
                             </p>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B30-B31.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B30 - B31
+                                Campsite B30 - B31
                             </p>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B32.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B32
+                                Campsite B32
                             </p>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                         <img lazysrc="{{ asset('img/campgrounds/thumbnail/B33-B37.jpg') }}" />
                         <div class="card-body">
                             <p class="card-text">
-                                Site B33 - B37
+                                Campsite B33 - B37
                             </p>
                         </div>
                     </div>
