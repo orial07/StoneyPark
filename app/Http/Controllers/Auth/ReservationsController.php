@@ -48,19 +48,20 @@ class ReservationsController extends Controller
             if ($n > 0) {
                 return redirect(url('reservation', $n));
             } else {
-                $db->where('first_name', 'like', '%' . $search . '%')
-                    ->orWhere('last_name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('phone', 'like', '%' . $search . '%')
-                    ->orWhere('status', 'like', '%' . $search . '%');
+                $search = $search . '%';
+                $db->where('first_name', 'like', $search)
+                    ->orWhere('last_name', 'like', $search)
+                    ->orWhere('email', 'like', $search)
+                    ->orWhere('status', 'like', $search)
+                    ->orWhere('campground_id', 'like', $search);
             }
         }
 
-        $db->orderBy('id')
-            ->orderBy('email');
-
         return view('admin.reservations', [
-            'reservations' => $db->paginate(20)
+            'reservations' => $db
+                ->orderBy('id')
+                ->orderBy('email')
+                ->paginate(20)
         ]);
     }
 
