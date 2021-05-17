@@ -29,163 +29,189 @@
         </div>
 
         <div class="col" data-bs-spy="scroll" data-bs-target="#campsites" data-bs-offset="0" tabindex="0">
-            <x-socials class="my-5">
-                <p class="lead text-center">Click any photo to see it in high quality.<br>
-                    <i class="fas fa-exclamation-circle"></i> This may use lots of cellular data.</p>
-                <p class="text-center">See more photos, announcements and behind the scenes on these pages!</p>
-            </x-socials>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/A1-A10.jpg') }}" />
-                </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="A1-A10">A1 - A10</h4>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <x-socials class="my-5">
+                        <p class="text-center">See more photos, announcements and behind the scenes on these pages!</p>
+                    </x-socials>
+                    <p class="lead alert text-center">Click any photo to see it in higher quality.<br>
+                        <i class="fas fa-exclamation-circle"></i> This may use lots of cellular data.</p>
                 </div>
             </div>
 
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="A11">A11</h4>
+            <div class="row row-cols-1 row-cols-md-4 row-cols-3 g-4">
+                <div class="col" id="A1-A10">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/A1-A10.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site A1 - A10
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/A11.jpg') }}" />
+                <div class="col" id="A11">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/A11.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site A11
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/A12-A30.jpg') }}" />
+                <div class="col" id="A12-A30">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/A12-A30.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site A12 - A30
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="A12-A30">A12 - A30</h4>
+                <div class="col" id="A31-A35">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/A31-A35.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site A31 - A35
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="A31-A35">A31 - A35</h4>
+                <div class="col" id="A36-A43">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/A36-A43.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site A36 - A43
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/A31-A35.jpg') }}" />
+                <div class="col" id="A44-A63">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/A44-A63.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site A44 - A63<br>
+                                <p class="alert alert-danger">
+                                    <i class="fas fa-walking" aria-hidden="true"></i> These campsites are near a cliffside.
+                                </p>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/A36-A43.jpg') }}" />
+                <div class="col" id="B1-B13">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B1-B13.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B1 - B13
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="A36-A43">A36 - A43</h4>
+                <div class="col" id="B14-B15">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B14-B15.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B14 - B15
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col p-4 d-flex flex-column align-items-center justify-content-center">
-                    <h4 id="A44-A63">A44 - A63</h4>
-                    <p class="fs-4"><i class="fas fa-walking"></i> Be careful! These sites are near a cliffside.</p>
+                <div class="col" id="B16">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B16.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B16
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/A44-A63.jpg') }}" />
+                <div class="col" id="B17-B23">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B17-B23.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B17 - B23
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B1-B13.jpg') }}" />
+                <div class="col" id="B24-B25">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B24-B25.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B24 - B25
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B1-B13">B1 - B13</h4>
+                <div class="col" id="B26-B27">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B26-B27.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B26 - B27
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B14-B15">B14 - B15</h4>
+                <div class="col" id="B28">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B28.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B28
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B14-B15.jpg') }}" />
+                <div class="col" id="B29">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B29.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B29
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B16.jpg') }}" />
+                <div class="col" id="B30-B31">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B30-B31.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B30 - B31
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B16">B16</h4>
+                <div class="col" id="B32">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B32.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B32
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B17-B23">B17 - B23</h4>
-                </div>
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B17-B23.jpg') }}" />
-                </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B24-B25.jpg') }}" />
-                </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B24-B25">B24 - B25</h4>
-                </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B26-B27">B26 - B27</h4>
-                </div>
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B26-B27.jpg') }}" />
-                </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B28.jpg') }}" />
-                </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B28">B28</h4>
-                </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B29">B29</h4>
-                </div>
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B29.jpg') }}" />
-                </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B30-B31.jpg') }}" />
-                </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B30-B31">B30 - B31</h4>
-                </div>
-            </div>
-
-            <div class="row g-0 my-3 border-bottom pb-3">
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B32">B32</h4>
-                </div>
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B32.jpg') }}" />
-                </div>
-            </div>
-
-            <div class="row g-0 my-3">
-                <div class="col-4">
-                    <img class="img-fluid" lazysrc="{{ asset('img/campgrounds/thumbnail/B33-B37.jpg') }}" />
-                </div>
-                <div class="col d-flex align-items-center justify-content-center">
-                    <h4 id="B33-B37">B33 - B37</h4>
+                <div class="col" id="B33-B37">
+                    <div class="card shadow-sm">
+                        <img lazysrc="{{ asset('img/campgrounds/thumbnail/B33-B37.jpg') }}" />
+                        <div class="card-body">
+                            <p class="card-text">
+                                Site B33 - B37
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
