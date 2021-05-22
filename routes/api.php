@@ -27,18 +27,6 @@ Route::post('/cg/get', function () {
 });
 
 /**
- * Get descriptive information about a campground
- */
-Route::post('/cg/get/{section}/{number}', function ($section, $number) {
-    $result = Campground::select(['has_fire', 'has_table'])
-        ->where([
-            'section' => $section,
-            'number' => $number,
-        ])->get();
-    return json_encode($result);
-});
-
-/**
  * Get status of all campgrounds during a specified date
  */
 Route::post('/cg/status', function (Request $r) {
@@ -47,9 +35,11 @@ Route::post('/cg/status', function (Request $r) {
     $date_in = strtotime($dates[0]);
     $date_out = strtotime($dates[1]);
 
-    return json_encode(ReservationUtil::getReservations(
+    $result = ReservationUtil::getReservations(
         ['campground_id', 'updated_at', 'status'],
         $date_in,
         $date_out
-    )->get());
+    )->get();
+
+    return json_encode($result);
 });

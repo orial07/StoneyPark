@@ -29,6 +29,10 @@ window.Stoney = {
         });
     },
 
+    OnCampgroundLoaded: function (cg) {
+        // virtual handler callback function for each loaded campgrounds
+    },
+
     OnCampgroundsLoaded: function () {
         // virtual callback function for after {Stoney.GetCampgrounds} usage
     }
@@ -36,34 +40,8 @@ window.Stoney = {
 
 // load campsites on page load, if possible
 jQuery(function () {
-    const cg = {
-        // container for all campsites
-        campsites: document.querySelector('#cg-campsite-list'),
-        // used as a form input when selecting from #cg-campsite-list
-        input: document.querySelector('#cg-campsite-value'),
-    };
-    if (!cg.campsites) return;
-
-    let previous; // the previously selected element
-    const OnCampsiteClick = function (event) {
-        event.preventDefault();
-
-        let e = event.target;
-        if (previous == e) return; // same element; ignore interaction
-
-        // add classes to visualize selection of the element
-        e.classList.add('bg-primary', 'text-white');
-        if (previous) previous.classList.remove('bg-primary', 'text-white');
-        previous = e;
-
-        let sp = e.id.split('-');
-        let section = sp[0];
-        let number = parseInt(sp[1]);
-        if (cg.input) {
-            // elements are contained in a form and needs to update an input field (cg-campsite-value)
-            cg.input.value = `${section}-${number}`;
-        }
-    };
+    let campsites = document.querySelector('#cg-campsite-list');
+    if (!campsites) return;
 
     jQuery.ajax(`/api/cg/get`, {
         method: 'POST',
@@ -75,28 +53,9 @@ jQuery(function () {
             if (r.status == 200 && r.readyState == 4) {
                 for (let i = 0; i < data.length; i++) {
                     let camp = data[i];
-
-                    let campsite = document.createElement('div');
-                    campsite.id = `${camp.section}-${camp.number}`;
-                    campsite.innerHTML = `Site ${camp.section}-${camp.number}`;
-                    campsite.classList.add('list-group-item', 'overflow-auto');
-                    campsite.setAttribute('role', 'button');
-                    campsite.onclick = OnCampsiteClick;
-
-                    if (cg.input) {
-                        let status = document.createElement('span');
-                        status.id = `${camp.section}-${camp.number}-status`;
-                        status.innerHTML = 'Loading...';
-                        status.classList.add('badge', 'float-md-end', 'bg-secondary', 'd-block', 'pe-none');
-                        campsite.append(status);
-                    }
-
-                    cg.campsites.append(campsite);
+                    Stoney.OnCampgroundLoaded(campsites, camp);
                 }
-
-                if (Stoney.OnCampgroundsLoaded) {
-                    Stoney.OnCampgroundsLoaded();
-                }
+                Stoney.OnCampgroundsLoaded();
             }
         }
     });

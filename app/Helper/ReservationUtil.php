@@ -20,9 +20,7 @@ class ReservationUtil
         if (!$date_in || !$date_out || $date_in > $date_out) {
             throw new Exception('Invalid dates provided.');
         }
-        // convert from (seconds -> minutes -> hours -> days)
-        $nights = (($date_out - $date_in) / 60 / 60 / 24);
-        if ($nights < 1) {
+        if (ReservationUtil::getCountNights($date_in, $date_out) < 1) {
             throw new Exception('Same arrival and departure date provided.');
         }
 
@@ -43,6 +41,7 @@ class ReservationUtil
      */
     public static function getCountNights($date_in, $date_out)
     {
-        return ($date_out - $date_in) / 60 / 60 / 24;
+        // convert from (seconds -> minutes -> hours -> days)
+        return (($date_out - $date_in) / 60 / 60 / 24);
     }
 }

@@ -14,7 +14,7 @@ return [
                 'table' => 'Picnic table'
             ]
         ],
-        'medium' => [
+        'Medium' => [
             'disabled' => true,
             'name' => 'Medium Camp',
             'campers' => 12,

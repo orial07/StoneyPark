@@ -110,7 +110,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td scope="row"><span id="invoice-nights-qty"></span>x Reserved</td>
+                                <td scope="row"><span id="invoice-nights-qty"></span>x Nights Reserved</td>
                                 <td class="text-end" id="invoice-nights-price"></td>
                             </tr>
                             <tr>

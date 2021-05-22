@@ -17,26 +17,47 @@
                 <div class="card-body">
                     <h3 class="title">Tools</h3>
                     <hr>
-                    <form class="row" method="POST" action="{{ route('admin.reservations.update', $reservation->id) }}">
-                        @csrf
-                        <div class="col-12">
-                            <x-controls.input id="dates" type="text" required>
-                                <span for="dates">New Date</span>
-                            </x-controls.input>
-                        </div>
-                        <div class="col d-flex justify-content-center align-items-center">
-                            <button type="submit" class="btn btn-primary">Change Dates</button>
-                        </div>
-                    </form>
 
-                    @if ($reservation->transaction_id)
-                    <hr>
-                    <a href="{{ route('admin.reservations.email', $reservation->id) }}" class="btn btn-primary w-100">Send Receipt</a>
-                    @endif
+                    <div class="row">
+                        <div class="col-12">
+                            <form class="row" method="POST" action="{{ route('admin.reservations.update', $reservation->id) }}">
+                                @csrf
+
+                                <div class="col-8">
+                                    <x-controls.input id="dates" type="text" required>
+                                        <span for="dates">Reservation Date</span>
+                                    </x-controls.input>
+                                </div>
+
+                                <div class="col-4">
+                                    <label for="cg-campsite-list">Move Campsite</label>
+                                    <select id="cg-campsite-list" name="cg-campsite-value" class="form-select mb-3" aria-label="Default select example">
+                                    </select>
+                                </div>
+
+                                <div class="col d-flex justify-content-center align-items-center">
+                                    <button type="submit" class="btn btn-primary">Update Reservation</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-12 col-lg-4">
+                            <form class="row" method="POST" action="{{ route('admin.reservations.update', $reservation->id) }}">
+                                @csrf
+
+                        </div>
+                    </div>
 
                     @if ($reservation->status == 'paid')
+                    @env('production')
+                    <hr>
+                    <a href="{{ route('admin.reservations.email', $reservation->id) }}" class="btn btn-primary w-100">Send Receipt</a>
+                    @endenv
                     <hr>
                     <a href="{{ route('admin.reservations.cancel', $reservation->id) }}" class="btn btn-danger w-100">Cancel Reservation</a>
+                    @elseif($reservation->status == 'canceled')
+                    <hr>
+                    <a href="{{ route('admin.reservations.resume', $reservation->id) }}" class="btn btn-success w-100">Resume Reservation</a>
                     @endif
                 </div>
             </div>

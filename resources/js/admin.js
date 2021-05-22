@@ -1,5 +1,17 @@
 const TIME_FORMAT = "MM/DD/YYYY";
 
+Stoney.OnCampgroundLoaded = function (campsites, cg) {
+    let campground_id = `${cg.section}-${cg.number}`;
+    let campsite = document.createElement('option');
+    campsite.innerHTML = campground_id;
+
+    if (campground_id == reservation.campground_id) {
+        campsite.setAttribute('selected', '');
+    }
+
+    campsites.append(campsite);
+};
+
 jQuery(function () {
     // initialize date-range-picker
     let min = moment('2021-05-21');

@@ -134,17 +134,60 @@ const DoUpdateDOM = function () {
     $('#date-out').text(date_out);
 }
 
-Stoney.OnCampgroundsLoaded = () => {
+// when campgrounds are loaded, create and add elements to the campgrounds list
+Stoney.OnCampgroundLoaded = function (campsites, cg) {
+    let previous; // the previously selected element
+
+    // when a campsite is clicked, visually show that it's clicked and update the input field
+    const OnCampsiteClick = function (event) {
+        event.preventDefault();
+
+        let e = event.target;
+        if (previous == e) return; // same element; ignore interaction
+
+        // add classes to visualize selection of the element
+        e.classList.add('bg-primary', 'text-white');
+        if (previous) previous.classList.remove('bg-primary', 'text-white');
+        previous = e;
+
+        let sp = e.id.split('-');
+        let section = sp[0];
+        let number = parseInt(sp[1]);
+
+        // elements are contained in a form and needs to update an input field (cg-campsite-value)
+        document.querySelector('#cg-campsite-value').value = `${section}-${number}`;
+    };
+
+    // create the campsite element
+    let campsite = document.createElement('div');
+    campsite.id = `${cg.section}-${cg.number}`;
+    campsite.innerHTML = `Site ${cg.section}-${cg.number}`;
+    campsite.classList.add('list-group-item', 'overflow-auto');
+    campsite.setAttribute('role', 'button'); // add pointer cursor
+    campsite.onclick = OnCampsiteClick;
+
+    // add a badge to each campsite element
+    let status = document.createElement('span');
+    status.id = `${cg.section}-${cg.number}-status`;
+    status.innerHTML = 'Loading...';
+    status.classList.add('badge', 'float-md-end', 'bg-secondary', 'd-block', 'pe-none');
+    campsite.append(status);
+
+    campsites.append(campsite);
+};
+
+// when all campgrounds loaded, update date range picker which then updates all campgrounds status
+Stoney.OnCampgroundsLoaded = function () {
     let picker = $('input[name="dates"]').data('daterangepicker');
     OnDateChanged(picker.startDate, picker.endDate); // initialize number of nights
 };
 
-const DAY_MILLIS = 86400000;
 const TIME_FORMAT = "MM/DD/YYYY";
 Number.prototype.asMoney = function () {
     return `$ ${this.toFixed(2)}`;
 }
 
+// on page load handler
 jQuery(function () {
     // initialize date-range-picker
     let min = moment('2021-05-21');
