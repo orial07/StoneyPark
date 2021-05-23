@@ -15,7 +15,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
         "laravel/cashier": "^12.9",
-        "laravel/framework": "^8.12",
+        "laravel/framework": "8.40.0",
         "laravel/tinker": "^2.5"
     },
     "require-dev": {
