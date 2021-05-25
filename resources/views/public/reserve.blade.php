@@ -19,10 +19,11 @@
                         <i class="fas fa-exclamation-triangle"></i> Due to restrictions, the maximum amount of people at campsites have been reduced. Some options may also be disabled.
                     </div>
                 </div>
-                <div class="w-100"></div>
+                <div class="w-100">
+                    <p class="text-center">For amenities and photos of each site, please refer to our <a href="{{ route('campsites') }}" target="_blank">campsite page</a>.</p>
+                </div>
 
                 <div class="col col-md-5">
-                    <p>For photos of campsites, please refer to our <a href="{{ route('gallery') }}" target="_blank">gallery</a>.</p>
                     <p>Selected dates include the date you arrive and depart. You can arrive on <span class="fw-bold" id="date-in">the
                             first selected date</span> and leave on the morning of <span class="fw-bold" id="date-out">the second seleced
                             date</span>.</p>

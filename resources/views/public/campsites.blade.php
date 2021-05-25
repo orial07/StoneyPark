@@ -25,13 +25,49 @@
                     </nav>
                 </nav>
             </div>
-        
+
             <div class="col">
-                <div class="row justify-content-center text-center">
+                <section class="mb-5">
+                    <h1 class="text-center">Amenities for 2021</h1>
+                    <div class="row g-4">
+                        <div class="col-md col-sm-6 border-end">
+                            <div class="text-center fs-2 d-flex mb-4">
+                                <i class="fas fa-toilet flex-grow-1"></i>
+                            </div>
+                            Washroom service is currently only available via outhouses due to renovations and COVID-19.
+                        </div>
+                        <div class="col-md col-sm-6 border-end">
+                            <div class="text-center fs-2 d-flex mb-4">
+                                <i class="fas fa-faucet flex-grow-1"></i>
+                            </div>
+                            There will be a public water tank available for visitors.
+                        </div>
+
+                        <div class="col-md col-sm-6 border-end">
+                            <div class="text-center fs-2 d-flex mb-4">
+                                <i class="fas fa-fire-alt flex-grow-1"></i>
+                                <div class="flex-grow-1">
+                                    <x-svg-icon :icon="'table'"></x-svg-icon>
+                                </div>
+                            </div>
+                            All campsites will include a fire pit and picnic table.
+                        </div>
+
+                        <div class="col-md col-sm-6">
+                            <div class="text-center fs-2 d-flex mb-4">
+                                <i class="fas fa-caravan flex-grow-1"></i>
+                            </div>
+                            Due to current renovations on our RV park, we will not be able to offer electricity service.<br>
+                            We plan to open a brand new RV park in the Spring of 2022.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="text-center">
                     <h1>Campsite Photos</h1>
                     <p><i class="fas fa-exclamation-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="This may use lots of cellular data"></i> Click any photo to see it in higher quality.</p>
-                </div>
-        
+                </section>
+
                 <div class="row row-cols-md-4 row-cols-3 g-4">
                     <div class="col" id="A1-A10">
                         <div class="card shadow-sm">

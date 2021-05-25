@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\ReservationsController;
 
-use App\Http\Controllers\Guest\GalleryController;
+use App\Http\Controllers\Guest\CampsitesController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\ReserveController;
 use App\Http\Controllers\Guest\RulesController;
@@ -29,7 +29,7 @@ Route::get('/rules', [RulesController::class, 'show'])->name('rules');
 Route::get('/contact', [Controller::class, 'contact'])->name('contact');
 Route::post('/contact', [Controller::class, 'contact_send'])->name('contact.send');
 
-Route::get('/gallery', [GalleryController::class, 'show'])->name('gallery');
+Route::get('/campsites', [CampsitesController::class, 'show'])->name('campsites');
 
 Route::name('reserve')
     ->prefix('reserve')

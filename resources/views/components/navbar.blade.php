@@ -25,7 +25,7 @@
                 @endauth
                 <x-nav-item class="nav-link" href="reserve">Reserve</x-nav-item>
                 <x-nav-item class="nav-link" href="rules">Rules</x-nav-item>
-                <x-nav-item class="nav-link" href="gallery">Gallery</x-nav-item>
+                <x-nav-item class="nav-link" href="campsites">Campsites</x-nav-item>
             </ul>
         </div>
         <ul class="navbar-nav justify-content-end">

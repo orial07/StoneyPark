@@ -31,7 +31,7 @@
                 <ul class="list-unstyled text-small">
                     <li><a href="{{ route('reserve') }}">Reserve</a></li>
                     <li><a href="{{ route('rules') }}">Rules</a></li>
-                    <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                    <li><a href="{{ route('campsites') }}">Campsites</a></li>
                     <li><a href="{{ route('contact') }}">Contact Us</a></li>
                 </ul>
             </div>
