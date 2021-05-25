@@ -53,7 +53,7 @@
                                     <ul class="list-unstyled">
                                         @foreach ($ct['descriptor'] as $type => $description)
                                         <li>
-                                            <x-svg-icon :icon="$type">{!! $description !!}</x-svg-icon>
+                                            <x-svg-icon :icon="$type" class="align-middle">{!! $description !!}</x-svg-icon>
                                         </li>
                                         @endforeach
                                     </ul>

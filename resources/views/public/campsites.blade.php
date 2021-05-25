@@ -47,7 +47,7 @@
                             <div class="text-center fs-2 d-flex mb-4">
                                 <i class="fas fa-fire-alt flex-grow-1"></i>
                                 <div class="flex-grow-1">
-                                    <x-svg-icon :icon="'table'"></x-svg-icon>
+                                    <x-svg-icon :icon="'table'" class="d-block"></x-svg-icon>
                                 </div>
                             </div>
                             All campsites will include a fire pit and picnic table.
