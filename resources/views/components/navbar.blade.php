@@ -12,7 +12,7 @@
                         Account
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="main-navbar-dropdown">
-                        <x-nav-item class="dropdown-item" href="account">My Profile</x-nav-item>
+                        <x-nav-item class="dropdown-item" href="account">My Account</x-nav-item>
                         @if (auth()->user()->web_admin)
                         <x-nav-item class="dropdown-item" href="admin">Admin Panel</x-nav-item>
                         @endif
