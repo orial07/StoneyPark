@@ -1,78 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-    <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-    <url>
-        <loc>https://www.stoneycampgrounds.com/</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.stoneycampgrounds.com/reserve</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://www.stoneycampgrounds.com/rules</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://www.stoneycampgrounds.com/gallery</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://www.stoneycampgrounds.com/login</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://www.stoneycampgrounds.com/contact</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://www.stoneycampgrounds.com/forgot-password</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-
-
+<!--	created with www.mysitemapgenerator.com	-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://stoneycampgrounds.com/</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>1.00</priority>
+        <lastmod>2021-05-25T16:19:04+01:00</lastmod>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://stoneycampgrounds.com/reserve</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
+        <lastmod>2021-05-25T16:19:04+01:00</lastmod>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://stoneycampgrounds.com/rules</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
+        <lastmod>2021-05-25T16:19:07+01:00</lastmod>
+        <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://stoneycampgrounds.com/gallery</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://stoneycampgrounds.com/login</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
+        <loc>https://stoneycampgrounds.com/campsites</loc>
+        <lastmod>2021-05-25T16:19:07+01:00</lastmod>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://stoneycampgrounds.com/contact</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.80</priority>
+        <lastmod>2021-05-25T16:19:08+01:00</lastmod>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://stoneycampgrounds.com/login</loc>
+        <lastmod>2021-05-25T16:19:08+01:00</lastmod>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://stoneycampgrounds.com/forgot-password</loc>
-        <lastmod>2021-05-14T23:46:40+00:00</lastmod>
-        <priority>0.64</priority>
+        <lastmod>2021-05-25T16:19:08+01:00</lastmod>
+        <priority>1.0</priority>
     </url>
 </urlset>
