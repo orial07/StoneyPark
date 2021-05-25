@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,6 +18,10 @@ class Controller extends BaseController
 
     public function contact()
     {
+        SEOMeta::setTitle("Contact Us")
+            ->setDescription("If you have any questions, want to refund, make a change to your reservation or simply just want to say hello, don't hesitate to send us a message!")
+            ->setKeywords(["contact", "email"]);
+
         return view('public.contact');
     }
 
