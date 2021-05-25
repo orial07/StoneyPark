@@ -1,9 +1,5 @@
 <?php
-// must be logged-in and verified
-
-use App\Http\Controllers\Admin\GalleryController;
-use App\Http\Controllers\Admin\CampgroundsController;
-use App\Http\Controllers\Admin\RulesController;
+use App\Http\Controllers\Auth\Admin\RulesController;
 use App\Http\Controllers\Auth\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,21 +38,5 @@ Route::name('admin') // all route names will be prefixed with
                 Route::get('/resume/{id}', [ReservationsController::class, 'resume'])->name('.resume');
 
                 Route::post('/update/{id}', [ReservationsController::class, 'update'])->name('.update');
-            });
-
-        // map group; admin.map
-        Route::name('.campgrounds')
-            ->prefix('campgrounds')
-            ->group(function () {
-                Route::get('/', [CampgroundsController::class, 'show']);
-            });
-
-        // gallery group; admin.gallery
-        Route::name('.gallery')
-            ->prefix('gallery')
-            ->group(function () {
-                Route::get('/', [GalleryController::class, 'show']);
-                Route::post('/upload', [GalleryController::class, 'upload'])->name('.upload');
-                Route::post('/delete', [GalleryController::class, 'delete'])->name('.delete');
             });
     });

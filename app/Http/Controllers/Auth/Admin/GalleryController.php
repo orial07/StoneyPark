@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Auth\Admin;
 
 use Exception;
 use App\Http\Controllers\Controller;
@@ -11,13 +11,6 @@ use Intervention\Image\Facades\Image;
 
 class GalleryController extends Controller
 {
-    public function show()
-    {
-        return view('admin.gallery', [
-            'pictures' => Picture::all()
-        ]);
-    }
-
     public function upload(Request $r)
     {
         if ($r->has('upload')) {

@@ -42,7 +42,7 @@ return [
             'url'         => null, // Set null for using Url::current(), set false to total remove
             'type'        => false,
             'site_name'   => "Stoney Park Campgrounds",
-            'images'      => [asset('img/favicon.png')],
+            'images'      => [],
         ],
     ],
     'twitter' => [

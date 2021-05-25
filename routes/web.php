@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\ReservationsController;
-use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\Guest\GalleryController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\ReserveController;
