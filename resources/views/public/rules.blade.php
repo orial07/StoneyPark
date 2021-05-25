@@ -1,10 +1,10 @@
 <x-app>
-    @section('title', 'Camping Rules')
-    @section('description', 'See our rules and policies here at Stoney Park Campgrounds.')
-
-    <x-container>
-        <p class="lead my-5">
-            Due to current COVID-19 restrictions, spots are limited to a max of 5 people and cohorts from 2 households. We will be following <a href="https://www.alberta.ca/enhanced-public-health-measures.aspx">AHS guidelines</a> and enforcing social distancing amongst groups. Failing to comply may lead into removal of group with no refunds.
+    <x-container class="my-5">
+        <p class="alert alert-info text-center">
+            <i class="fas fa-exclamation-triangle"></i>
+            Due to current COVID-19 restrictions, spots are limited to a max of 5 people and cohorts from 2 households.<br>
+            We will be following <a href="https://www.alberta.ca/enhanced-public-health-measures.aspx">AHS guidelines</a> and enforcing social distancing amongst groups.<br>
+            Failing to comply may lead into removal of group with no refunds.
         </p>
 
         @foreach ($rules as $rule)

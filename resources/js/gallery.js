@@ -22,7 +22,7 @@ jQuery(function () {
         let image = images[i];
 
         image.addEventListener('click', function () {
-            MODAL_IMG.src = image.src.replace('thumbnail/', '');
+            MODAL_IMG.innerHTML = `<img src="${image.src.replace('thumbnail/', '')}" class="img-fluid" />`
             MODAL.show();
         });
     }

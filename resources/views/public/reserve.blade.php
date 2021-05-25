@@ -1,10 +1,8 @@
 <x-app>
-    @section('title', 'Reserve')
-    @section('description', 'Create a reservation to begin camping at Stoney Park Campgrounds.')
-
     @section('head')
     <!-- date picker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- token for ajax requests -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @endsection
 
@@ -18,8 +16,7 @@
             <div class="row justify-content-center">
                 <div class="col col-md-7">
                     <div class="alert alert-info text-center" role="alert">
-                        <i class="fas fa-exclamation-triangle"></i> Due to restrictions, the maximum amount of people at campsites have been reduced.<br>
-                        Some options may also be disabled.
+                        <i class="fas fa-exclamation-triangle"></i> Due to restrictions, the maximum amount of people at campsites have been reduced. Some options may also be disabled.
                     </div>
                 </div>
                 <div class="w-100"></div>

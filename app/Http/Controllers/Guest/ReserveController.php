@@ -8,6 +8,7 @@ use App\Mail\ReservationBooking;
 use App\Http\Controllers\Controller;
 use App\Models\Camper;
 use App\Models\Campground;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -16,11 +17,17 @@ class ReserveController extends Controller
 {
     public function show()
     {
+        SEOMeta::setTitle("Reserve a campsite")
+            ->setDescription("Camping available via reservations available from May to October 2021.")
+            ->setKeywords(["camp", "reservation", "reserving", "campsite", "campsites", "tent", "trailer"]);
+
         return view('public.reserve');
     }
 
     public function submit(Request $r)
     {
+        SEOMeta::setRobots('nofollow/noindex');
+
         $campTypes = config('camps.types');
         $validator = Validator::make(
             $r->all(),
@@ -73,7 +80,7 @@ class ReserveController extends Controller
         foreach ($campTypes as $ct) {
             if ($i == $inputs['camp-type']) {
                 if ($ct['disabled']) {
-                    $errors->add('camp-type', $ct['name']. ' is disabled. Please select another option.');
+                    $errors->add('camp-type', $ct['name'] . ' is disabled. Please select another option.');
                     return redirect('/reserve')->withErrors($validator)->withInput();
                 }
             }
@@ -191,6 +198,8 @@ class ReserveController extends Controller
 
     public function checkout()
     {
+        SEOMeta::setRobots('nofollow/noindex');
+
         $reservation = session('reservation', null);
         if (!$reservation) return redirect('/reserve');
 

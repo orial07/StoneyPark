@@ -30,7 +30,7 @@
                 <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
                 <p>
                     Campers visiting from Calgary can expect up to a 60 minute drive, and 15 &HorizontalLine; 30 minute drive from campgrounds to Kananaskis.<br>
-                    Our park can be found at <a href="https://goo.gl/maps/ZJxecqCRmiBxJdq18">Stoney 142, 143, 144, AB</a>.
+                    Our park can be found at <a href="https://goo.gl/maps/ZJxecqCRmiBxJdq18">Stoney 142, 143, 144, AB</a> along Alberta Highway 1A .
                 </p>
 
                 <iframe class="mw-100 w-100 shadow" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10012.059942042568!2d-115.00073440111706!3d51.14507476438579!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371270862209493%3A0x9c3d4f3fba281f93!2sStoney%20Park%20Campgrounds!5e0!3m2!1sen!2sca!4v1621284575713!5m2!1sen!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
