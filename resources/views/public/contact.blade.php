@@ -1,7 +1,4 @@
 <x-app>
-    @section('title', 'Contact Us')
-    @section('description', 'Send a message if you have any questions, comments, suggestions or concerns.')
-
     @section('head')
     <!-- google recaptcha api -->
     <script src="https://www.google.com/recaptcha/enterprise.js?render={{ config('app.google_recaptcha') }}"></script>
@@ -15,7 +12,9 @@
 
             <x-errors></x-errors>
 
-            <p>If you have any questions, comments, suggestions or concerns then don't hesitate to send us a message. We'll get back to you as soon as possible.</p>
+            <div class="row justify-content-center">
+                <p class="col-8">If you need a refund, want to make a change to your reservation, have any questions or concerns, don't hesitate to send us a message! We'll get back to you as soon as possible.</p>
+            </div>
 
             <div class="form-group my-3">
                 <label for="name">Name *</label>
