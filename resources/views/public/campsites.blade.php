@@ -71,7 +71,7 @@
                 <div class="row row-cols-md-4 row-cols-3 g-4">
                     <div class="col" id="A1-A10">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A1-A10.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A1-A10.jpg') }}" alt="Campsite A1 - A10 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite A1 - A10
@@ -81,7 +81,7 @@
                     </div>
                     <div class="col" id="A11">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A11.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A11.jpg') }}" alt="Campsite A11 - A10 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite A11
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col" id="A12-A30">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A12-A30.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A12-A30.jpg') }}" alt=" Campsite A12 - A30 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite A12 - A30
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col" id="A31-A35">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A31-A35.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A31-A35.jpg') }}" alt=" Campsite A31 - A35 - A10 photo"/>
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite A31 - A35
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col" id="A36-A43">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A36-A43.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A36-A43.jpg') }}"alt=" Campsite A36 - A43 - A10 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite A36 - A43
@@ -121,7 +121,7 @@
                     </div>
                     <div class="col" id="A44-A63">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A44-A63.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/A44-A63.jpg') }}"alt=" Campsite A44 - A63 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite A44 - A63<br>
@@ -134,7 +134,7 @@
                     </div>
                     <div class="col" id="B1-B13">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B1-B13.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B1-B13.jpg') }}" alt="Campsite B1 - B13 photo"/>
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B1 - B13
@@ -144,7 +144,7 @@
                     </div>
                     <div class="col" id="B14-B15">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B14-B15.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B14-B15.jpg') }}"alt=" Campsite B14 - B15 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B14 - B15
@@ -154,7 +154,7 @@
                     </div>
                     <div class="col" id="B16">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B16.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B16.jpg') }}" alt=" Campsite B16 photo"/>
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B16
@@ -164,7 +164,7 @@
                     </div>
                     <div class="col" id="B17-B23">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B17-B23.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B17-B23.jpg') }}"alt="Campsite B17 - B23 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B17 - B23
@@ -174,7 +174,7 @@
                     </div>
                     <div class="col" id="B24-B25">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B24-B25.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B24-B25.jpg') }}"alt="Campsite B24 - B25 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B24 - B25
@@ -184,7 +184,7 @@
                     </div>
                     <div class="col" id="B26-B27">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B26-B27.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B26-B27.jpg') }}"alt="Campsite B26 - B27 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B26 - B27
@@ -194,7 +194,7 @@
                     </div>
                     <div class="col" id="B28">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B28.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B28.jpg') }}" alt="Campsite B28 photo"/>
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B28
@@ -204,7 +204,7 @@
                     </div>
                     <div class="col" id="B29">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B29.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B29.jpg') }}" alt=" Campsite B29 photo"/>
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B29
@@ -214,7 +214,7 @@
                     </div>
                     <div class="col" id="B30-B31">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B30-B31.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B30-B31.jpg') }}"alt=" Campsite B30 - B31 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B30 - B31
@@ -224,7 +224,7 @@
                     </div>
                     <div class="col" id="B32">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B32.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B32.jpg') }}" alt="Campsite B32 photo"/>
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B32
@@ -234,7 +234,7 @@
                     </div>
                     <div class="col" id="B33-B37">
                         <div class="card shadow-sm">
-                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B33-B37.jpg') }}" />
+                            <img lazysrc="{{ asset('img/campgrounds/thumbnail/B33-B37.jpg') }}"alt="Campsite B33 - B37 photo" />
                             <div class="card-body">
                                 <p class="card-text">
                                     Campsite B33 - B37

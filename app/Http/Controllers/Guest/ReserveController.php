@@ -17,8 +17,8 @@ class ReserveController extends Controller
 {
     public function show()
     {
-        SEOMeta::setTitle("Reserve a campsite")
-            ->setDescription("Camping available via reservations available from May to October 2021.")
+        SEOMeta::setTitle("Reserve a campsite near Calgary | Stoney Park Campgrounds")
+            ->setDescription("Reserve your campsite at Stoney Park Campgrounds. Available via reservations available from May to October 2021.")
             ->setKeywords(["camp", "reservation", "reserving", "campsite", "campsites", "tent", "trailer"]);
 
         return view('public.reserve');

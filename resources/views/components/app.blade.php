@@ -31,7 +31,32 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     <!-- Font Awesome icons -->
     <script src="https://kit.fontawesome.com/fa6beb4299.js" crossorigin="anonymous"></script>
-
+    <script type="application/ld+json">
+            {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Stoney Park Campgrounds",
+            "image": "https://lh5.googleusercontent.com/p/AF1QipOmZz2O8wJ_zqc19AcB8_WTLEqCBhFc4i-bopHs=w408-h326-k-no",
+            "@id": "",
+            "url": "https://stoneycampgrounds.com/",
+            "telephone": "+1 xxx-xxx-xxxx",
+            "priceRange": "$$",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Stoney 142, 143, 144, AB",
+                "addressLocality": "Ozada",
+                "addressRegion": "AB",
+                "postalCode": "4XWX+2P",
+                "addressCountry": "CA"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 51.124472,
+                "longitude": -114.9848559
+            } ,
+            "sameAs": "https://www.instagram.com/stoneyparkcampgrounds/" 
+            }
+</script>
     @yield('head')
 </head>
 

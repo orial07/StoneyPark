@@ -10,7 +10,7 @@ class RulesController extends Controller
 {
     public function show()
     {
-        SEOMeta::setTitle("Rules & Refund Policy")
+        SEOMeta::setTitle("Rules & Refund Policy | Stoney Campgrounds")
             ->setDescription("Rules are to be followed when on campgrounds. Note our refund policy and contact us if you have any questions.")
             ->setKeywords(["refund", "policy", "rules"]);
 
